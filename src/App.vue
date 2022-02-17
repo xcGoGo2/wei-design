@@ -2,7 +2,7 @@
  * @Author: chenwei
  * @Date: 2022-02-10 11:56:12
  * @LastEditors: chenwei
- * @LastEditTime: 2022-02-10 13:26:03
+ * @LastEditTime: 2022-02-11 16:38:28
  * @FilePath: \weiManage\src\App.vue
  * @Description: 
  * 
@@ -16,11 +16,8 @@
   </div>
 </template>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
+<style  rel="stylesheet/less" lang="less">
+@import "./styles/index.less";
 #app {
   width: 100%;
   height: 100%;
