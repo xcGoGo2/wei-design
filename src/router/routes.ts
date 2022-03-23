@@ -10,9 +10,8 @@
 import Home from '../views/Home/index.vue'
 import Login from '../views/Login/index.vue'
 export default [
-    { path: '/', redirect: "/login" },
+    { path: '/', redirect: '/home'},
     { path: '/login', component: Login },
     { path: '/home', component: Home },
-    
 ]
 

@@ -9,18 +9,20 @@
 -->
 
 <template>
-    <div>
+    <div class="component-box">
         <Sidebar></Sidebar>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Sidebar from "../../components/Sidebar/index.vue"
+
+import Sidebar from '../../components/Sidebar/index.vue'
+
 export default defineComponent({
     name: 'Home',
     components: {
-        sideBar: Sidebar
+        Sidebar
     },
     props: {},
     setup() {
@@ -30,8 +32,9 @@ export default defineComponent({
 </script>
 
 
-<style lang="less" scoped>
-div {
-    border: 1px solid red;
+<style lang="less">
+.component-box {
+    width: 80px;
+    height: 100%;
 }
 </style>

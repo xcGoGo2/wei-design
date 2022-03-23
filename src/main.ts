@@ -14,8 +14,14 @@ import router from './router/index'  // 引入router
 import store from './store/index'
 import Api from './api/index'
 import 'element-plus/dist/index.css'
+import * as ElIcons from '@element-plus/icons-vue'
 
 const app = createApp(App);
+
+for (const name in ElIcons){
+	app.component(name,(ElIcons as any)[name])
+}
+
 app.use(router).use(store)
 app.config.globalProperties.$api = Api;  // 配置全局数据请求
 
