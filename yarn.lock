@@ -39,7 +39,7 @@
 
 "@element-plus/icons-vue@^1.1.4":
   version "1.1.4"
-  resolved "http://10.121.8.3:9813/repository/npm-group/@element-plus/icons-vue/-/icons-vue-1.1.4.tgz#5d2788ea356f1458068e6d400e724ca5f3d29aca"
+  resolved "https://registry.npmjs.org/@element-plus/icons-vue/-/icons-vue-1.1.4.tgz#5d2788ea356f1458068e6d400e724ca5f3d29aca"
   integrity sha512-Iz/nHqdp1sFPmdzRwHkEQQA3lKvoObk8azgABZ81QUOpW9s/lUyQVUSh0tNtEPZXQlKwlSh7SPgoVxzrE0uuVQ==
 
 "@emmetio/abbreviation@^2.2.2":

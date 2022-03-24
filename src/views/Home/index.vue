@@ -9,32 +9,48 @@
 -->
 
 <template>
-    <div class="component-box">
-        <Sidebar></Sidebar>
+  <div class="component-box">
+    <div class="one">
+      <Sidebar></Sidebar>
     </div>
+    <div class="two">
+      <Submenu></Submenu>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
-import Sidebar from '../../components/Sidebar/index.vue'
+import Sidebar from "../../components/Sidebar/index.vue";
+import Submenu from "../../components/Submenu/index.vue";
 
 export default defineComponent({
-    name: 'Home',
-    components: {
-        Sidebar
-    },
-    props: {},
-    setup() {
-
-    }
-})
+  name: "Home",
+  components: {
+    Sidebar,
+    Submenu,
+  },
+  props: {},
+  setup() {},
+});
 </script>
 
 
 <style lang="less">
 .component-box {
-    width: 80px;
+    display: flex;
     height: 100%;
+
+    
+    .one {
+        width: 80px;
+        height: 100%;
+    }
+    .two {
+        width: 200px;
+        height: 100%;
+    }
+  
 }
 </style>

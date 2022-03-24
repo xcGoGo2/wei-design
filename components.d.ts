@@ -10,6 +10,7 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     Hello: typeof import('./src/components/Hello.vue')['default']
     Sidebar: typeof import('./src/components/Sidebar/index.vue')['default']
+    Submenu: typeof import('./src/components/Submenu/index.vue')['default']
   }
 }
 
