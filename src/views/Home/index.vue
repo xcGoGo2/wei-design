@@ -1,13 +1,3 @@
-<!--
- * @Author: chenwei
- * @Date: 2022-02-10 15:03:44
- * @LastEditors: chenwei
- * @LastEditTime: 2022-02-10 15:52:58
- * @FilePath: \weiManage\src\views\Home\index.vue
- * @Description: 
- * 
--->
-
 <template>
   <div class="component-box">
     <div class="one">
@@ -18,7 +8,9 @@
     </div>
     <div class="three">
       <Row direction="column" gutter="20px">
-        <Col>111</Col>
+        <Col>
+          <Header></Header>
+        </Col>
         <Col>111</Col>
         <Col>111</Col>
       </Row>
@@ -33,6 +25,7 @@ import Sidebar from "../../components/Sidebar/index.vue";
 import Submenu from "../../components/Submenu/index.vue";
 import Row from "../../components/Layout/Row/index.vue";
 import Col from "../../components/Layout/Col/index.vue";
+import Header from "../../components/Header/index.vue";
 
 export default defineComponent({
   name: "Home",
@@ -40,7 +33,8 @@ export default defineComponent({
     Sidebar,
     Submenu,
     Row,
-    Col
+    Col,
+    Header
   },
   props: {},
   setup() {},
