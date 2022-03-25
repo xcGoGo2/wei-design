@@ -4,13 +4,16 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Col: typeof import('./src/components/Layout/Col/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     Hello: typeof import('./src/components/Hello.vue')['default']
+    Row: typeof import('./src/components/Layout/Row/index.vue')['default']
     Sidebar: typeof import('./src/components/Sidebar/index.vue')['default']
     Submenu: typeof import('./src/components/Submenu/index.vue')['default']
+    WeiRow: typeof import('./src/components/Layout/weiRow/index.vue')['default']
   }
 }
 

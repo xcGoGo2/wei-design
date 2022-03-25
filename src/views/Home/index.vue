@@ -16,6 +16,9 @@
     <div class="two">
       <Submenu></Submenu>
     </div>
+    <div class="three">
+      <Row>qqqq</Row>
+    </div>
   </div>
 </template>
 
@@ -24,12 +27,14 @@ import { defineComponent } from "vue";
 
 import Sidebar from "../../components/Sidebar/index.vue";
 import Submenu from "../../components/Submenu/index.vue";
+import Row from "../../components/Layout/Row/index.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
     Sidebar,
     Submenu,
+    Row
   },
   props: {},
   setup() {},
@@ -50,6 +55,9 @@ export default defineComponent({
     .two {
         width: 200px;
         height: 100%;
+    }
+    .three {
+      width: 100px
     }
   
 }
