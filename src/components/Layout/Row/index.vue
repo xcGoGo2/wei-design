@@ -25,17 +25,23 @@ export default defineComponent({
       type: String,
       default: "center",
     },
+    // padding
+    gutter: {
+      type: [Number, String],
+      default: '20px'
+    }
   },
   setup(props, context) {
-    const { direction, align, justify } = props;
+    const { direction, align, justify, gutter } = props;
 
     const rowStyle = reactive({
-        direction,
+      direction,
       align,
       justify,
-    })
+      gutter
+    });
     return {
-        rowStyle
+      rowStyle,
     };
   },
 });
@@ -49,5 +55,7 @@ export default defineComponent({
   flex-direction: v-bind("rowStyle.direction");
   align-items: v-bind("rowStyle.align");
   justify-content: v-bind("rowStyle.justify");
+  padding: v-bind("rowStyle.gutter");
+  border: 1px solid red;
 }
 </style>
