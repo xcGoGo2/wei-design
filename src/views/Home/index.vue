@@ -1,25 +1,25 @@
 <template>
   <div class="component-box">
-    <div class="one">
-      <Sidebar></Sidebar>
-    </div>
-    <div class="two">
-      <Submenu></Submenu>
-    </div>
-    <div class="three">
-      <Row direction="column" gutter="20px">
-        <Col>
+    <el-container>
+      <el-aside style="width: auto;">
+        <Sidebar></Sidebar>
+      </el-aside>
+      <el-container>
+        <el-header style="padding: 0">
           <Header></Header>
-        </Col>
-        <Col>111</Col>
-        <Col>111</Col>
-      </Row>
-    </div>
+        </el-header>
+        <el-main style="padding: 0">
+          <view-router>
+            Main 界面
+          </view-router>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 import Sidebar from "../../components/Sidebar/index.vue";
 import Submenu from "../../components/Submenu/index.vue";
@@ -34,32 +34,17 @@ export default defineComponent({
     Submenu,
     Row,
     Col,
-    Header
+    Header,
   },
   props: {},
-  setup() {},
+  setup(props) {
+  },
 });
 </script>
 
-
 <style lang="less">
 .component-box {
-    display: flex;
-    height: 100%;
-
-    
-    .one {
-        width: 80px;
-        height: 100%;
-    }
-    .two {
-        width: 200px;
-        height: 100%;
-    }
-    .three {
-      width: 100%;
-      height: 100%
-    }
-  
+  display: flex;
+  height: 100%;
 }
 </style>
