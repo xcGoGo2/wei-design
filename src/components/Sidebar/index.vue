@@ -15,8 +15,8 @@
                 <template v-for="(item, i) in menuList" :key="item.title + i">
                     <el-sub-menu index="i" v-if="item.children">
                         <template #title>
-                            <el-icon><location /></el-icon>
-                            <span>Navigator One</span>
+                            <img :src="item.icon" :alt="item.title">
+                            <span>{{ item.title }}</span>
                         </template>
                         <el-menu-item-group>
                             <template #title><span>Group One</span></template>
@@ -29,8 +29,10 @@
                         </el-sub-menu>
                     </el-sub-menu>
                     <el-menu-item index="2" v-else>
-                        <el-icon><icon-menu /></el-icon>
-                        <template #title>Navigator Two</template>
+                        <el-icon>
+                            <img :src="item.icon" :alt="item.title" >
+                        </el-icon>
+                        <template #title>{{ item.title }}</template>
                     </el-menu-item>
                 </template>
             </el-menu>
