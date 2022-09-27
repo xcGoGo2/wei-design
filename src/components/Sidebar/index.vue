@@ -1,255 +1,358 @@
 <template>
-    <div class="sidebar-container" :style="{ width: !isCollapse ? '200px' : '70px' }">
-        <div class="logo">
-            <el-image fit="cover" src="src/assets/Sidebar/logo.png" alt="weiManage" />
-            <span class="title" v-if="!isCollapse">Vue-Wei-Manage</span>
-        </div>
-        <div class="sidebar-list">
-            <el-menu
-                default-active="2"
-                class="el-menu-vertical"
-                :collapse="isCollapse"
-                @open="handleOpen"
-                @close="handleClose"
-            >
-                <template v-for="(item, i) in menuList" :key="item.title + i">
-                    <el-sub-menu index="i" v-if="item.children">
-                        <template #title>
-                            <img :src="item.icon" :alt="item.title">
-                            <span>{{ item.title }}</span>
-                        </template>
-                        <el-menu-item-group>
-                            <template #title><span>Group One</span></template>
-                            <el-menu-item index="1-1">item one</el-menu-item>
-                            <el-menu-item index="1-2">item two</el-menu-item>
-                        </el-menu-item-group>
-                        <el-sub-menu index="1-4">
-                            <template #title><span>item four</span></template>
-                            <el-menu-item index="1-4-1">item one</el-menu-item>
-                        </el-sub-menu>
-                    </el-sub-menu>
-                    <el-menu-item index="2" v-else>
-                        <el-icon>
-                            <img :src="item.icon" :alt="item.title" >
-                        </el-icon>
-                        <template #title>{{ item.title }}</template>
-                    </el-menu-item>
-                </template>
-            </el-menu>
-        </div>
-        <div class="switch-list" :style="{ display: !isCollapse ? 'flex' : 'inline-block' }">
-            <div class="switch-item">
-                <el-icon v-if="isCollapse" title="收拢" @click="handle.arrow">
-                    <arrow-right-bold />
-                </el-icon>
-                <el-icon v-else title="收拢" @click="handle.arrow"><arrow-left-bold /></el-icon>
-            </div>
-            <div class="switch-item">
-                <el-icon title="浮动" @click="handle.float"><paperclip /></el-icon>
-            </div>
-            <div class="switch-item">
-                <el-icon title="大事记" @click="handle.bigThing"><info-filled /></el-icon>
-            </div>
-        </div>
+  <div class="sidebar-container" :style="{ width: !isCollapse ? '250px' : '70px' }">
+    <div class="logo">
+      <el-image fit="cover" src="src/assets/Sidebar/logo.png" alt="weiManage" />
+      <span class="title" v-if="!isCollapse">Vue-Wei-Manage</span>
     </div>
+    <div class="sidebar-list">
+      <el-menu
+        :default-active="0"
+        ref="elMenu"
+        :router="true"
+        class="el-menu-vertical"
+        :unique-opened="true"
+        :collapse="isCollapse"
+        @open="handleOpen"
+        @close="handleClose"
+        @select="selectMenu"
+      >
+        <template v-for="(item, i) in menuList" :key="item.title + i">
+          <el-sub-menu :index="i" v-if="item.children">
+            <template #title>
+              <div class="item-container">
+                <el-icon :size="1" color="red">
+                  <Edit />
+                </el-icon>
+                <span>{{ item.title }}</span>
+              </div>
+            </template>
+            <el-menu-item-group style="padding-left: 10px">
+              <template v-for="(jtem, j) in item.children" :key="`${i}-${j}`">
+                <el-sub-menu :index="`${i}-${j}`" v-if="jtem.children">
+                  <template #title>
+                    <div class="item-container">
+                      <el-icon :size="1" color="red">
+                        <Edit />
+                      </el-icon>
+                      <span>{{ jtem.title }}</span>
+                    </div>
+                  </template>
+                  <el-menu-item-group style="padding-left: 10px">
+                    <el-menu-item
+                      :index="`${i}-${j}-${m}`"
+                      v-for="(mtem, m) in jtem.children"
+                      :key="`${i}-${j}-${m}`"
+                    >
+                      <div class="item-container">
+                        <el-icon :size="1" color="red">
+                          <Edit />
+                        </el-icon>
+                        <span>{{ mtem.title }}</span>
+                      </div>
+                    </el-menu-item>
+                  </el-menu-item-group>
+                </el-sub-menu>
+                <el-menu-item :index="`${i}-${j}`" v-else>
+                  <div class="item-container">
+                    <el-icon :size="1" color="red">
+                      <Edit />
+                    </el-icon>
+                    <span>{{ jtem.title }}</span>
+                  </div>
+                </el-menu-item>
+              </template>
+            </el-menu-item-group>
+          </el-sub-menu>
+          <el-menu-item :index="i" v-else>
+            <div class="item-container">
+              <el-icon :size="1" color="red">
+                <Edit />
+              </el-icon>
+              <span>{{ item.title }}</span>
+            </div>
+          </el-menu-item>
+        </template>
+      </el-menu>
+    </div>
+    <div class="switch-list" :style="{ display: !isCollapse ? 'flex' : 'inline-block' }">
+      <div class="switch-item">
+        <el-icon v-if="isCollapse" title="收拢" @click="handle.arrow">
+          <arrow-right-bold />
+        </el-icon>
+        <el-icon v-else title="收拢" @click="handle.arrow"><arrow-left-bold /></el-icon>
+      </div>
+      <div class="switch-item">
+        <el-icon title="浮动" @click="handle.float"><paperclip /></el-icon>
+      </div>
+      <div class="switch-item">
+        <el-icon title="大事记" @click="handle.bigThing"><info-filled /></el-icon>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, toRefs, PropType } from 'vue';
+import { defineComponent, ref, reactive, onMounted, toRefs, PropType } from 'vue';
 
 // type
-import { menuListType } from './Sidebar';
+import { menuListType } from '../../type/menuList';
+// import { useElementMenu } from '../../hooks/useElementMenu';
 export default defineComponent({
-    name: 'Sidebar', // 侧边栏
-    props: {
-        // 标题logo
-        logo: {
-            type: String,
-            default: '../../assets/Sidebar/logo.png',
-        },
+  name: 'Sidebar', // 侧边栏
+  props: {
+    // 标题logo
+    logo: {
+      type: String,
+      default: '../../assets/Sidebar/logo.png',
     },
-    setup(props, context) {
-        const num = ref(100);
-        const { logo } = props;
-        console.log(props);
+  },
+  setup(props, context) {
+    const num = ref(100);
+    const { logo } = props;
+    const elMenu = ref(); // ref Menu元素
+    console.log(props);
 
-        const data = reactive({
-            selectSign: 0,
-        });
+    const data = reactive({
+      selectSign: 0,
+    });
 
-        // 菜单收拢状态
-        const isCollapse = ref(false);
+    // 菜单收拢状态
+    const isCollapse = ref(false);
 
-        const handle = reactive({
-            // 收拢
-            arrow: () => {
-                console.log('点击收拢');
-                isCollapse.value = !isCollapse.value;
-                // context.emit("arrow", isCollapse.value);
-            },
-            // 浮动
-            float: () => {
-                console.log('点击浮动');
-                context.emit('arrow', '点击浮动');
-            },
-            // 大事记
-            bigThing: () => {
-                console.log('大事记');
-                context.emit('arrow', '大事记');
-            },
-        });
+    const handle = reactive({
+      // 收拢
+      arrow: () => {
+        console.log('点击收拢');
+        isCollapse.value = !isCollapse.value;
+        // context.emit("arrow", isCollapse.value);
+      },
+      // 浮动
+      float: () => {
+        console.log('点击浮动');
+        context.emit('arrow', '点击浮动');
+      },
+      // 大事记
+      bigThing: () => {
+        console.log('大事记');
+        context.emit('arrow', '大事记');
+      },
+    });
 
-        const handleOpen = (key: string, keyPath: string[]) => {
-            console.log(key, keyPath);
-        };
-        const handleClose = (key: string, keyPath: string[]) => {
-            console.log(key, keyPath);
-        };
+    const handleOpen = (key: string, keyPath: string[]) => {
+      console.log(key, keyPath);
+    };
+    const handleClose = (key: string, keyPath: string[]) => {
+      console.log(key, keyPath);
+    };
+    const selectMenu = () => {
+      console.log(arguments);
+      debugger
+    }
 
-        // 菜单
-        const menuList = reactive<menuListType[]>([
-            {
-                title: '数据集',
+    // 菜单
+    const menuList = reactive<menuListType[]>([
+      {
+        title: '首页',
+        icon: '/src/assets/Sidebar/menu/report.png',
+      },
+      {
+        title: '数据集',
+        icon: '/src/assets/Sidebar/menu/boardsheet.png',
+        children: [
+          {
+            title: '数据集-01',
+            icon: '/src/assets/Sidebar/menu/boardsheet.png',
+          },
+          {
+            title: '数据集-02',
+            icon: '/src/assets/Sidebar/menu/boardsheet.png',
+            children: [
+              {
+                title: '数据集-03',
                 icon: '/src/assets/Sidebar/menu/boardsheet.png',
-            },
-            {
-                title: '报告',
-                icon: '/src/assets/Sidebar/menu/report.png',
-            },
-            {
-                title: '在线表格',
-                icon: '/src/assets/Sidebar/menu/sheet.png',
-            },
-            {
-                title: '消息管理',
-                icon: '/src/assets/Sidebar/menu/posts.png',
-            },
-        ]);
+              },
+              {
+                title: '数据集-04',
+                icon: '/src/assets/Sidebar/menu/boardsheet.png',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: '报告',
+        icon: '/src/assets/Sidebar/menu/report.png',
+      },
+      {
+        title: '在线表格',
+        icon: '/src/assets/Sidebar/menu/sheet.png',
+        children: [
+          {
+            title: '在线表格',
+            icon: '/src/assets/Sidebar/menu/sheet.png',
+          },
+          {
+            title: '在线表格',
+            icon: '/src/assets/Sidebar/menu/sheet.png',
+          },
+          {
+            title: '在线表格',
+            icon: '/src/assets/Sidebar/menu/sheet.png',
+          },
+        ],
+      },
+      {
+        title: '消息管理',
+        icon: '/src/assets/Sidebar/menu/posts.png',
+      },
+    ]);
 
-        return {
-            num,
-            data,
-            logo,
-            handle,
-            isCollapse,
-            handleOpen,
-            handleClose,
-            menuList,
-        };
-    },
+    onMounted(() => {});
+
+    return {
+      num,
+      data,
+      logo,
+      handle,
+      isCollapse,
+      handleOpen,
+      handleClose,
+      menuList,
+      elMenu,
+      selectMenu
+    };
+  },
 });
 </script>
 
 <style lang="less">
 .sidebar-container {
-    height: 100%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0px 3px 3px #c8c8c8;
+  -moz-box-shadow: 0px 3px 3px #c8c8c8;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
+  border-right: 1px solid #dddfe5;
+  transition: all 0.5s;
+  overflow: hidden;
+  white-space: nowrap;
+  // color: #ffffff;
+
+  .logo {
     width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .el-image {
+      height: 40px;
+      width: 40px;
+      margin-right: 10px;
+    }
+
+    .title {
+      color: #3176b1;
+      font-size: 1em;
+      font-weight: 600;
+    }
+  }
+
+  .sidebar-list {
+    width: 100%;
+    height: calc(100% - 300px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff;
-    -webkit-box-shadow: 0px 3px 3px #c8c8c8;
-    -moz-box-shadow: 0px 3px 3px #c8c8c8;
-    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
-    border-right: 1px solid #dddfe5;
+    justify-content: space-evenly;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    color: #575a64;
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome Safari */
+    }
+
+    .item-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      border-radius: 5px;
+      // transition: all 0.2s;
+
+      &:hover {
+        background-color: #0ca296;
+        // border: 1px solid #0ca296;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .switch-list {
+    border-top: 0.5px solid #323741;
+    width: 100%;
+    height: 200px;
     transition: all 0.5s;
-    overflow: hidden;
-    white-space: nowrap;
-    // color: #ffffff;
+    padding-top: 20px;
 
-    .logo {
-        width: 100%;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .el-image {
-            height: 40px;
-            width: 40px;
-            margin-right: 10px;
-        }
-
-        .title {
-            color: #3176b1;
-            font-size: 1em;
-            font-weight: 600;
-        }
+    .switch-item {
+      height: 40px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
-
-    .sidebar-list {
-        width: 100%;
-        height: calc(100% - 300px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        scrollbar-width: none; /* firefox */
-        -ms-overflow-style: none; /* IE 10+ */
-
-        &::-webkit-scrollbar {
-            display: none; /* Chrome Safari */
-        }
-
-        .sign {
-            height: 60px;
-            width: 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            cursor: pointer;
-
-            .el-icon svg {
-                font-size: 16px;
-            }
-
-            span {
-                margin-top: 5px;
-                font-weight: 500;
-            }
-        }
-
-        .selectSign {
-            background-color: #41b584;
-        }
-
-        .noSelectSign:hover {
-            background-color: #323741;
-        }
-    }
-
-    .switch-list {
-        border-top: 0.5px solid #323741;
-        width: 100%;
-        height: 200px;
-        transition: all 0.5s;
-        padding-top: 20px;
-
-        .switch-item {
-            height: 40px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-    }
+  }
 }
 </style>
 
 <style lang="less">
 // elementui 样式自定义
 .el-menu-vertical {
-    height: 100%;
-    border: none;
-    border-right: none !important;
+  height: 100%;
+  border: none;
+  border-right: none !important;
 }
 .el-menu-vertical:not(.el-menu--collapse) {
-    width: 200px;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+}
+.el-menu-item {
+  padding: 5px 10px !important;
+
+  &:hover {
+    background-color: transparent !important;
+  }
+
+  &.is-active .item-container {
+    background-color: #0ca296;
+    // border: 1px solid #0ca296;
+    color: #ffffff;
+  }
+}
+
+.el-sub-menu {
+  width: 100%;
+
+  .el-sub-menu__title {
+    padding: 5px 10px !important;
+
+    &:hover {
+      background-color: transparent !important;
+      color: #fff;
+    }
+  }
+
+  .el-menu-item-group__title {
+    padding: 0;
+  }
 }
 </style>

@@ -24,4 +24,9 @@
   border: 1px solid ridge;
   background-color: #f6f8f9;
 }
+
+// white-theme: 
+// nobg-color: #575a64;
+// bgc: #0ca296;
+// color: #ffffff;
 </style>
