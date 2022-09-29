@@ -1,17 +1,17 @@
 <template>
   <div class="component-box">
     <el-container>
-      <el-aside style="width: auto;">
-        <Sidebar></Sidebar>
+      <el-aside style="width: auto">
+        <suspense>
+          <Sidebar></Sidebar>
+        </suspense>
       </el-aside>
       <el-container>
         <el-header style="padding: 0">
           <Header></Header>
         </el-header>
         <el-main style="padding: 0">
-          <view-router>
-            Main 界面
-          </view-router>
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -19,16 +19,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, inject } from 'vue';
 
-import Sidebar from "../../components/Sidebar/index.vue";
-import Submenu from "../../components/Submenu/index.vue";
-import Row from "../../components/Layout/Row/index.vue";
-import Col from "../../components/Layout/Col/index.vue";
-import Header from "../../components/Header/index.vue";
+import Sidebar from '../../components/Sidebar/index.vue';
+import Submenu from '../../components/Submenu/index.vue';
+import Row from '../../components/Layout/Row/index.vue';
+import Col from '../../components/Layout/Col/index.vue';
+import Header from '../../components/Header/index.vue';
 
 export default defineComponent({
-  name: "Home",
+  name: 'Home',
   components: {
     Sidebar,
     Submenu,
@@ -38,6 +38,12 @@ export default defineComponent({
   },
   props: {},
   setup(props) {
+    // 获取全局对象`
+    const global: any = inject('global');
+
+    global.$api.Get('api/weiManage/getUsers', {}).then((res: any) => {
+      console.log('测试接口', res);
+    })
   },
 });
 </script>
