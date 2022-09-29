@@ -12,7 +12,7 @@ import axios from 'axios';
 
 // 创建axios实例
 const instance = axios.create({
-    baseURL: 'https://mock.apipost.cn/app/mock/project/3faac30a-a113-479b-939e-8f843b992f5c',
+    // baseURL: '',
     timeout: 3000,
     // headers: {
     //   post: {
