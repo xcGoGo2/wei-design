@@ -1,5 +1,5 @@
 import instance from "./config"
-
+import { reponseType } from "../../type"
 // 封装数据请求方法
 export default {
     /**
@@ -7,7 +7,7 @@ export default {
     *@params{String} url [请求地址]
     *@params{Object} params [请求参数]
     */
-    Get(url: string, params: object) {
+    Get(url: string, params: object): Promise<reponseType> {
         return new Promise((resolve, reject) => {
             instance.get(url, {
                 params: params
@@ -23,7 +23,7 @@ export default {
     *@params{String} url [请求地址]
     *@params{Object} data [请求参数]
     */
-    Post(url: string, params: object) {
+    Post(url: string, params: object): Promise<reponseType> {
         return new Promise((resolve, reject) => {
             instance.post(url, params).then((res) => {
                 resolve(res.data);
@@ -38,7 +38,7 @@ export default {
      *@param{String} url 请求地址
      *@param{Object} params 请求参数
      */
-    Put(url: string, params: object) {
+    Put(url: string, params: object): Promise<reponseType> {
         return new Promise((resolve, reject) => {
             instance.put(url, params).then((res) => {
                 resolve(res.data);
@@ -52,7 +52,7 @@ export default {
  *@param{String} url 请求地址
  *@param{Object} params 请求参数
  */
-    Patch(url: string, params: object) {
+    Patch(url: string, params: object): Promise<reponseType> {
         return new Promise((resolve, reject) => {
             instance.put(url, params).then((res) => {
                 resolve(res.data);
@@ -67,7 +67,7 @@ export default {
      *@param{String} url [请求地址]
      *@param{Object} params [请求参数]
      */
-    Delete(url: string, params: object) {
+    Delete(url: string, params: object): Promise<reponseType> {
         return new Promise((resolve, reject) => {
             instance.delete(url, {
                 params: params

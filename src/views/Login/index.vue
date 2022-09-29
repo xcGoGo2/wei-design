@@ -47,7 +47,7 @@ export default defineComponent({
   components: {},
   setup() {
     // 数据处理变量赋值
-    const $api = (getCurrentInstance() as any)['appContext']['config']['globalProperties']['$api']
+    const $api = (getCurrentInstance() as any)['appContext']['config']['globalProperties']['$api'];
     // 路由api创建
     const router = useRouter();
     const route = useRoute();

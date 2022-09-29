@@ -6,7 +6,7 @@
     </div>
     <div class="sidebar-list">
       <el-menu
-        :default-active="0"
+        default-active="index"
         ref="elMenu"
         :router="true"
         class="el-menu-vertical"
@@ -17,7 +17,7 @@
         @select="selectMenu"
       >
         <template v-for="(item, i) in menuList" :key="item.title + i">
-          <el-sub-menu :index="i" v-if="item.children">
+          <el-sub-menu :index="item.router" v-if="item.children">
             <template #title>
               <div class="item-container">
                 <el-icon :size="1" color="red">
@@ -28,7 +28,7 @@
             </template>
             <el-menu-item-group style="padding-left: 10px">
               <template v-for="(jtem, j) in item.children" :key="`${i}-${j}`">
-                <el-sub-menu :index="`${i}-${j}`" v-if="jtem.children">
+                <el-sub-menu :index="jtem.router" v-if="jtem.children">
                   <template #title>
                     <div class="item-container">
                       <el-icon :size="1" color="red">
@@ -39,7 +39,7 @@
                   </template>
                   <el-menu-item-group style="padding-left: 10px">
                     <el-menu-item
-                      :index="`${i}-${j}-${m}`"
+                      :index="item.router"
                       v-for="(mtem, m) in jtem.children"
                       :key="`${i}-${j}-${m}`"
                     >
@@ -52,7 +52,7 @@
                     </el-menu-item>
                   </el-menu-item-group>
                 </el-sub-menu>
-                <el-menu-item :index="`${i}-${j}`" v-else>
+                <el-menu-item :index="jtem.router" v-else>
                   <div class="item-container">
                     <el-icon :size="1" color="red">
                       <Edit />
@@ -63,7 +63,7 @@
               </template>
             </el-menu-item-group>
           </el-sub-menu>
-          <el-menu-item :index="i" v-else>
+          <el-menu-item :index="item.router" v-else>
             <div class="item-container">
               <el-icon :size="1" color="red">
                 <Edit />
@@ -93,9 +93,12 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted, toRefs, PropType } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 // type
-import { menuListType } from '../../type/menuList';
+import { menuListType, reponseType } from '../../../type/index';
+
+import { system } from '../../api/service';
 // import { useElementMenu } from '../../hooks/useElementMenu';
 export default defineComponent({
   name: 'Sidebar', // 侧边栏
@@ -106,11 +109,11 @@ export default defineComponent({
       default: '../../assets/Sidebar/logo.png',
     },
   },
-  setup(props, context) {
+  async setup(props, context) {
     const num = ref(100);
     const { logo } = props;
     const elMenu = ref(); // ref Menu元素
-    console.log(props);
+    const router = useRouter()
 
     const data = reactive({
       selectSign: 0,
@@ -139,73 +142,20 @@ export default defineComponent({
     });
 
     const handleOpen = (key: string, keyPath: string[]) => {
-      console.log(key, keyPath);
+      // key = key? key : 'index';
+      // router.replace(key);
+      console.log('handleOpen', key, keyPath);
     };
     const handleClose = (key: string, keyPath: string[]) => {
-      console.log(key, keyPath);
+      console.log('handleClose', key, keyPath);
     };
-    const selectMenu = () => {
-      console.log(arguments);
-      debugger
+    const selectMenu = (key: string, keyPath: string[]) => {
+      console.log(key, keyPath, router);
     }
 
     // 菜单
-    const menuList = reactive<menuListType[]>([
-      {
-        title: '首页',
-        icon: '/src/assets/Sidebar/menu/report.png',
-      },
-      {
-        title: '数据集',
-        icon: '/src/assets/Sidebar/menu/boardsheet.png',
-        children: [
-          {
-            title: '数据集-01',
-            icon: '/src/assets/Sidebar/menu/boardsheet.png',
-          },
-          {
-            title: '数据集-02',
-            icon: '/src/assets/Sidebar/menu/boardsheet.png',
-            children: [
-              {
-                title: '数据集-03',
-                icon: '/src/assets/Sidebar/menu/boardsheet.png',
-              },
-              {
-                title: '数据集-04',
-                icon: '/src/assets/Sidebar/menu/boardsheet.png',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: '报告',
-        icon: '/src/assets/Sidebar/menu/report.png',
-      },
-      {
-        title: '在线表格',
-        icon: '/src/assets/Sidebar/menu/sheet.png',
-        children: [
-          {
-            title: '在线表格',
-            icon: '/src/assets/Sidebar/menu/sheet.png',
-          },
-          {
-            title: '在线表格',
-            icon: '/src/assets/Sidebar/menu/sheet.png',
-          },
-          {
-            title: '在线表格',
-            icon: '/src/assets/Sidebar/menu/sheet.png',
-          },
-        ],
-      },
-      {
-        title: '消息管理',
-        icon: '/src/assets/Sidebar/menu/posts.png',
-      },
-    ]);
+    const res: reponseType = await system.getMenuList();
+    const menuList: menuListType[] = res.data;
 
     onMounted(() => {});
 
