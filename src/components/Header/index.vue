@@ -21,7 +21,7 @@
         <el-icon><full-screen /></el-icon>
         <el-icon><magic-stick /></el-icon>
         <el-icon><folder-opened /></el-icon>
-        <el-icon><refresh /></el-icon>
+        <el-icon @click="refresh" title="刷新"><refresh /></el-icon>
         <div class="">
           <el-dropdown>
             <span class="user-info">
@@ -68,15 +68,6 @@ export default defineComponent({
       moveIndex: -1,
     });
 
-    const handle = reactive({
-      selectItem: (index: number): void => {
-        data.selectIndex = index;
-      },
-      moveItem: (index: number): void => {
-        data.moveIndex = index;
-      },
-    });
-
     const crumbs: {
       name: any;
       icon: string;
@@ -100,9 +91,9 @@ export default defineComponent({
     // userInfo 用户信息跳转
     const goUrl: goUrlType[] = reactive([
       {
-        name: 'Gitee',
-        icon: 'gitee',
-        path: 'https://gitee.com/Wayne1308/wei-manage.git'
+        name: 'GitHub',
+        icon: 'github',
+        path: 'https://github.com/Wayne1308/weiManage'
       },
       {
         name: '退出登录',
@@ -123,6 +114,19 @@ export default defineComponent({
       }
     }
 
+    const refresh = () => {
+      window.location.reload();
+    }
+
+    const handle = reactive({
+      selectItem: (index: number): void => {
+        data.selectIndex = index;
+      },
+      moveItem: (index: number): void => {
+        data.moveIndex = index;
+      },
+    });
+
     watch(route, (newV, oldV) => {
       crumbs.length > 1 && crumbs.pop();
       crumbs.push({
@@ -138,7 +142,8 @@ export default defineComponent({
       crumbs,
       userInfo,
       goUrl,
-      goTo
+      goTo,
+      refresh
     }
   },
 });
@@ -178,6 +183,10 @@ export default defineComponent({
       .el-icon {
         margin: 0 10px;
         cursor: pointer;
+
+        &:hover {
+          color: #0ca296;
+        }
       }
 
       .user-info {

@@ -37,17 +37,16 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { Avatar, Lock } from '@element-plus/icons-vue'
-import { ElMessage, ElNotification } from 'element-plus'
-import { ref, reactive, defineComponent, onMounted, getCurrentInstance } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+<script lang="ts">
+import { Avatar, Lock } from '@element-plus/icons-vue';
+import { ElMessage, ElNotification } from 'element-plus';
+import { reactive, defineComponent, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { system } from '@/api/service';
 export default defineComponent({
   name: 'index',
   components: {},
   setup() {
-    // 数据处理变量赋值
-    const $api = (getCurrentInstance() as any)['appContext']['config']['globalProperties']['$api'];
     // 路由api创建
     const router = useRouter();
     const route = useRoute();
@@ -55,57 +54,60 @@ export default defineComponent({
     interface loginType {
       username: string;
       password: string;
-      click(): void
+      click(): void;
     }
     let loginForm: loginType = reactive({
       username: 'admin',
       password: '123456',
       click: async () => {
         if (loginForm.username !== '' && loginForm.password !== '') {
-          const login = await $api.Post('/login', { username: 'admin', password: '123456' })
+          const res = await system.getMenuList();
+          // const login = await system.login();
+          const login = {
+            code: 200
+          };
+          debugger
           // 登录成功
           if (login.code === 200) {
-            router.push({ path: '/home' })
+            router.push({ path: '/home' });
           }
           ElNotification({
             title: '登录成功！',
             message: '欢迎登录weiManage管理系统！',
             type: 'success',
-          })
+          });
         } else {
           ElMessage({
             message: '账号密码不能为空！',
             type: 'warning',
-          })
-          return
+          });
+          return;
         }
-      }
-    })
+      },
+    });
 
     // 切换至注册
     const goRegister = () => {
       console.log('转换至注册');
-    }
+    };
 
-    onMounted(async () => {
-
-    })
+    onMounted(async () => {});
 
     return {
       loginForm,
       goRegister,
       Avatar,
-      Lock
-    }
-  }
-})
+      Lock,
+    };
+  },
+});
 </script>
 
-<style lang='less'>
+<style lang="less">
 .login-container {
   height: 100vh;
   width: 100vw;
-  background-image: url("../../assets/login/login.jpg");
+  background-image: url('../../assets/login/login.jpg');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;
@@ -161,6 +163,3 @@ export default defineComponent({
   }
 }
 </style>
-
-
-
