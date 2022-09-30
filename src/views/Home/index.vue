@@ -10,6 +10,9 @@
         <el-header style="padding: 0">
           <Header></Header>
         </el-header>
+        <div class="tabBar">
+          <TabBar></TabBar>
+        </div>
         <el-main style="padding: 0">
           <router-view></router-view>
         </el-main>
@@ -26,6 +29,7 @@ import Submenu from '../../components/Submenu/index.vue';
 import Row from '../../components/Layout/Row/index.vue';
 import Col from '../../components/Layout/Col/index.vue';
 import Header from '../../components/Header/index.vue';
+import TabBar from '../../components/TabBar/index.vue';
 
 export default defineComponent({
   name: 'Home',
@@ -35,6 +39,7 @@ export default defineComponent({
     Row,
     Col,
     Header,
+    TabBar,
   },
   props: {},
   setup(props) {
@@ -43,7 +48,7 @@ export default defineComponent({
 
     global.$api.Get('api/weiManage/getUsers', {}).then((res: any) => {
       console.log('测试接口', res);
-    })
+    });
   },
 });
 </script>
@@ -52,5 +57,12 @@ export default defineComponent({
 .component-box {
   display: flex;
   height: 100%;
+
+  .tabBar {
+    height: 40px;
+    width:100%;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #dddfe5;
+  }
 }
 </style>

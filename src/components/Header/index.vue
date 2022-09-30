@@ -4,7 +4,7 @@
       <div class="crumbs">
         <el-breadcrumb :separator-icon="ArrowRight">
           <el-breadcrumb-item
-            :to="{ path: '/' }"
+            :to="i === 0 ? { path: '/' } : ''"
             v-for="(item, i) in crumbs"
             :key="i"
           >
@@ -22,10 +22,22 @@
         <el-icon><magic-stick /></el-icon>
         <el-icon><folder-opened /></el-icon>
         <el-icon><refresh /></el-icon>
-        <div class="user-info">
-          <el-avatar size="default" :src="userInfo.avator" />
-          <span class="username">{{ userInfo.username }}</span>
-          <el-icon><arrow-down /></el-icon>
+        <div class="">
+          <el-dropdown>
+            <span class="user-info">
+              <el-avatar size="default" :src="userInfo.avator" />
+              <span class="username">{{ userInfo.username }}</span>
+              <el-icon><arrow-down /></el-icon>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item v-for="(item, i) in goUrl" :key="i + item.name" @click="goTo(item)">
+                  <svg-icon :name="item.icon" color="#0ca296"></svg-icon>
+                  <span class="item-class">{{ item.name }}</span>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
       </div>
     </div>
@@ -33,41 +45,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from "vue";
-import { ArrowRight } from "@element-plus/icons-vue";
+import { defineComponent, PropType, reactive, watch } from 'vue';
+import { ArrowRight } from '@element-plus/icons-vue';
+import { useRoute, useRouter } from 'vue-router';
+import { userInfoType } from 'type';
 
-interface userInfoType {
-  username: string;
-  avator: string;
+type goUrlType = {
+  name : string;
+  icon: string;
+  path: string
 }
 
 export default defineComponent({
-  name: "header",
+  name: 'header',
   props: {
-    userInfo: {
-      type: Object as PropType<userInfoType>,
-      default: {
-        username: "admin",
-        avator:
-          "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-      },
-    },
-    crumbs: {
-      type: Object,
-      default: [
-        {
-          name: "首页",
-          icon: "",
-        },
-        {
-          name: "工作台",
-          icon: "",
-        },
-      ],
-      selectList: {},
-    },
   },
   setup(props, context) {
+    const route = useRoute();
+    const router = useRouter();
     const data = reactive({
       selectIndex: 0,
       moveIndex: -1,
@@ -82,11 +77,69 @@ export default defineComponent({
       },
     });
 
+    const crumbs: {
+      name: any;
+      icon: string;
+    }[] = reactive([
+      {
+        name: '首页',
+        icon: '',
+      },
+      {
+        name: '首页',
+        icon: '',
+      },
+    ]);
+
+    // userInfo
+    const userInfo = reactive<userInfoType>({
+      username: 'admin',
+      avator: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+    })
+
+    // userInfo 用户信息跳转
+    const goUrl: goUrlType[] = reactive([
+      {
+        name: 'Gitee',
+        icon: 'gitee',
+        path: 'https://gitee.com/Wayne1308/wei-manage.git'
+      },
+      {
+        name: '退出登录',
+        icon: 'exit',
+        path: 'exit'
+      }
+    ])
+
+    const goTo = (item: goUrlType) => {
+      switch (item.path) {
+        case 'exit':
+          router.push('/login')
+          break;
+      
+        default:
+          window.open(item.path)
+          break;
+      }
+    }
+
+    watch(route, (newV, oldV) => {
+      crumbs.length > 1 && crumbs.pop();
+      crumbs.push({
+        name: newV.name,
+        icon: '',
+      });
+    });
+
     return {
       ArrowRight,
       handle,
       data,
-    };
+      crumbs,
+      userInfo,
+      goUrl,
+      goTo
+    }
   },
 });
 </script>
@@ -130,6 +183,7 @@ export default defineComponent({
       .user-info {
         display: flex;
         align-items: center;
+        cursor: pointer;
 
         .username {
           display: inline-block;
@@ -141,9 +195,20 @@ export default defineComponent({
 }
 </style>
 
-<style lang="less" >
-.el-dropdown-menu__item:hover{
-    color: #41b584!important;
-    background-color: #ecf8f3!important;
+<style lang="less">
+.el-breadcrumb__inner a:hover,
+.el-breadcrumb__inner.is-link:hover {
+  color: #0ca296 !important;
 }
-</style>>
+.el-dropdown-menu__item:hover {
+  color: #0ca296 !important;
+  background-color: #ecf8f3 !important;
+}
+.el-dropdown-menu__item {
+  .item-class {
+    display: inline-block;
+    margin-left: 5px;
+  }
+}
+</style>
+>

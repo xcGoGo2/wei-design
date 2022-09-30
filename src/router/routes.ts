@@ -34,32 +34,38 @@ export default [
         component: import('@/views/Pages/Boardsheet/index.vue'),
       },
       {
-        path: '/myDesign',
-        name: '界面设计',
-        component: import('@/views/Pages/weiDesign/MyDesign/index.vue'),
+        path: '/weiDesign',
+        name: '',
+        children: [
+          {
+            path: 'myDesign',
+            name: '界面设计',
+            component: import('@/views/Pages/weiDesign/MyDesign/index.vue'),
+          },
+          {
+            path: 'tplMarket',
+            name: '模板市场',
+            component: import('@/views/Pages/weiDesign/TplMarket/index.vue'),
+          },
+        ],
       },
       {
-        path: '/tplMarket',
-        name: '模板市场',
-        component: import('@/views/Pages/weiDesign/TplMarket/index.vue'),
-      },
-      {
-        path: '/userManage',
+        path: '/manage/userManage',
         name: '用户管理',
         component: import('@/views/Pages/manage/UserManage/index.vue'),
       },
       {
-        path: '/userGroupManage',
+        path: '/manage/userGroupManage',
         name: '组织管理',
         component: import('@/views/Pages/manage/userGroupManage/index.vue'),
       },
       {
-        path: '/is404',
+        path: '/errPage/is404',
         name: '404',
         component: import('@/views/Pages/errPage/Is404/index.vue'),
       },
       {
-        path: '/is500',
+        path: '/errPage/is500',
         name: '500',
         component: import('@/views/Pages/errPage/Is500/index.vue'),
       },

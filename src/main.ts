@@ -16,12 +16,17 @@ import Api from './api/index'
 import 'element-plus/dist/index.css'
 import * as ElIcons from '@element-plus/icons-vue'
 import './api/mock/index'
+import svgIcon from "@/assets/svg/index.vue";
+import 'virtual:svg-icons-register'
 
 const app = createApp(App);
 
 for (const name in ElIcons){
+	// el-icon => 全局组件
 	app.component(name,(ElIcons as any)[name])
 }
+
+app.component('svg-icon', svgIcon)
 
 app.use(router).use(store)
 // app.config.globalProperties.$api = Api;  // 配置全局数据请求

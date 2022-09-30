@@ -29,4 +29,5 @@
 // nobg-color: #575a64;
 // bgc: #0ca296;
 // color: #ffffff;
+// font color: #575a64
 </style>

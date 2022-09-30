@@ -1,12 +1,12 @@
 <template>
   <div class="sidebar-container" :style="{ width: !isCollapse ? '250px' : '70px' }">
-    <div class="logo">
-      <el-image fit="cover" src="src/assets/Sidebar/logo.png" alt="weiManage" />
+    <div class="logo" title="weiManage" @click="router.push('/')">
+      <svg-icon name="lightning" size="4em" color="#0ca296"></svg-icon>
       <span class="title" v-if="!isCollapse">Vue-Wei-Manage</span>
     </div>
     <div class="sidebar-list">
       <el-menu
-        default-active="index"
+        :default-active="route.path"
         ref="elMenu"
         :router="true"
         class="el-menu-vertical"
@@ -20,10 +20,10 @@
           <el-sub-menu :index="item.router" v-if="item.children">
             <template #title>
               <div class="item-container">
-                <el-icon :size="1" color="red">
+                <el-icon :size="1">
                   <Edit />
                 </el-icon>
-                <span>{{ item.title }}</span>
+                <span v-if="!isCollapse">{{ item.title }}</span>
               </div>
             </template>
             <el-menu-item-group style="padding-left: 10px">
@@ -65,11 +65,12 @@
           </el-sub-menu>
           <el-menu-item :index="item.router" v-else>
             <div class="item-container">
-              <el-icon :size="1" color="red">
+              <el-icon :size="1">
                 <Edit />
               </el-icon>
-              <span>{{ item.title }}</span>
+              <span v-if="!isCollapse">{{ item.title }}</span>
             </div>
+            <template v-if="isCollapse" #title>{{ item.title }}</template>
           </el-menu-item>
         </template>
       </el-menu>
@@ -113,7 +114,8 @@ export default defineComponent({
     const num = ref(100);
     const { logo } = props;
     const elMenu = ref(); // ref Menu元素
-    const router = useRouter()
+    const router = useRouter();
+    const route = useRoute();
 
     const data = reactive({
       selectSign: 0,
@@ -143,15 +145,22 @@ export default defineComponent({
 
     const handleOpen = (key: string, keyPath: string[]) => {
       // key = key? key : 'index';
-      // router.replace(key);
+      // router.push(key);
       console.log('handleOpen', key, keyPath);
+      console.log('router', router, route);
+
+      // debugger
     };
     const handleClose = (key: string, keyPath: string[]) => {
       console.log('handleClose', key, keyPath);
+      console.log('router', router, route);
+      // debugger
     };
     const selectMenu = (key: string, keyPath: string[]) => {
       console.log(key, keyPath, router);
-    }
+      console.log('router', router, route);
+      // debugger
+    };
 
     // 菜单
     const res: reponseType = await system.getMenuList();
@@ -169,7 +178,9 @@ export default defineComponent({
       handleClose,
       menuList,
       elMenu,
-      selectMenu
+      selectMenu,
+      route,
+      router
     };
   },
 });
@@ -194,10 +205,11 @@ export default defineComponent({
 
   .logo {
     width: 100%;
-    height: 60px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 
     .el-image {
       height: 40px;
@@ -206,8 +218,8 @@ export default defineComponent({
     }
 
     .title {
-      color: #3176b1;
-      font-size: 1em;
+      color: #0ca296;
+      font-size: 1.5em;
       font-weight: 600;
     }
   }
@@ -235,12 +247,19 @@ export default defineComponent({
       display: flex;
       align-items: center;
       border-radius: 5px;
-      // transition: all 0.2s;
+      transition: background-color 0.2s;
 
       &:hover {
         background-color: #0ca296;
         // border: 1px solid #0ca296;
         color: #ffffff;
+      }
+    }
+
+    .el-menu--collapse {
+      .item-container {
+        align-items: center;
+        justify-content: center;
       }
     }
   }
@@ -271,6 +290,12 @@ export default defineComponent({
   border: none;
   border-right: none !important;
 }
+
+.el-menu-item .el-menu-tooltip__trigger {
+  position: static !important;
+  padding: 0 !important;
+}
+
 .el-menu-vertical:not(.el-menu--collapse) {
   width: 100%;
   height: 100%;
@@ -283,10 +308,16 @@ export default defineComponent({
   }
 
   &.is-active .item-container {
+    width: 100%;
+    border-radius: 5px;
     background-color: #0ca296;
     // border: 1px solid #0ca296;
     color: #ffffff;
   }
+}
+
+.el-menu--collapse .el-sub-menu.is-active .el-sub-menu__title {
+  color: #0ca296 !important;
 }
 
 .el-sub-menu {

@@ -1,13 +1,14 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path'
+import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 import { viteMockServe } from 'vite-plugin-mock';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons' // svg
 
 function pathResolve(dir: string) {
-  return resolve(process.cwd(), '.', dir)
+  return resolve(process.cwd(), '.', dir);
 }
 
 // https://vitejs.dev/config/
@@ -17,14 +18,14 @@ export default defineConfig({
     alias: [
       {
         find: /\/#\//,
-        replacement: pathResolve('types')
+        replacement: pathResolve('types'),
       },
       {
         find: '@',
-        replacement: pathResolve('src')
-      }
+        replacement: pathResolve('src'),
+      },
     ],
-    dedupe: ['vue']
+    dedupe: ['vue'],
   },
   server: {
     host: '127.0.0.1',
@@ -32,6 +33,12 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    createSvgIconsPlugin({
+      // 指定需要缓存的图标文件夹
+      iconDirs: [resolve(process.cwd(), 'src/assets/svg/icons')],
+      // 指定symbolId格式
+      symbolId: 'icon-[dir]-[name]',
+    }),
     // viteMockServe 不生效 - 待解决
     viteMockServe({
       mockPath: '/src/api/mock',
@@ -42,7 +49,7 @@ export default defineConfig({
       // 打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
       supportTs: true,
       // 监视文件更改
-      watchFiles: true
+      watchFiles: true,
     }),
     AutoImport({
       resolvers: [ElementPlusResolver()],
@@ -50,5 +57,5 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
-  ]
+  ],
 });

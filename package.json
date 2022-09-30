@@ -11,9 +11,11 @@
     "@element-plus/icons-vue": "^1.1.4",
     "axios": "^0.26.1",
     "element-plus": "^2.0.1",
+    "fast-glob": "^3.2.12",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "mockjs": "^1.1.0",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.2.25",
     "vue-router": "4",
     "vuex": "^4.0.2"

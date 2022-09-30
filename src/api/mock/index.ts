@@ -34,17 +34,17 @@ const MockAPI = [
           {
             title: '首页',
             icon: '/src/assets/Sidebar/menu/report.png',
-            router: 'index',
+            router: '/index',
           },
           {
             title: '组件',
             icon: '/src/assets/Sidebar/menu/boardsheet.png',
-            router: 'assembly',
+            router: '/assembly',
           },
           {
             title: '数据集',
             icon: '/src/assets/Sidebar/menu/sheet.png',
-            router: 'boardsheet',
+            router: '/boardsheet',
           },
           {
             title: 'WEI-DESIGN',
@@ -54,12 +54,12 @@ const MockAPI = [
               {
                 title: '界面设计',
                 icon: '/src/assets/Sidebar/menu/sheet.png',
-                router: 'myDesign',
+                router: '/weiDesign/myDesign',
               },
               {
                 title: '模板市场',
                 icon: '/src/assets/Sidebar/menu/sheet.png',
-                router: 'tplMarket',
+                router: '/weiDesign/tplMarket',
               },
             ],
           },
@@ -71,12 +71,12 @@ const MockAPI = [
               {
                 title: '用户管理',
                 icon: '/src/assets/Sidebar/menu/posts.png',
-                router: 'userManage',
+                router: '/manage/userManage',
               },
               {
                 title: '组织管理',
                 icon: '/src/assets/Sidebar/menu/posts.png',
-                router: 'userGroupManage',
+                router: '/manage/userGroupManage',
               },
             ],
           },
@@ -88,12 +88,12 @@ const MockAPI = [
               {
                 title: '404',
                 icon: '/src/assets/Sidebar/menu/posts.png',
-                router: 'is404',
+                router: '/errPage/is404',
               },
               {
                 title: '500',
                 icon: '/src/assets/Sidebar/menu/posts.png',
-                router: 'is500',
+                router: '/errPage/is500',
               },
             ],
           },
