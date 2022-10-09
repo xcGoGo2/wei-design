@@ -20,8 +20,8 @@
           <el-sub-menu :index="item.router" v-if="item.children">
             <template #title>
               <div class="item-container">
-                <el-icon :size="1">
-                  <Edit />
+                <el-icon>
+                  <svg-icon name="gitee"></svg-icon>
                 </el-icon>
                 <span v-if="!isCollapse">{{ item.title }}</span>
               </div>
