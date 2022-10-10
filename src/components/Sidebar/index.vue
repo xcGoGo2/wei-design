@@ -12,6 +12,7 @@
         class="el-menu-vertical"
         :unique-opened="true"
         :collapse="isCollapse"
+        :collapse-transition="false"
         @open="handleOpen"
         @close="handleClose"
         @select="selectMenu"
@@ -21,7 +22,7 @@
             <template #title>
               <div class="item-container">
                 <el-icon>
-                  <svg-icon name="gitee"></svg-icon>
+                  <svg-icon :name="item.icon" color=""></svg-icon>
                 </el-icon>
                 <span v-if="!isCollapse">{{ item.title }}</span>
               </div>
@@ -31,8 +32,8 @@
                 <el-sub-menu :index="jtem.router" v-if="jtem.children">
                   <template #title>
                     <div class="item-container">
-                      <el-icon :size="1" color="red">
-                        <Edit />
+                      <el-icon>
+                        <svg-icon :name="jtem.icon" color=""></svg-icon>
                       </el-icon>
                       <span>{{ jtem.title }}</span>
                     </div>
@@ -44,8 +45,8 @@
                       :key="`${i}-${j}-${m}`"
                     >
                       <div class="item-container">
-                        <el-icon :size="1" color="red">
-                          <Edit />
+                        <el-icon>
+                          <svg-icon :name="mtem.icon" color=""></svg-icon>
                         </el-icon>
                         <span>{{ mtem.title }}</span>
                       </div>
@@ -54,8 +55,8 @@
                 </el-sub-menu>
                 <el-menu-item :index="jtem.router" v-else>
                   <div class="item-container">
-                    <el-icon :size="1" color="red">
-                      <Edit />
+                    <el-icon>
+                      <svg-icon :name="jtem.icon" color=""></svg-icon>
                     </el-icon>
                     <span>{{ jtem.title }}</span>
                   </div>
@@ -65,8 +66,8 @@
           </el-sub-menu>
           <el-menu-item :index="item.router" v-else>
             <div class="item-container">
-              <el-icon :size="1">
-                <Edit />
+              <el-icon>
+                <svg-icon :name="item.icon" color=""></svg-icon>
               </el-icon>
               <span v-if="!isCollapse">{{ item.title }}</span>
             </div>
@@ -144,21 +145,12 @@ export default defineComponent({
     });
 
     const handleOpen = (key: string, keyPath: string[]) => {
-      // key = key? key : 'index';
-      // router.push(key);
-      console.log('handleOpen', key, keyPath);
-      console.log('router', router, route);
-
       // debugger
     };
     const handleClose = (key: string, keyPath: string[]) => {
-      console.log('handleClose', key, keyPath);
-      console.log('router', router, route);
       // debugger
     };
     const selectMenu = (key: string, keyPath: string[]) => {
-      console.log(key, keyPath, router);
-      console.log('router', router, route);
       // debugger
     };
 
@@ -180,7 +172,7 @@ export default defineComponent({
       elMenu,
       selectMenu,
       route,
-      router
+      router,
     };
   },
 });
@@ -198,7 +190,7 @@ export default defineComponent({
   -moz-box-shadow: 0px 3px 3px #c8c8c8;
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
   border-right: 1px solid #dddfe5;
-  transition: all 0.5s;
+  transition: width 0.25s;
   overflow: hidden;
   white-space: nowrap;
   // color: #ffffff;
@@ -307,12 +299,16 @@ export default defineComponent({
     background-color: transparent !important;
   }
 
-  &.is-active .item-container {
-    width: 100%;
-    border-radius: 5px;
-    background-color: #0ca296;
-    // border: 1px solid #0ca296;
-    color: #ffffff;
+  &.is-active {
+    color: #ffffff !important;
+
+    .item-container {
+      width: 100%;
+      border-radius: 5px;
+      background-color: #0ca296;
+      // border: 1px solid #0ca296;
+      color: #ffffff !important;
+    }
   }
 }
 

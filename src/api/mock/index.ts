@@ -47,66 +47,66 @@ const MockAPI = [
         data: [
           {
             title: '首页',
-            icon: '/src/assets/Sidebar/menu/report.png',
+            icon: 'index',
             router: '/index',
           },
           {
             title: '组件',
-            icon: '/src/assets/Sidebar/menu/boardsheet.png',
+            icon: 'assembly',
             router: '/assembly',
           },
           {
             title: '数据集',
-            icon: '/src/assets/Sidebar/menu/sheet.png',
+            icon: 'boardsheet',
             router: '/boardsheet',
           },
           {
             title: 'WEI-DESIGN',
-            icon: '/src/assets/Sidebar/menu/report.png',
+            icon: 'weiDesign',
             router: 'weiDesign',
             children: [
               {
                 title: '界面设计',
-                icon: '/src/assets/Sidebar/menu/sheet.png',
+                icon: 'myDesign',
                 router: '/weiDesign/myDesign',
               },
               {
                 title: '模板市场',
-                icon: '/src/assets/Sidebar/menu/sheet.png',
+                icon: 'tplMarket',
                 router: '/weiDesign/tplMarket',
               },
             ],
           },
           {
             title: '管理配置',
-            icon: '/src/assets/Sidebar/menu/posts.png',
+            icon: 'manage',
             router: 'manage',
             children: [
               {
                 title: '用户管理',
-                icon: '/src/assets/Sidebar/menu/posts.png',
+                icon: 'userManage',
                 router: '/manage/userManage',
               },
               {
                 title: '组织管理',
-                icon: '/src/assets/Sidebar/menu/posts.png',
+                icon: 'userGroupManage',
                 router: '/manage/userGroupManage',
               },
             ],
           },
           {
             title: '错误页',
-            icon: '/src/assets/Sidebar/menu/posts.png',
+            icon: 'errPage',
             router: 'errPage',
             children: [
               {
                 title: '404',
-                icon: '/src/assets/Sidebar/menu/posts.png',
+                icon: 'is404',
                 router: '/errPage/is404',
               },
               {
                 title: '500',
-                icon: '/src/assets/Sidebar/menu/posts.png',
+                icon: 'is500',
                 router: '/errPage/is500',
               },
             ],

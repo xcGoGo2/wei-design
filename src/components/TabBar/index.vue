@@ -23,16 +23,15 @@
   watch(route, (v, o) => {
     const index = tagList.findIndex(m => {
       return m.title === v.name && m.path === v.path;
-    })
-    if(index >= 0) {
-      activeIndex.value = index;
-    }else {
+    });
+    activeIndex.value = index >= 0? index : tagList.length;
+    if(index < 0) {
       tagList.push({
         title: v.name,
         path: v.path,
         type: getTagColor()
       })
-    };
+    }
   });
 
   // 点击标签
@@ -46,11 +45,18 @@
     if(i === 0) {
       return
     };
+
+    tagList.splice(i, 1);
+
     if(activeIndex.value === i) {
       activeIndex.value = 0;
       clickTag(tagList[0], 0);
     };
-    tagList.splice(i, 1);
+
+    if(activeIndex.value > i) {
+      activeIndex.value -= 1;
+    }
+
   };
 
   // 随机 tag 类型
