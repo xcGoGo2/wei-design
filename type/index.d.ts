@@ -21,3 +21,8 @@ export interface userInfoType {
   username: string;
   avator: string;
 }
+
+export interface stateType {
+  count: Number;
+  menuList: menuListType[]
+}

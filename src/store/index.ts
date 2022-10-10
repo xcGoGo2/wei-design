@@ -1,24 +1,27 @@
-/*
- * @Author: chenwei
- * @Date: 2022-02-10 14:07:11
- * @LastEditors: chenwei
- * @LastEditTime: 2022-02-10 14:43:43
- * @FilePath: \weiManage\src\store\index.ts
- * @Description: 
- * 
- */
 import { createStore } from 'vuex'
-
+import { stateType } from "type";
 // 创建store实例
 export default createStore({
-    state() {
+    state(): stateType {
         return {
-            count: 0
+            count: 0,  // 测试
+            menuList: []  // 菜单list
         }
+    },
+    getters: {
+
     },
     mutations: {
         addCount(state: any) {
             state.count++
+        }
+    },
+    actions: {
+        addCount(context) {
+
+        },
+        fetchMenuList(context) {
+            
         }
     }
 })

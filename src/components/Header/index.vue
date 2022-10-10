@@ -49,6 +49,7 @@ import { defineComponent, PropType, reactive, watch } from 'vue';
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, useRouter } from 'vue-router';
 import { userInfoType } from 'type';
+import { system } from '../../api/service'
 
 type goUrlType = {
   name : string;

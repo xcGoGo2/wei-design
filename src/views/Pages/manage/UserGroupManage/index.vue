@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    111
+    组织管理
   </div>
 </template>
 

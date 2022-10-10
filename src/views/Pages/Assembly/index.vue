@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    111
+    组件
   </div>
 </template>
 
