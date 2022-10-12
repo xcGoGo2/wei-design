@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
-import { stateType } from "type";
+import { stateType, reponseType, menuListType } from "type";
+import { system } from '@/api/service';
 // 创建store实例
 export default createStore({
     state(): stateType {
@@ -14,14 +15,18 @@ export default createStore({
     mutations: {
         addCount(state: any) {
             state.count++
+        },
+        setMenuList(state: stateType, data: menuListType[]) {
+            state.menuList = data;
         }
     },
     actions: {
         addCount(context) {
 
         },
-        fetchMenuList(context) {
-            
+        async fetchMenuList(context) {
+            const res = await system.getMenuList();
+            context.commit('setMenuList', res.data);
         }
     }
 })

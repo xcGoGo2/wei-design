@@ -9,7 +9,9 @@
             :key="i"
           >
             <div class="crumbs-item">
-              <el-icon><lightning /></el-icon>
+              <el-icon>
+                <svg-icon :name="item.icon"></svg-icon>
+              </el-icon>
               <span class="crumbs-name">{{ item.name }}</span>
             </div>
           </el-breadcrumb-item>
@@ -31,7 +33,11 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item v-for="(item, i) in goUrl" :key="i + item.name" @click="goTo(item)">
+                <el-dropdown-item
+                  v-for="(item, i) in goUrl"
+                  :key="i + item.name"
+                  @click="goTo(item)"
+                >
                   <svg-icon :name="item.icon" color="#0ca296"></svg-icon>
                   <span class="item-class">{{ item.name }}</span>
                 </el-dropdown-item>
@@ -45,29 +51,32 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive, watch } from 'vue';
+import { defineComponent, PropType, reactive, watch, computed } from 'vue';
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, useRouter } from 'vue-router';
-import { userInfoType } from 'type';
-import { system } from '../../api/service'
+import { useStore } from 'vuex';
+import { menuListType, userInfoType } from 'type';
+import { system } from '../../api/service';
 
 type goUrlType = {
-  name : string;
+  name: string;
   icon: string;
-  path: string
-}
+  path: string;
+};
 
 export default defineComponent({
   name: 'header',
-  props: {
-  },
+  props: {},
   setup(props, context) {
     const route = useRoute();
     const router = useRouter();
+    const store = useStore();
     const data = reactive({
       selectIndex: 0,
       moveIndex: -1,
     });
+
+    const menuList = computed((): menuListType[] => store.state.menuList);
 
     const crumbs: {
       name: any;
@@ -75,11 +84,11 @@ export default defineComponent({
     }[] = reactive([
       {
         name: '首页',
-        icon: '',
+        icon: 'index',
       },
       {
         name: '首页',
-        icon: '',
+        icon: 'index',
       },
     ]);
 
@@ -87,65 +96,70 @@ export default defineComponent({
     const userInfo = reactive<userInfoType>({
       username: 'admin',
       avator: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-    })
+    });
 
     // userInfo 用户信息跳转
     const goUrl: goUrlType[] = reactive([
       {
         name: 'GitHub',
         icon: 'github',
-        path: 'https://github.com/Wayne1308/weiManage'
+        path: 'https://github.com/Wayne1308/weiManage',
       },
       {
         name: '退出登录',
         icon: 'exit',
-        path: 'exit'
-      }
-    ])
+        path: 'exit',
+      },
+    ]);
 
     const goTo = (item: goUrlType) => {
       switch (item.path) {
         case 'exit':
-          router.push('/login')
+          router.push('/login');
           break;
-      
+
         default:
-          window.open(item.path)
+          window.open(item.path);
           break;
       }
-    }
+    };
 
     const refresh = () => {
       window.location.reload();
-    }
+    };
 
-    const handle = reactive({
-      selectItem: (index: number): void => {
-        data.selectIndex = index;
-      },
-      moveItem: (index: number): void => {
-        data.moveIndex = index;
-      },
-    });
+    const initCrumbs = (routeData: any) => {
+      crumbs.length > 1 && crumbs.splice(1);
+      const path = routeData.path.split('/').filter((o: any) => o);
+      let list = [...menuList.value];
+      while (path.length > 0) {
+        const item: menuListType | undefined = list.find((o: menuListType) => o.icon === path[0]);
+        crumbs.push({
+          name: item?.title || routeData.name,
+          icon: item?.icon || '',
+        });
+        if (item && item.children) {
+          list = item.children;
+        }
+        path.shift();
+      }
+    };
+
+    initCrumbs(route);
 
     watch(route, (newV, oldV) => {
-      crumbs.length > 1 && crumbs.pop();
-      crumbs.push({
-        name: newV.name,
-        icon: '',
-      });
+      initCrumbs(newV);
     });
 
     return {
       ArrowRight,
-      handle,
       data,
       crumbs,
       userInfo,
       goUrl,
       goTo,
-      refresh
-    }
+      refresh,
+    };
   },
 });
 </script>
@@ -173,6 +187,12 @@ export default defineComponent({
 
         .crumbs-name {
           margin-left: 5px;
+        }
+
+        .el-icon {
+          &:hover {
+            color: #0ca296;
+          }
         }
       }
     }
@@ -209,6 +229,9 @@ export default defineComponent({
 .el-breadcrumb__inner a:hover,
 .el-breadcrumb__inner.is-link:hover {
   color: #0ca296 !important;
+}
+.el-breadcrumb__inner .el-icon:hover {
+  color: #0ca296;
 }
 .el-dropdown-menu__item:hover {
   color: #0ca296 !important;

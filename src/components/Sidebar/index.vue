@@ -94,8 +94,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, onMounted, toRefs, PropType } from 'vue';
+import { defineComponent, ref, reactive, onMounted, computed, PropType } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex'
 
 // type
 import { menuListType, reponseType } from '../../../type/index';
@@ -117,6 +118,7 @@ export default defineComponent({
     const elMenu = ref(); // ref Menu元素
     const router = useRouter();
     const route = useRoute();
+    const store = useStore();
 
     const data = reactive({
       selectSign: 0,
@@ -155,8 +157,8 @@ export default defineComponent({
     };
 
     // 菜单
-    const res: reponseType = await system.getMenuList();
-    const menuList: menuListType[] = res.data;
+    store.dispatch('fetchMenuList');
+    const menuList = computed(() => store.state.menuList)
 
     onMounted(() => {});
 
@@ -172,7 +174,7 @@ export default defineComponent({
       elMenu,
       selectMenu,
       route,
-      router,
+      router
     };
   },
 });

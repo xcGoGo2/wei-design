@@ -29,7 +29,7 @@
           v-model="loginForm.password"
         ></el-input>
       </div>
-      <el-button type="primary" @click="loginForm.click">登录</el-button>
+      <el-button  type="" color="#0ca296" @click="loginForm.click">登录</el-button>
       <div class="goRegister-box">
         <span class="goRegister" @click="goRegister">注册</span>
       </div>
@@ -66,7 +66,6 @@ export default defineComponent({
           const login = {
             code: 200
           };
-          debugger
           // 登录成功
           if (login.code === 200) {
             router.push({ path: '/home' });
@@ -103,7 +102,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .login-container {
   height: 100vh;
   width: 100vw;
@@ -115,7 +114,7 @@ export default defineComponent({
   .login-box {
     width: 30vw;
     height: 85%;
-    background-color: rgba(17, 46, 104, 0.6);
+    background-color: rgba(60, 106, 118, 0.6);
     color: #fff;
     border-radius: 10px;
     position: absolute;

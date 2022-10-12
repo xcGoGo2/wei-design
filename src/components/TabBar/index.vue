@@ -20,18 +20,10 @@
   ]);
 
   let activeIndex = ref<number>(0);  // 当前高亮tag
+
+  initTab(route);
   watch(route, (v, o) => {
-    const index = tagList.findIndex(m => {
-      return m.title === v.name && m.path === v.path;
-    });
-    activeIndex.value = index >= 0? index : tagList.length;
-    if(index < 0) {
-      tagList.push({
-        title: v.name,
-        path: v.path,
-        type: getTagColor()
-      })
-    }
+    initTab(v);
   });
 
   // 点击标签
@@ -58,6 +50,24 @@
     }
 
   };
+
+  /**
+   * initTab 渲染tab
+   * @param routeData 
+   */
+  function initTab(routeData: any) {
+    const index = tagList.findIndex(m => {
+      return m.title === routeData.name && m.path === routeData.path;
+    });
+    activeIndex.value = index >= 0? index : tagList.length;
+    if(index < 0) {
+      tagList.push({
+        title: routeData.name,
+        path: routeData.path,
+        type: getTagColor()
+      })
+    }
+  }
 
   // 随机 tag 类型
   function getTagColor () {
