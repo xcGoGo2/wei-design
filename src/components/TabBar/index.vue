@@ -7,7 +7,7 @@
 <script setup lang="ts">
   import { ref, reactive, watch } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
-  import { randomNum } from "@/utils/index";
+  import { randomNum } from "@/utils/number";
   import { tagType } from '../../../type';
   const route = useRoute();
   const router = useRouter();

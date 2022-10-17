@@ -56,7 +56,7 @@ import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { menuListType, userInfoType } from 'type';
-import { system } from '../../api/service';
+import { getItem, removeItem } from '@/utils/index';
 
 type goUrlType = {
   name: string;
@@ -98,6 +98,10 @@ export default defineComponent({
       avator: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
     });
 
+    const loginContent = getItem('loginContent');
+
+    userInfo.username = loginContent ? loginContent.showname : '';
+
     // userInfo 用户信息跳转
     const goUrl: goUrlType[] = reactive([
       {
@@ -115,6 +119,7 @@ export default defineComponent({
     const goTo = (item: goUrlType) => {
       switch (item.path) {
         case 'exit':
+          removeItem('loginContent');
           router.push('/login');
           break;
 

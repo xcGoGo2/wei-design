@@ -12,7 +12,7 @@ import Login from '@/views/Login/index.vue';
 
 export default [
   { path: '/', redirect: '/home' },
-  { path: '/login', component: Login },
+  { path: '/login', component: Login, name: 'Login' },
   {
     path: '/home',
     redirect: '/index',

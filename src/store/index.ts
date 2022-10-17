@@ -6,6 +6,7 @@ export default createStore({
     state(): stateType {
         return {
             count: 0,  // 测试
+            loginContent: {},  // 登录用户信息
             menuList: []  // 菜单list
         }
     },
@@ -15,6 +16,9 @@ export default createStore({
     mutations: {
         addCount(state: any) {
             state.count++
+        },
+        setLoginContent(state, data) {
+            state.loginContent = data;
         },
         setMenuList(state: stateType, data: menuListType[]) {
             state.menuList = data;

@@ -26,14 +26,19 @@ const MockAPI = [
   {
     url: 'api/weiManage/login',
     method: 'post',
-    response: () => {
-      return {
-        code: 200,
-        message: '登录成功',
-        data: {
-          
-        },
-      };
+    response: (loginContent: any) => {
+      const { username, password } = JSON.parse(loginContent.body);
+      if(username === 'admin' && password === '123456') {
+        return {
+          code: 200,
+          message: 'ok',
+          data: {
+            username: 'admin',
+            showname: '管理员',
+            code: 'ADMIN'
+          },
+        };
+      }
     },
   },
   // menuList信息
@@ -117,6 +122,6 @@ const MockAPI = [
   },
 ];
 
-MockAPI.forEach(o => {
-  Mock.mock(o.url = '', o.method = 'get', o.response || null);
+MockAPI.forEach((o, i) => {
+  Mock.mock(MockAPI[i].url, MockAPI[i].method, o.response || null);
 });

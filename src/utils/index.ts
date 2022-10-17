@@ -1,20 +1,40 @@
 /**
- * 生成从minNum到maxNum的随机数
- * @param minNum 最小数
- * @param maxNum 最大数
- * @returns 随机生成的数
+ * localStorage 存入
+ * @param key key值 
+ * @param value 存入值
  */
-export function randomNum(minNum: number | string, maxNum: number | string): number {
-  minNum = isNaN(Number(minNum)) ? 0 : Number(minNum);
-  maxNum = isNaN(Number(maxNum)) ? 0 : Number(maxNum);
-  switch (arguments.length) {
-    case 1:
-      return parseInt((Math.random() * minNum + 1).toString(), 10);
-    case 2:
-      return parseInt((Math.random() * (maxNum - minNum + 1) + minNum).toString(), 10);
-    default:
-      return 0;
-  }
+export const setItem = (key: string, value: any) => {
+  if(value instanceof Object) {
+    value = JSON.stringify(value);
+  }else {
+    value = String(value);
+  };
+  window.localStorage.setItem(key, value);
 }
+
+/**
+ * localStorage 取出
+ * @param key 获取存入localStorage值的key
+ * @returns 存入值
+ */
+export const getItem = (key: string) => {
+  if(!key) {
+    return null
+  };
+
+  let value = window.localStorage.getItem(key);
+
+  return value ? JSON.parse(value) : null;
+}
+
+/**
+ * localStorage 删除
+ * @param key 删除localStorage值的key
+ */
+ export const removeItem = (key: string) => {
+  window.localStorage.removeItem(key);
+}
+
+
 
 

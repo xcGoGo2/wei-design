@@ -43,6 +43,7 @@ import { ElMessage, ElNotification } from 'element-plus';
 import { reactive, defineComponent, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { system } from '@/api/service';
+import { setItem } from '@/utils/index';
 export default defineComponent({
   name: 'index',
   components: {},
@@ -61,20 +62,20 @@ export default defineComponent({
       password: '123456',
       click: async () => {
         if (loginForm.username !== '' && loginForm.password !== '') {
-          const res = await system.getMenuList();
-          // const login = await system.login();
-          const login = {
-            code: 200
-          };
-          // 登录成功
-          if (login.code === 200) {
+          const { username, password } = loginForm;
+          const res = await system.login({username, password});
+          if(res && res.code === 200) {
+            // 登录成功
+            setItem('loginContent', res.data);
             router.push({ path: '/home' });
+            ElNotification({
+              title: '登录成功！',
+              message: '欢迎登录weiManage管理系统！',
+              type: 'success',
+              offset: 50,
+              duration: 2000
+            });
           }
-          ElNotification({
-            title: '登录成功！',
-            message: '欢迎登录weiManage管理系统！',
-            type: 'success',
-          });
         } else {
           ElMessage({
             message: '账号密码不能为空！',

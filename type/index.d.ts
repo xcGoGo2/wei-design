@@ -24,5 +24,8 @@ export interface userInfoType {
 
 export interface stateType {
   count: Number;
+  loginContent: {
+    [propName: string]: any;
+  }
   menuList: menuListType[]
 }
