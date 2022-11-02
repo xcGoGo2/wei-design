@@ -13,7 +13,7 @@
         <div class="tabBar">
           <TabBar></TabBar>
         </div>
-        <el-main style="padding: 0">
+        <el-main style="padding: 0; height: calc(100% - 100px);">
           <router-view></router-view>
         </el-main>
       </el-container>

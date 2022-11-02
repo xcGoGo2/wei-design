@@ -34,7 +34,7 @@ export default defineComponent({
 .col-container {
     height: 100%;
     width: 100%;
-    border: 1px solid green;
+    // border: 1px solid green;
     flex: v-bind('colStyle.span');
 }
 </style>

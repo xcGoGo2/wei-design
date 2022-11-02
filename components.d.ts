@@ -25,6 +25,8 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     Header: typeof import('./src/components/Header/index.vue')['default']
     Hello: typeof import('./src/components/Hello.vue')['default']
+    HorceRaceLamp: typeof import('./src/components/HorceRaceLamp/index.vue')['default']
+    HorseRaceLamp: typeof import('./src/components/HorseRaceLamp/index.vue')['default']
     Row: typeof import('./src/components/Layout/Row/index.vue')['default']
     Sidebar: typeof import('./src/components/Sidebar/index.vue')['default']
     Submenu: typeof import('./src/components/Submenu/index.vue')['default']

@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<style  rel="stylesheet/less" lang="less">
+<style rel="stylesheet/less" lang="less">
 @import "./styles/index.less";
 #app {
   width: 100%;

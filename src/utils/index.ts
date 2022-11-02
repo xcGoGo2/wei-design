@@ -35,6 +35,28 @@ export const getItem = (key: string) => {
   window.localStorage.removeItem(key);
 }
 
+/**
+ * 随机获取颜色
+ * @param type 16进制颜色 或 rgb颜色
+ * @returns 颜色值
+ */
+export const getRandomColor = (type?: string | number): string => {
+  type = type ? type : '';
+  if(type === 'rgb') {
+    const r = Math.floor(Math.random()*256);
+    const g = Math.floor(Math.random()*256);
+    const b = Math.floor(Math.random()*256);
+    return `rgb(${r},${g},${b})`;
+  }else {
+    const r = Math.floor(Math.random()*256);
+    const g = Math.floor(Math.random()*256);
+    const b = Math.floor(Math.random()*256);
+    const color = `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
+    return color;
+  }
+  
+}
+
 
 
 

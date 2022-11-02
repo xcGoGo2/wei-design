@@ -56,6 +56,6 @@ export default defineComponent({
   align-items: v-bind("rowStyle.align");
   justify-content: v-bind("rowStyle.justify");
   padding: v-bind("rowStyle.gutter");
-  border: 1px solid red;
+  // border: 1px solid red;
 }
 </style>

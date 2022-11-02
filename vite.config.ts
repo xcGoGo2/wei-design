@@ -28,8 +28,8 @@ export default defineConfig({
     dedupe: ['vue'],
   },
   server: {
-    host: '127.0.0.1',
-    port: 9999,
+    // host: '127.0.0.1',
+    // port: 8888,
   },
   plugins: [
     vue(),

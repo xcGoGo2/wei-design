@@ -204,6 +204,7 @@ export default defineComponent({
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    user-select: none;
 
     .el-image {
       height: 40px;
@@ -241,6 +242,7 @@ export default defineComponent({
       display: flex;
       align-items: center;
       border-radius: 5px;
+      user-select: none;
       transition: background-color 0.2s;
 
       &:hover {
