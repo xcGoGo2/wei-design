@@ -4,7 +4,7 @@
       <HorseRaceLamp></HorseRaceLamp>
     </div>
     <div class="quick-links">
-      快捷链接
+      <QuickLinks></QuickLinks>
     </div>
     <div class="dependence-info">
       依赖信息
@@ -16,7 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import HorseRaceLamp from '@/components/HorseRaceLamp/index.vue';
+import HorseRaceLamp from './components/HorseRaceLamp/index.vue';
+import QuickLinks from './components/QuickLinks/index.vue';
 
 </script>
 

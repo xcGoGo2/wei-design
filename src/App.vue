@@ -1,12 +1,3 @@
-<!--
- * @Author: chenwei
- * @Date: 2022-02-10 11:56:12
- * @LastEditors: chenwei
- * @LastEditTime: 2022-02-11 16:38:28
- * @FilePath: \weiManage\src\App.vue
- * @Description: 
- * 
--->
 <script setup lang="ts">
 </script>
 
@@ -22,8 +13,10 @@
   width: 100%;
   height: 100%;
   border: 1px solid ridge;
+  color: #575a64;
   background-color: #f6f8f9;
 }
+
 
 // white-theme: 
 // nobg-color: #575a64;
