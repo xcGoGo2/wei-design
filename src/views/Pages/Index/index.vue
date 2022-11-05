@@ -1,6 +1,6 @@
 <template>
     <div class='index-container'>
-        <el-card class='horse-race-lamp' :body-style='{ height: "100px" }'>
+        <el-card class='horse-race-lamp shadow' :body-style='{ height: "100px" }'>
             <template #header>
                 <div style='display: flex; align-items: center;'>
                     <svg-icon name='aichong' size='1.25em' class='aichong2' :color='getRandomColor()'></svg-icon>
@@ -16,15 +16,20 @@
             </template>
             <QuickLinks></QuickLinks>
         </el-card>
-        <el-card class='dependence-info'>
+        <el-card class='dependence-info-box'>
             <template #header>
                 <span>依赖信息</span>
+            </template>
+            <DependenceInfo></DependenceInfo>
+        </el-card>
+        <el-card class='history-log'>
+            <template #header>
+                <span>历史记录</span>
             </template>
             <div>
                 11111
             </div>
         </el-card>
-        <div class='history-log'>历史记录</div>
     </div>
 </template>
 
@@ -32,6 +37,7 @@
 import ItemBox from '@/components/ItemBox/index.vue'
 import HorseRaceLamp from './components/HorseRaceLamp/index.vue';
 import QuickLinks from './components/QuickLinks/index.vue';
+import DependenceInfo from './components/DependenceInfo/index.vue'
 
 import { getRandomColor } from '@/utils'
 </script>
@@ -55,20 +61,14 @@ import { getRandomColor } from '@/utils'
         margin-top: 20px;
     }
 
-    .dependence-info {
-        height: 200px;
+    .dependence-info-box {
         background-color: #FFFFFF;
         border-radius: 5px;
         margin-top: 20px;
     }
 
     .history-log {
-        height: 200px;
         background-color: #FFFFFF;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        padding: 20px;
         margin-top: 20px;
     }
 }
