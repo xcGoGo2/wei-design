@@ -5,7 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import { viteMockServe } from 'vite-plugin-mock';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons' // svg
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'; // svg
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
@@ -31,6 +31,15 @@ export default defineConfig({
     // host: '127.0.0.1',
     // port: 8888,
   },
+  css: {
+    preprocessorOptions: {
+      // 全局less变量设置
+      less: {
+          javascriptEnabled: true,
+          additionalData:  `@import "${resolve(__dirname, 'src/styles/global.less')}";`
+      }
+    }
+  },
   plugins: [
     vue(),
     createSvgIconsPlugin({
@@ -52,7 +61,7 @@ export default defineConfig({
       watchFiles: true,
     }),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      imports: ['vue']
     }),
     Components({
       resolvers: [ElementPlusResolver()],

@@ -2,6 +2,7 @@
     <div class="tabBar-container">
         <el-tag
             class=""
+            :disable-transitions="true"
             :effect="activeIndex === i ? 'dark': 'light'"
             v-for="(item, i) in tagList"
             :key="i + item.title"
