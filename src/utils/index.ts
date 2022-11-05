@@ -57,6 +57,17 @@ export const getRandomColor = (type?: string | number): string => {
 }
 
 /**
+ * 返回随机且不重复的 key 值
+ */
+export const getRandomKey = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+/**
  * 防抖函数：n 秒后在执行该事件，若在 n 秒内被重复触发，则重新计时
  * @param func 函数
  * @param wait 等待时间
@@ -83,20 +94,6 @@ export function debounce(func: Function, wait: number, immediate?: boolean) {
                 func.apply(context, args)
             }, wait)
         }
-    }
-}
-
-export function debounce2(func: Function, wait: number) {
-    let timer: any;
-    return function() {
-        let context = this; // 注意 this 指向
-        let args = arguments; // arguments中存着e
-
-        if (timer) clearTimeout(timer);
-
-        timer = setTimeout(() => {
-            func.apply(this, args)
-        }, wait)
     }
 }
 

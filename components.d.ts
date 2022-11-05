@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     Col: typeof import('./src/components/Layout/Col/index.vue')['default']
+    Echarts: typeof import('./src/components/Echarts/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -29,6 +30,7 @@ declare module 'vue' {
     Header: typeof import('./src/components/Header/index.vue')['default']
     Hello: typeof import('./src/components/Hello.vue')['default']
     ItemBox: typeof import('./src/components/ItemBox/index.vue')['default']
+    Loading: typeof import('element-plus/es')['ElLoadingDirective']
     Row: typeof import('./src/components/Layout/Row/index.vue')['default']
     Sidebar: typeof import('./src/components/Sidebar/index.vue')['default']
     Submenu: typeof import('./src/components/Submenu/index.vue')['default']

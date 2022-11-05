@@ -10,7 +10,7 @@ import svgIcon from '@/assets/svg/index.vue'
 import 'virtual:svg-icons-register'
 import WeiRow from '@/components/Layout/Row/index.vue'
 import WeiCol from '@/components/Layout/Col/index.vue'
-
+import Echarts from '@/components/Echarts/index.vue'  // echarts组件
 const app = createApp(App)
 
 // 全局组件
@@ -20,6 +20,7 @@ for (const name in ElIcons) {
 app.component('svg-icon', svgIcon)
 app.component('wei-row', WeiRow)
 app.component('wei-col', WeiCol)
+app.component('Echarts', Echarts)
 
 app.use(router).use(store)
 // app.config.globalProperties.$api = Api;  // 配置全局数据请求
