@@ -93,7 +93,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex'
 
 // type
-import { menuListType, reponseType } from '../../../type/index';
+import { menuListType, reponseType } from '@/type';
 
 import { system } from '../../api/service';
 // import { useElementMenu } from '../../hooks/useElementMenu';

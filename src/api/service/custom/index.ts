@@ -1,4 +1,4 @@
-import { reponseType } from 'type';
+import { reponseType } from '@/type';
 import api from '@/api';
 export default {
     goodDailySentences: async () => {

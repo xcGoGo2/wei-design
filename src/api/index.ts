@@ -1,5 +1,5 @@
 import instance from "./config"
-import { reponseType } from "../../type"
+import { reponseType } from "@/type"
 // 封装数据请求方法
 export default {
     /**

@@ -1,6 +1,6 @@
 import { ElMenu } from 'element-plus';
 import { reactive, ref } from 'vue';
-import { menuListType } from '../../../type';
+import { menuListType } from '@/type';
 
 const arr: any[] = [];
 export const useElementMenu = (element: Element, menuList: menuListType[]) => {
