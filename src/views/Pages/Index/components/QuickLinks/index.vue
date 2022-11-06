@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { getRandomColor, debounce } from '@/utils';
-import { menuListType } from '../../../../../../type';
+import { menuListType } from '@/type';
 
 interface linkListType {
     title: string;

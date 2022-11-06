@@ -1,4 +1,4 @@
-import { menuListType, reponseType } from '../../../type';
+import { menuListType, reponseType } from '@/type';
 import api from '../index';
 
 const _api = 'api/weiManage'

@@ -55,8 +55,8 @@ import { defineComponent, PropType, reactive, watch, computed } from 'vue';
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import { menuListType, userInfoType } from '../../../type/index';
-import { getItem, removeItem } from '@/utils/index';
+import { menuListType, userInfoType } from '@/type';
+import { getItem, removeItem } from '@/utils';
 
 type goUrlType = {
   name: string;

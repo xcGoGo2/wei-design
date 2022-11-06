@@ -27,6 +27,8 @@ declare module 'vue' {
     ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTimeline: typeof import('element-plus/es')['ElTimeline']
+    ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     Header: typeof import('./src/components/Header/index.vue')['default']
     Hello: typeof import('./src/components/Hello.vue')['default']
     ItemBox: typeof import('./src/components/ItemBox/index.vue')['default']
