@@ -8,7 +8,6 @@ import * as echarts from 'echarts';
 import { throttle, debounce } from '@/utils'
 
 import { getRandomKey } from '@/utils'
-import { log } from 'echarts/types/src/util/log'
 
 const props = defineProps({
     options: {
