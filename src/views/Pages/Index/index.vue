@@ -20,7 +20,6 @@
             </template>
             <HorseRaceLamp></HorseRaceLamp>
         </el-card>
-
         <div class='system-preview'>
             <el-card class=''>
                 <template #header>
@@ -63,7 +62,14 @@
             <template #header>
                 <span>历史记录</span>
             </template>
-            <div>11111</div>
+            <el-timeline>
+                <el-timeline-item v-for='item in systemLog' :key='item.time' center :timestamp='item.time' placement='top' :color='getRandomColor()'>
+                    <el-card>
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ item.content }}</p>
+                    </el-card>
+                </el-timeline-item>
+            </el-timeline>
         </el-card>
     </div>
 </template>
@@ -76,6 +82,33 @@ import DependenceInfo from './components/DependenceInfo/index.vue'
 import { getRandomColor } from '@/utils'
 
 import { systemInfomationData, growData, growRoateData } from '@/views/Pages/Index/chartConfig'
+
+const systemLog = reactive<{
+    time: string;
+    title: string;
+    content: string;
+}[]>([
+    {
+        time: '2022年2月10日 GMT+8 14:55:45',
+        title: '第一次开发提交',
+        content: '最初的想法是想做一个私有的组件库，就用来存一些自己的小组件，小插件！'
+    },
+    {
+        time: '2022年3月 - 2022年9月',
+        title: '项目暂停',
+        content: '.....'
+    },
+    {
+        time: '2022年9月19日 GMT+8 00:28:06',
+        title: '继续开发',
+        content: '一段时间耽搁了，空闲时间又将这个项目重新捡起来，开始不断完善中。'
+    },
+    {
+        time: '2022年11月5日 GMT+8 22:39:01',
+        title: '第一个Start',
+        content: '感谢来自Github名为daweedkob的小伙伴的第一个start！'
+    }
+])
 
 // 系统统计信息
 </script>
