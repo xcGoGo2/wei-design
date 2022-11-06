@@ -1,12 +1,14 @@
 <template>
-    <div class='my-echarts' :key='getRandomKey' ref='myEcharts'></div>
+    <div class="my-echarts" :key="getRandomKey" ref="myEchartRef"></div>
 </template>
 
-<script setup lang='ts'>
+<script setup lang="ts">
 import * as echarts from 'echarts';
-import elementResizeDetectorMaker from 'element-resize-detector';
+//import elementResizeDetectorMaker from 'element-resize-detector';
+import { throttle, debounce } from '@/utils'
 
 import { getRandomKey } from '@/utils'
+import { log } from 'echarts/types/src/util/log'
 
 const props = defineProps({
     options: {
@@ -37,39 +39,46 @@ const myOptions = computed(() => {
     return props.options;
 });
 
-const myEcharts = ref<HTMLElement>();
+const myEchartRef = ref<HTMLElement>();
 
 const initCharts = () => {
-    if (myEcharts.value) {
+    if (myEchartRef.value && !myChart) {
         // 基于准备好的dom，初始化echarts实例
-        myChart = echarts.init(myEcharts.value);
+        myChart = echarts.init(myEchartRef.value);
         myChart.setOption(myOptions.value);
-
-        // 窗口变动自适应echart
-        window.addEventListener('resize', () => {
-            myChart.resize();
-        });
-
-        //监听元素尺寸变化 自适应echart
-        //let erd = elementResizeDetectorMaker();
-        //erd.listenTo(myEcharts.value, function() {
-        //    nextTick(function() {
-        //        //使echarts尺寸重置
-        //        myChart.resize();
-        //    })
-        //})
     }
 
+}
+
+const resizeCharts = () => {
+    // 窗口变动自适应echart
+    window.addEventListener('resize', () => {
+        myChart.resize();
+    });
+
+    //监听元素尺寸变化 自适应echart
+    let ifRender = ref(false);
+    const resizeObserver = new ResizeObserver(
+        function(element) {
+            nextTick(() => {
+                if (ifRender.value) {
+                    myChart.resize();
+                }
+                ifRender.value = true;
+            })
+        }
+    )
+    resizeObserver.observe(myEchartRef.value as HTMLElement);
 }
 onMounted(() => {
     setTimeout(() => {
         initCharts();
+        resizeCharts();
     });
 });
-
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 .my-echarts {
     width: 100%;
     height: 100%;
