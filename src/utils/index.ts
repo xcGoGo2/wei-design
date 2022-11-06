@@ -102,7 +102,7 @@ export function debounce(func: Function, wait: number, immediate?: boolean) {
  * @param fn 函数
  * @param delay 等待时间
  */
-export function throttled(fn: Function, delay: number) {
+export function throttle(fn: Function, delay: number) {
     let timer: any = null
     let starttime = Date.now()
     return function () {
