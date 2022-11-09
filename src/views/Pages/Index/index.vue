@@ -132,11 +132,11 @@ const systemLog = reactive<{
         margin-top: 20px;
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr 1fr 1.5fr;
         grid-column-gap: 20px;
 
         .chart-box {
-            height: 250px;
+            height: 150px;
             width: 100%;
         }
     }

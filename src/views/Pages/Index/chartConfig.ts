@@ -19,7 +19,7 @@ export const systemInfomationData = {
         {
             name: '系统信息统计',
             type: 'pie',
-            radius: [0, 90],
+            radius: [0, 70],
             center: ['35%', '50%'],
             roseType: '',
             itemStyle: {
