@@ -29,3 +29,10 @@ export interface stateType {
   }
   menuList: menuListType[]
 }
+
+export interface assemblyType {
+  img: string;
+  title: string;
+  content: string;
+  time: string;
+}
