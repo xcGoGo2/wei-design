@@ -21,28 +21,24 @@
             <HorseRaceLamp></HorseRaceLamp>
         </el-card>
         <div class='system-preview'>
-            <el-card class=''>
-                <template #header>
-                    <span>系统统计信息</span>
-                </template>
-                <div class='chart-box'>
-                    <Echarts :options='systemInfomationData'></Echarts>
+            <el-card class='' header="系统统计信息">
+                <div class='chart-box' ref="chartRef">
+                    <Echarts v-if="chartWidth" :options='systemInfomationData()'></Echarts>
                 </div>
             </el-card>
-            <el-card class=''>
-                <template #header>
-                    <span>使用者增长量</span>
-                </template>
+            <el-card header="生态新闻">
                 <div class='chart-box'>
-                    <Echarts :options='growData'></Echarts>
+                    <Echarts v-if="chartWidth" :options='systemUserData()'></Echarts>
                 </div>
             </el-card>
-            <el-card class=''>
-                <template #header>
-                    <span>使用者增速</span>
-                </template>
+            <el-card class='' header="使用者增长量">
                 <div class='chart-box'>
-                    <Echarts :options='growRoateData'></Echarts>
+                    <Echarts v-if="chartWidth" :options='growData()'></Echarts>
+                </div>
+            </el-card>
+            <el-card class='' header="使用者增速">
+                <div class='chart-box'>
+                    <Echarts v-if="chartWidth" :options='growRoateData()'></Echarts>
                 </div>
             </el-card>
         </div>
@@ -75,13 +71,24 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, nextTick } from 'vue';
 import HorseRaceLamp from './components/HorseRaceLamp/index.vue';
 import QuickLinks from './components/QuickLinks/index.vue';
 import DependenceInfo from './components/DependenceInfo/index.vue'
 
 import { getRandomColor } from '@/utils'
 
-import { systemInfomationData, growData, growRoateData } from '@/views/Pages/Index/chartConfig'
+import { systemInfomationData, systemUserData, growData, growRoateData } from '@/views/Pages/Index/chartConfig';
+
+let chartRef = ref<HTMLElement>();
+const chartWidth = ref<string | number>(0);
+onMounted(() => {
+    nextTick(() => {
+        setTimeout(() => {
+            chartWidth.value = (chartRef.value?.clientWidth || 0) *0.8 + 'px';
+        });
+    })
+});
 
 const systemLog = reactive<{
     time: string;
@@ -114,6 +121,8 @@ const systemLog = reactive<{
 </script>
 
 <style lang="less" scoped>
+@chartWidth: v-bind(chartWidth);
+
 .index-container {
     width: 100%;
     height: 100%;
@@ -132,11 +141,11 @@ const systemLog = reactive<{
         margin-top: 20px;
         width: 100%;
         display: grid;
-        grid-template-columns: 1fr 1fr 1.5fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-column-gap: 20px;
 
         .chart-box {
-            height: 150px;
+            height: @chartWidth;
             width: 100%;
         }
     }

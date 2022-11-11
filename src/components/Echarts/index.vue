@@ -6,6 +6,7 @@
 import * as echarts from 'echarts';
 //import elementResizeDetectorMaker from 'element-resize-detector';
 import { throttle, debounce } from '@/utils'
+import geoJson from '@/assets/assembly/china.json';
 
 import { getRandomKey } from '@/utils'
 
@@ -44,6 +45,7 @@ const initCharts = () => {
     if (myEchartRef.value && !myChart) {
         // 基于准备好的dom，初始化echarts实例
         myChart = echarts.init(myEchartRef.value);
+        echarts.registerMap('china', geoJson as any );
         myChart.setOption(myOptions.value);
     }
 
