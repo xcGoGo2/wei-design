@@ -120,6 +120,39 @@ const MockAPI = [
             }
         },
     },
+    // 产品生态
+    {
+        url: 'api/weiManage/getProductEcology',
+        method: 'post',
+        response: () => {
+            return {
+                code: 200,
+                message: 'ok',
+                data: [
+                    {
+                        title: 'Vue3 One Piece',
+                        url: 'https://vue3js.cn/'
+                    },
+                    {
+                        title: 'Vite: 下一代的前端工具链',
+                        url: 'https://cn.vitejs.dev/'
+                    },
+                    {
+                        title: 'qiankun',
+                        url: 'https://qiankun.umijs.org/zh'
+                    },
+                    {
+                        title: 'svelte',
+                        url: 'https://www.sveltejs.cn/docs'
+                    },
+                    {
+                        title: 'Egg.js',
+                        url: 'https://www.eggjs.org/zh-CN/intro/'
+                    }
+                ]
+            }
+        }
+    },
     // 组件信息
     {
         url: 'api/weiManage/getAssemblyLists',

@@ -22,10 +22,10 @@
 
 <script setup lang="ts">
 import { assemblyType } from '@/type';
-import { custom_api_assembly } from '@/api/service/index';
+import { ASSEMBLY_API } from '@/api/service/index';
 
 let assemblyList = ref<assemblyType[]>([])
-custom_api_assembly.getAssemblyLists().then(res => {
+ASSEMBLY_API.getAssemblyLists().then(res => {
     if(res) {
         assemblyList.value = res.data;
     }

@@ -1,9 +1,9 @@
 import system from './system';
-import custom_api_index from './custom';
-import custom_api_assembly from './custom/assembly'
+import INDEX_API from './custom';
+import ASSEMBLY_API from './custom/assembly'
 
 export {
   system,
-  custom_api_index,
-  custom_api_assembly
+  INDEX_API,
+  ASSEMBLY_API
 }

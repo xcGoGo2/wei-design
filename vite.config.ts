@@ -30,6 +30,20 @@ export default defineConfig({
   server: {
     // host: '127.0.0.1',
     port: 8889,
+    https: true,
+    // proxy: {
+    //   '/recommend_api': {
+    //     target: 'https://api.juejin.cn/recommend_api',
+    //     changeOrigin:true,  // 允许跨域 
+    //     secure:false, // 允许运行在https上 
+    //     headers: {
+    //       'access-control-allow-credentials': 'true',
+    //       'access-control-allow-origin': 'chrome-extension://lecdifefmmfjnjjinhaennhdlmcaeeeb',
+    //       'content-type': 'application/json'
+    //     },
+    //     rewrite: path => path.replace(/^\/recommend_api/, '')
+    //   },
+    // }
   },
   css: {
     preprocessorOptions: {

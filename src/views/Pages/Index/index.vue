@@ -1,63 +1,66 @@
 <template>
     <div class="index-container">
-        <el-card class="horse-race-lamp " :body-style='{ height: "100px" }'>
-            <template #header>
-                <div style="display: flex; align-items: center;">
-                    <svg-icon
-                        name="aichong"
-                        size="1.25em"
-                        class="aichong2"
-                        :color="getRandomColor()"
-                    ></svg-icon>
-                    <span style="margin: 0 5px">每日一句</span>
-                    <svg-icon
-                        name="aichong2"
-                        size="1.25em"
-                        class="aichong2"
-                        :color="getRandomColor()"
-                    ></svg-icon>
+
+        <div class="one-container">
+            <div class="one-block">
+                <el-card class="horse-race-lamp " :body-style='{ height: "100px" }'>
+                    <template #header>
+                        <div style="display: flex; align-items: center;">
+                            <svg-icon
+                                name="aichong"
+                                size="1.25em"
+                                class="aichong2"
+                                :color="getRandomColor()"
+                            ></svg-icon>
+                            <span style="margin: 0 5px">每日一句</span>
+                            <svg-icon
+                                name="aichong2"
+                                size="1.25em"
+                                class="aichong2"
+                                :color="getRandomColor()"
+                            ></svg-icon>
+                        </div>
+                    </template>
+                    <HorseRaceLamp></HorseRaceLamp>
+                </el-card>
+                <div class="one-block-preview">
+                    <el-card class='' header="系统统计信息">
+                        <div class='chart-box' ref="chartRef">
+                            <Echarts v-if="chartWidth" :options='systemInfomationData()'></Echarts>
+                        </div>
+                    </el-card>
+                    <el-card class='' header="使用者增长量">
+                        <div class='chart-box'>
+                            <Echarts v-if="chartWidth" :options='growData()'></Echarts>
+                        </div>
+                    </el-card>
                 </div>
-            </template>
-            <HorseRaceLamp></HorseRaceLamp>
-        </el-card>
-        <div class='system-preview'>
-            <el-card class='' header="系统统计信息">
-                <div class='chart-box' ref="chartRef">
-                    <Echarts v-if="chartWidth" :options='systemInfomationData()'></Echarts>
-                </div>
+            </div>
+            <div class="two-block">
+                <el-card header="产品生态" :body-style='{ flex: 1 }'>
+                    <div class='chart-box'>
+                        <Echarts v-if="chartWidth" :options='systemUserData()'></Echarts>
+                    </div>
+                </el-card>
+            </div>
+        </div>
+        <!-- <div class='system-preview'>
+            
+        </div> -->
+        <div class="two-container">
+            <el-card class="quick-links" header="快捷链接">
+                <QuickLinks></QuickLinks>
             </el-card>
-            <el-card header="生态新闻">
-                <div class='chart-box'>
-                    <Echarts v-if="chartWidth" :options='systemUserData()'></Echarts>
-                </div>
-            </el-card>
-            <el-card class='' header="使用者增长量">
-                <div class='chart-box'>
-                    <Echarts v-if="chartWidth" :options='growData()'></Echarts>
-                </div>
-            </el-card>
-            <el-card class='' header="使用者增速">
+            <el-card class='' header="使用者增速" :body-style='{ flex: 1 }'>
                 <div class='chart-box'>
                     <Echarts v-if="chartWidth" :options='growRoateData()'></Echarts>
                 </div>
             </el-card>
         </div>
-        <el-card class="quick-links">
-            <template #header>
-                <span>快捷链接</span>
-            </template>
-            <QuickLinks></QuickLinks>
-        </el-card>
-        <el-card class="dependence-info-box">
-            <template #header>
-                <span>依赖信息</span>
-            </template>
+        <el-card class="dependence-info-box" header="依赖信息">
             <DependenceInfo></DependenceInfo>
         </el-card>
-        <el-card class="history-log">
-            <template #header>
-                <span>历史记录</span>
-            </template>
+        <el-card class="history-log" header="历史记录">
             <el-timeline>
                 <el-timeline-item v-for='item in systemLog' :key='item.time' center :timestamp='item.time' placement='top' :color='getRandomColor()'>
                     <el-card>
@@ -129,29 +132,86 @@ const systemLog = reactive<{
     overflow-y: scroll;
     padding: 20px;
 
-    .horse-race-lamp {
-        .aichong2 {
-            position: relative;
-            z-index: 100;
-            animation: beat 1s linear infinite;
-        }
-    }
-
-    .system-preview {
-        margin-top: 20px;
-        width: 100%;
+    .one-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1.5fr 1fr;
         grid-column-gap: 20px;
 
-        .chart-box {
-            height: @chartWidth;
+        .one-block {
+            display: flex;
+            flex-direction: column;
+            .horse-race-lamp {
+                .aichong2 {
+                    position: relative;
+                    z-index: 100;
+                    animation: beat 1s linear infinite;
+                }
+            }
+
+            .one-block-preview {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-column-gap: 20px;
+                margin-top: 20px;
+
+                .chart-box {
+                    height: @chartWidth;
+                    width: 100%;
+                }
+            }
+        }
+
+        .two-block {
             width: 100%;
+
+            .el-card {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+
+                .chart-box {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+        }
+
+
+    }
+
+    .two-container {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 20px;
+
+        .el-card {
+            display: flex;
+            flex-direction: column;
+
+            .chart-box {
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 
+    // .system-preview {
+    //     margin-top: 20px;
+    //     width: 100%;
+    //     display: grid;
+    //     grid-template-columns: 1fr 1fr 1fr 1fr;
+    //     grid-column-gap: 20px;
+
+    //     .chart-box {
+    //         height: @chartWidth;
+    //         width: 100%;
+    //     }
+    // }
+
     .quick-links {
-        margin-top: 20px;
+        
     }
 
     .dependence-info-box {
