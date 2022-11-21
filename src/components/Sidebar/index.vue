@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar-container" :style="{ width: !isCollapse ? '200px' : '70px' }">
+    <div class="sidebar-container" :class="isCollapse? 'arrow': 'expand'" :style="{ width: !isCollapse ? '200px' : '70px' }">
         <div class="logo" title="weiManage" @click="router.push('/')">
             <svg-icon name="lightning" size="4em" color="#0ca296"></svg-icon>
             <span class="title" v-if="!isCollapse">Vue-Wei-Manage</span>
@@ -196,6 +196,14 @@ html:root {
     white-space: nowrap;
     // color: #ffffff;
 
+    &.arrow .sidebar-list .item-container {
+        padding-left: 0;
+    }
+
+    &.expand .sidebar-list .item-container {
+        padding-left: 10px;
+    }
+
     .logo {
         width: 100%;
         height: 100px;
@@ -242,7 +250,6 @@ html:root {
             width: 100%;
             height: 100%;
             display: flex;
-            padding-left: 10px;
             align-items: center;
             border-radius: 5px;
             user-select: none;
