@@ -30,7 +30,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .col-container {
     height: 100%;
     width: 100%;

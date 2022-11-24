@@ -26,7 +26,7 @@ const props = defineProps({
 
 </script>
 
-<style scoped lang='less'>
+<style scoped lang='scss'>
 .item-box-container {
     width: 100%;
     height: 100%;
@@ -38,7 +38,7 @@ const props = defineProps({
         display: flex;
         align-items: center;
         padding: 0 20px;
-        border-bottom: 1px solid @color;
+        border-bottom: 1px solid #575a64;
     }
 
     .item-body {

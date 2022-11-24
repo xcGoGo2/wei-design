@@ -120,7 +120,7 @@ const dragendItem = () => {
 }
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .quick-links-container-box {
     width: 100%;
     height: 100%;
@@ -135,7 +135,7 @@ const dragendItem = () => {
         .links-item {
             width: 80px;
             height: 80px;
-            border: 1px solid @color;
+            border: 1px solid #575a64;
             border-radius: 8px;
             background-color: #FFFFFF;
             display: flex;
@@ -150,7 +150,7 @@ const dragendItem = () => {
 
             .title {
                 display: inline-block;
-                color: @highLightColor;
+                color: #0ca296;
                 margin: 5px 0;
                 white-space: nowrap;
                 font-weight: 700;

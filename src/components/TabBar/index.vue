@@ -89,7 +89,7 @@ function getTagColor () {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .tabBar-container {
   height: 100%;
   width: 100%;
@@ -100,7 +100,7 @@ function getTagColor () {
 </style>
 
 <!-- elementui 样式 -->
-<style lang="less">
+<style lang="scss">
 .tabBar-container {
   .el-tag {
     margin: 0 5px;

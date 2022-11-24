@@ -53,9 +53,9 @@ module.exports = {
 // "typescript" (via @typescript-eslint/typescript-estree) First available in v1.4.0
 // "espree" (via espree) First available in v2.2.0
 // "meriyah" (via meriyah) First available in v2.2.0
-// "css" (via postcss-scss and postcss-less, autodetects which to use) First available in v1.7.1
+// "css" (via postcss-scss and postcss-scss, autodetects which to use) First available in v1.7.1
 // "scss" (same parsers as "css", prefers postcss-scss) First available in v1.7.1
-// "less" (same parsers as "css", prefers postcss-less) First available in v1.7.1
+// "scss" (same parsers as "css", prefers postcss-scss) First available in v1.7.1
 // "json" (via @babel/parser parseExpression) First available in v1.5.0
 // "json5" (same parser as "json", but outputs as json5) First available in v1.13.0
 // "json-stringify" (same parser as "json", but outputs like JSON.stringify) First available in v1.13.0

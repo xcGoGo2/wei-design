@@ -77,7 +77,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .submenu-container {
     width: 100%;
     height: 100%;

@@ -33,7 +33,7 @@ const HEART_COLOR: any = {
 
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 
 .heart-container {
     display: inline-block;

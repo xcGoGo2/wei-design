@@ -45,7 +45,7 @@
             </div>
         </div>
         <!-- <div class='system-preview'>
-            
+
         </div> -->
         <div class="two-container">
             <el-card class="quick-links" header="快捷链接">
@@ -123,8 +123,8 @@ const systemLog = reactive<{
 // 系统统计信息
 </script>
 
-<style lang="less" scoped>
-@chartWidth: v-bind(chartWidth);
+<style lang="scss" scoped>
+$chartWidth: v-bind(chartWidth);
 
 .index-container {
     width: 100%;
@@ -155,7 +155,7 @@ const systemLog = reactive<{
                 margin-top: 20px;
 
                 .chart-box {
-                    height: @chartWidth;
+                    height: $chartWidth;
                     width: 100%;
                 }
             }
@@ -205,14 +205,10 @@ const systemLog = reactive<{
     //     grid-column-gap: 20px;
 
     //     .chart-box {
-    //         height: @chartWidth;
+    //         height: $chartWidth;
     //         width: 100%;
     //     }
     // }
-
-    .quick-links {
-        
-    }
 
     .dependence-info-box {
         background-color: #FFFFFF;

@@ -168,7 +168,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .header-container {
   width: 100%;
   height: 100%;
@@ -229,7 +229,7 @@ export default defineComponent({
 }
 </style>
 
-<style lang="less">
+<style lang="scss">
 .el-breadcrumb__inner a:hover,
 .el-breadcrumb__inner.is-link:hover {
   color: #0ca296 !important;

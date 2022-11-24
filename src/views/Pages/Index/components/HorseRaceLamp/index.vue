@@ -41,7 +41,7 @@ onMounted(() => {
 
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 @conwidth: v-bind(conWidth);
 @lineW: v-bind(lineW);
 

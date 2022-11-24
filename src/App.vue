@@ -7,8 +7,8 @@
   </div>
 </template>
 
-<style rel="stylesheet/less" lang="less">
-@import "./styles/index.less";
+<style rel="stylesheet/scss" lang="scss">
+@import "./styles/index.scss";
 #app {
   width: 100%;
   height: 100%;
@@ -18,7 +18,7 @@
 }
 
 
-// white-theme: 
+// white-theme:
 // nobg-color: #575a64;
 // bgc: #0ca296;
 // color: #ffffff;

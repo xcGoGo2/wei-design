@@ -31,7 +31,7 @@ const devDependenciesList = Object.entries(devDependencies).map(([key, value]) =
 console.log(dependenciesList)
 </script>
 
-<style scoped lang='less'>
+<style scoped lang='scss'>
 .info-container {
     width: 100%;
     height: 100%;

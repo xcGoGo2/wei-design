@@ -37,7 +37,7 @@ const showAssemblyDetail = (item: assemblyType, e: any) => {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .assembly-container {
     width: 100%;
     height: 100%;
@@ -98,7 +98,7 @@ const showAssemblyDetail = (item: assemblyType, e: any) => {
 }
 </style>
 
-<style lang='less'>
+<style lang='scss'>
 .assembly-container {
     .custom-card {
         .el-card__body {
