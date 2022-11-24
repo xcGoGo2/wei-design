@@ -174,7 +174,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style lang="scss">
 html:root {
     --el-menu-item-height: 50px;
     --el-menu-sub-item-height: 50px;
@@ -289,7 +289,7 @@ html:root {
 }
 </style>
 
-<style lang="less">
+<style lang="scss">
 // elementui 样式自定义
 .el-menu-vertical {
     height: 100%;

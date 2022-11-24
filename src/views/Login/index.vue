@@ -5,7 +5,7 @@
  * @LastEditTime: 2022-02-11 18:27:11
  * @FilePath: \weiManage\src\views\Login\index.vue
  * @Description: 登录页
- * 
+ *
 -->
 
 <template>
@@ -103,7 +103,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .login-container {
   height: 100vh;
   width: 100vw;

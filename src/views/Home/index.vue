@@ -53,7 +53,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style lang="scss">
 .component-box {
   display: flex;
   height: 100%;
