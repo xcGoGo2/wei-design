@@ -4,10 +4,13 @@
             <slot name="header">
                 <div class="item-header">
                     <div class="item-left">
-                        <span class="red-btn btn" @click="cancel">
+                        <span v-if="includesBtn('cancel')" class="red-btn btn" @click="cancel">
                             <svg-icon name="cancel" color="#1d2129" size="8px"></svg-icon>
                         </span>
-                        <span class="green-btn btn" @click="enLarge">
+                        <span v-if="includesBtn('reduce')" class="yellow-btn btn" @click="reduce">
+                            <svg-icon name="reduce" color="#1d2129" size="8px"></svg-icon>
+                        </span>
+                        <span v-if="includesBtn('enLarge')" class="green-btn btn" @click="enLarge">
                             <svg-icon name="enLarge" color="#1d2129" size="8px"></svg-icon>
                         </span>
                     </div>
@@ -21,7 +24,24 @@
 </template>
 
 <script setup lang="ts">
-const emits = defineEmits(['cancel', 'enLarge']);
+import { PropType } from 'vue';
+
+type btnType = 'cancel' | 'enLarge' | 'reduce';
+
+const emits = defineEmits(['cancel', 'enLarge', 'reduce']);
+
+const props = defineProps({
+    btns: {
+        type: Array as PropType<btnType[]>,
+        default: () => {
+            return ['cancel', 'enLarge']
+        }
+    }
+})
+
+const includesBtn = (btn: btnType) => {
+    return props.btns.includes(btn);
+};
 
 const cancel = () => {
     emits('cancel', true)
@@ -31,10 +51,12 @@ const enLarge = () => {
     emits('enLarge', true)
 };
 
-
+const reduce = () => {
+    emits('reduce', true)
+};
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .item-card {
     width: 100%;
     height: 100%;
@@ -48,6 +70,7 @@ const enLarge = () => {
         .item-left {
             display: inline-flex;
             align-items: center;
+            cursor: pointer;
 
             .btn {
                 display: flex;
@@ -74,6 +97,10 @@ const enLarge = () => {
                 background-color: #fc625d;
             }
 
+            .yellow-btn {
+                background-color: #fdbd30;
+            }
+
             .green-btn {
                 background-color: #34c749;
             }
@@ -82,7 +109,7 @@ const enLarge = () => {
 }
 </style>
 
-<style lang="less">
+<style lang="scss">
 .item-card {
     .el-card__header {
         padding: 10px;
@@ -94,3 +121,4 @@ const enLarge = () => {
     }
 }
 </style>
+
