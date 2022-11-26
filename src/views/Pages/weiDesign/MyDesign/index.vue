@@ -1,6 +1,12 @@
 <template>
     <div class="my-design-manager-container">
-        <item-card shadow="hover" v-for="(item, i) in designList" :key="item.img" @en-large="enLarge(item)" :body-style="{}">
+        <item-card
+            shadow="hover"
+            v-for="(item, i) in designList"
+            :key="item.img"
+            @en-large="enLarge(item)"
+            :body-style="{}"
+        >
             <div class="design-content">
                 <div class="design-img">
                     <svg-icon name="平台" style="width: 80%; height: 80%"></svg-icon>
@@ -41,15 +47,11 @@
     </div>
 
     <!-- 弹框预览 -->
-    <el-dialog v-model="overviewVisible" width="30%">
-        <span>{{ showViewData.id }}</span>
-        <template #footer>
-            <span class="dialog-footer">
-                <el-button @click="overviewVisible = false">Cancel</el-button>
-                <el-button type="primary" @click="overviewVisible = false"> Confirm </el-button>
-            </span>
-        </template>
-    </el-dialog>
+    <transition name="router_animate">
+        <item-card v-if="overviewVisible" class="custom-dialog">
+            <span>{{ showViewData.id }}</span>
+        </item-card>
+    </transition>
 </template>
 
 <script setup lang="ts">
@@ -233,6 +235,17 @@ const enLarge = (item: designListType) => {
 
     }
 }
+
+.custom-dialog {
+        position: fixed;
+        top: 100px;
+        left: 100px;
+        right: 100px;
+        bottom: 200px;
+        height: 80%!important;
+        width: 80%!important;
+
+    }
 </style>
 
 <style lang="scss">
@@ -243,6 +256,13 @@ const enLarge = (item: designListType) => {
             margin-right: 10px;
         }
     }
+}
+
+.router_animate-enter-active {
+  animation: rollIn 1s;
+}
+.router_animate-leave-active {
+  animation: rollOut 0.6s;
 }
 </style>
 

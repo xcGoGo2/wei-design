@@ -12,6 +12,9 @@ import 'virtual:svg-icons-register'
 import WeiRow from '@/components/Layout/Row/index.vue'
 import WeiCol from '@/components/Layout/Col/index.vue'
 import Echarts from '@/components/Echarts/index.vue'  // echarts组件
+import waycloudUI from '@waycloud/ui'
+import 'animate.css/animate.min.css' //引入
+
 const app = createApp(App)
 
 // 全局组件
@@ -23,7 +26,7 @@ app.component('wei-row', WeiRow)
 app.component('wei-col', WeiCol)
 app.component('Echarts', Echarts)
 
-app.use(router).use(store)
+app.use(router).use(store).use(waycloudUI);
 // app.config.globalProperties.$api = Api;  // 配置全局数据请求
 
 // 依赖注入配置全局变量 页面中使用 inject 接收

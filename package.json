@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
+    "@waycloud/ui": "^0.0.1-alpha.1",
+    "animate.css": "^4.1.1",
     "axios": "^0.26.1",
     "echarts": "^5.4.0",
     "echarts-gl": "^2.0.9",
