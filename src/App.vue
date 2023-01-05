@@ -12,7 +12,7 @@
 #app {
   width: 100%;
   height: 100%;
-  border: 1px solid ridge;
+  //border: 1px solid ridge;
   color: #575a64;
   background-color: #f6f8f9;
 }

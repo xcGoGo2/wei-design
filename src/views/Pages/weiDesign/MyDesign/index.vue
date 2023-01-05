@@ -8,7 +8,7 @@
             :body-style="{}"
         >
             <div class="design-content">
-                <div class="design-img">
+                <div class="design-img" @click="toDesignSpace">
                     <svg-icon name="平台" style="width: 80%; height: 80%"></svg-icon>
                 </div>
                 <div class="design-footer">
@@ -19,14 +19,14 @@
                             状态
                         </span>
                         <el-tooltip content="编辑" effect="light">
-                            <el-button class="edit" size="mini" plain>
+                            <el-button class="edit" plain @click="toDesignSpace">
                                 <template #icon>
                                     <svg-icon name="hammer" size="1.5em" color=""></svg-icon>
                                 </template>
                             </el-button>
                         </el-tooltip>
                         <el-dropdown class="more" :show-timeout="0">
-                            <el-button size="mini" icon="MoreFilled" plain></el-button>
+                            <el-button icon="MoreFilled" plain></el-button>
                             <template #dropdown>
                                 <el-dropdown-menu class="my-design-manager-dropdown">
                                     <el-dropdown-item
@@ -46,18 +46,36 @@
         </item-card>
     </div>
 
-    <!-- 弹框预览 -->
-    <transition name="router_animate">
-        <item-card v-if="overviewVisible" class="custom-dialog">
-            <span>{{ showViewData.id }}</span>
-        </item-card>
-    </transition>
+    <Dialog v-model="overviewVisible" class="show-disign-view-dialog" :show-close="false" :btns="['reduce', 'enLarge']" width="80%" @reduce="overviewVisible = false" :fullscreen="isDialogFullScreen" @en-large="isDialogFullScreen = true" :append-to-body="true">
+        <div class="title">{{ showViewData.title }}</div>
+        <div class="overviewImg">
+            <svg-icon name="平台"></svg-icon>
+        </div>
+        <div class="bottom-line">
+            <span>最后时间：{{ new Date() }}</span>
+            <div class="right">
+                <span class="status">
+                    <Heart style="margin-right: 5px" size=".8em"></Heart>
+                    状态
+                </span>
+                <el-button class="edit" plain @click="toDesignSpace" >
+                    <template #icon>
+                        <svg-icon name="hammer" size="1.5em" color=""></svg-icon>
+                    </template>
+                </el-button>
+            </div>
+        </div>
+    </Dialog>
+
+
 </template>
 
 <script setup lang="ts">
 import ItemCard from '@/components/ItemCard/index.vue';
+import Dialog from '@/components/Dialog/index.vue';
 import Heart from '@/components/Heart/index.vue';
 import { uuid } from '@/utils'
+import router from "@/router";
 
 interface designDropdownListType {
     title: string;
@@ -69,10 +87,6 @@ interface designListType {
     id: string;
     img: string;
     title: string;
-}
-
-interface showViewDataType {
-    id?: string
 }
 
 const designList = reactive<designListType[]>([
@@ -163,11 +177,26 @@ const fetchImg = (img: string) => {
 
 // 弹窗预览
 const overviewVisible = ref(false);
-const showViewData = reactive<showViewDataType>({})
+let showViewData = reactive<designListType>({
+    id: '',
+    img: '',
+    title: ''
+});
+const isDialogFullScreen = ref(false);
 const enLarge = (item: designListType) => {
     overviewVisible.value = true;
-    showViewData.id = item.id
+    showViewData = item;
+    isDialogFullScreen.value = false;
 }
+
+// 界面设计
+const toDesignSpace = () => {
+    const newUrl = router.resolve({
+        path: "designSpace"
+    });
+    window.open(newUrl.href, "_blank");
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -188,12 +217,13 @@ const enLarge = (item: designListType) => {
         .design-content {
             height: 100%;
             display: grid;
-            grid-template-rows: auto-fill 80px;
+            //grid-template-rows: auto-fill 80px;
 
             .design-img {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                cursor: pointer;
             }
 
             .design-footer {
@@ -235,17 +265,6 @@ const enLarge = (item: designListType) => {
 
     }
 }
-
-.custom-dialog {
-        position: fixed;
-        top: 100px;
-        left: 100px;
-        right: 100px;
-        bottom: 200px;
-        height: 80%!important;
-        width: 80%!important;
-
-    }
 </style>
 
 <style lang="scss">
@@ -258,11 +277,48 @@ const enLarge = (item: designListType) => {
     }
 }
 
-.router_animate-enter-active {
-  animation: rollIn 1s;
-}
-.router_animate-leave-active {
-  animation: rollOut 0.6s;
+.show-disign-view-dialog {
+    height: 70vh;
+
+    .el-dialog__body {
+        display: grid;
+        height: calc(100% - 50px);
+        width: 100%;
+        grid-template-rows: 20px 1fr 40px;
+        padding: 20px;
+
+        .title {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overviewImg {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .svg-icon {
+                height: 80%;
+                width: auto;
+                // width: 200px;
+            }
+        }
+
+        .bottom-line {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .edit {
+                margin-left: 20px;
+            }
+        }
+    }
 }
 </style>
 

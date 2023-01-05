@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router/index' // 引入router
 import store from './store/index'
 import Api from './api/index'
-// import './styles/element/index.scss'
+import './styles/element/index.scss'
 // import 'element-plus/dist/index.css'
 import * as ElIcons from '@element-plus/icons-vue'
 import './api/mock/index'
@@ -33,5 +33,14 @@ app.use(router).use(store).use(waycloudUI);
 app.provide('global', {
     $api: Api,
 })
+
+// 自定义指令
+// 使 v-focus 在所有组件中都可用
+app.directive('focus', {
+    created(el, binding, vnode, prevVnode) {
+        el.focus();
+    }
+})
+
 
 app.mount('#app')

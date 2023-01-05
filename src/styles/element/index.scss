@@ -1,30 +1,53 @@
-// styles/element/index.scss
-/* 只需要重写你需要的即可 */
-@forward "element-plus/theme-chalk/src/common/var.scss" with (
-  $colors: (
-    "primary": (
-      "base":  #0ca296,
-    ),
-    "success": (
-      "base": #21ba45,
-    ),
-    "warning": (
-      "base": #f2711c,
-    ),
-    "danger": (
-      "base": #db2828,
-    ),
-    "error": (
-      "base": #db2828,
-    ),
-    "info": (
-      "base": #42b8dd,
-    ),
-  ),
-);
+// element-plus 样式重写
 
+// dialog
+@keyframes dialog-open {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
 
+@keyframes dialog-close {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+}
 
-// 如果只是按需导入，则可以忽略以下内容。
-// 如果你想导入所有样式:
-// @use "element-plus/theme-chalk/src/index.scss" as *;
+// 遮罩层动画
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.dialog-fade-enter-active {
+    .el-dialog {
+        animation: dialog-open 0.3s cubic-bezier(0.32, 0.14, 0.15, 0.86);
+    }
+}
+
+.dialog-fade-leave-active {
+    animation: fade-out 0.3s linear;
+    .el-dialog {
+        animation: dialog-close 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    }
+}
+
+.el-dialog {
+    border-radius: 5px!important;
+}
+
+// dialog

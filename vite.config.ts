@@ -30,7 +30,7 @@ export default defineConfig({
     },
     server: {
         // host: '127.0.0.1',
-        port: 8889,
+        port: 8888,
         https: true,
         // proxy: {
         //   '/recommend_api': {
@@ -49,7 +49,7 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
-                additionalData: `@use "@/styles/element/index.scss" as *;`,
+                additionalData: `@use "@/styles/element/theme-chalk.scss" as *;@use "@/styles/global.scss" as *;`,
             },
         },
     },

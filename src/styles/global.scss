@@ -1,18 +1,5 @@
-// 全局scss变量
-@keyframes beat {
-  0% {
-    transform: scale(.75);
-  }
-  25% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(.75);
-  }
-  75% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(.75);
-  }
-}
+// 全局样式变量
+$activeColor-1: #0ca296;
+$activeColor-2: #86d1cb;
+$activeColor-3: #eaf5f5;
+

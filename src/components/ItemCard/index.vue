@@ -1,9 +1,9 @@
 <template>
     <el-card class="item-card">
         <template #header>
-            <slot name="header">
-                <div class="item-header">
-                    <div class="item-left">
+            <div class="item-header">
+                <div class="item-left">
+                    <slot name="headerLeft">
                         <span v-if="includesBtn('cancel')" class="red-btn btn" @click="cancel">
                             <svg-icon name="cancel" color="#1d2129" size="8px"></svg-icon>
                         </span>
@@ -13,9 +13,14 @@
                         <span v-if="includesBtn('enLarge')" class="green-btn btn" @click="enLarge">
                             <svg-icon name="enLarge" color="#1d2129" size="8px"></svg-icon>
                         </span>
-                    </div>
+                    </slot>
                 </div>
-            </slot>
+                <div class="item-right">
+                    <slot name="headerRight">
+
+                    </slot>
+                </div>
+            </div>
         </template>
 
         <!-- body -->
@@ -66,6 +71,7 @@ const reduce = () => {
         height: 15px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
 
         .item-left {
             display: inline-flex;
@@ -121,4 +127,3 @@ const reduce = () => {
     }
 }
 </style>
-
