@@ -4,6 +4,8 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    App: typeof import('./src/components/Ruler/app.vue')['default']
+    CanvasRuler: typeof import('./src/components/Ruler/canvasRuler/canvasRuler.vue')['default']
     Col: typeof import('./src/components/Layout/Col/index.vue')['default']
     Dialog: typeof import('./src/components/Dialog/index.vue')['default']
     Echarts: typeof import('./src/components/Echarts/index.vue')['default']
@@ -38,8 +40,11 @@ declare module 'vue' {
     Hello: typeof import('./src/components/Hello.vue')['default']
     ItemBox: typeof import('./src/components/ItemBox/index.vue')['default']
     ItemCard: typeof import('./src/components/ItemCard/index.vue')['default']
+    Line: typeof import('./src/components/Ruler/line.vue')['default']
     Row: typeof import('./src/components/Layout/Row/index.vue')['default']
+    RulerWrapper: typeof import('./src/components/Ruler/rulerWrapper.vue')['default']
     Sidebar: typeof import('./src/components/Sidebar/index.vue')['default']
+    SketchRuler: typeof import('./src/components/Ruler/sketchRuler.vue')['default']
     Submenu: typeof import('./src/components/Submenu/index.vue')['default']
     TabBar: typeof import('./src/components/TabBar/index.vue')['default']
   }

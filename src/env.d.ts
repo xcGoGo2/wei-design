@@ -6,3 +6,10 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+// declare module 'vue-sketch-ruler' {
+//     // @ts-ignore
+//     import * as ruler from 'vue-sketch-ruler'
+//
+//     export default ruler;
+// }

@@ -21,6 +21,7 @@
     "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.2.25",
     "vue-router": "4",
+    "vue-sketch-ruler": "^1.0.3",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
