@@ -13,3 +13,5 @@ declare module '*.vue' {
 //
 //     export default ruler;
 // }
+
+declare module "*";

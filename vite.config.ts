@@ -30,7 +30,7 @@ export default defineConfig({
     },
     server: {
         // host: '127.0.0.1',
-        port: 8888,
+        port: 8999,
         https: true,
         // proxy: {
         //   '/recommend_api': {

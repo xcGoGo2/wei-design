@@ -3,6 +3,7 @@
         <!-- 水平方向 -->
         <RulerWrapper
             :vertical="false"
+            ref="hRuler"
             :width="width"
             :height="thick"
             :isShowReferLine="isShowReferLine"
@@ -19,6 +20,7 @@
         <!-- 竖直方向 -->
         <RulerWrapper
             :vertical="true"
+            ref="vRuler"
             :width="thick"
             :height="height"
             :isShowReferLine="isShowReferLine"
@@ -192,6 +194,12 @@ export default {
             ? { h: this.horLineArr, v: [...arr] }
             : { h: [...arr], v: this.verLineArr }
             this.$emit('handleLine', newLines);
+        },
+        fetchRefs() {
+            return {
+                h: this.$refs.hRuler,
+                v:this.$refs.vRuler
+            }
         }
     }
 }

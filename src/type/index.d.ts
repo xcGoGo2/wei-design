@@ -1,38 +1,50 @@
 export interface menuListType {
-  title: string;
-  icon: string;
-  router: string;
-  children?: menuListType[];
+    title: string
+    icon: string
+    router: string
+    children?: menuListType[]
 }
 
 export type tagType = {
-  title: any;
-  path: string;
-  type: string;
-};
+    title: any
+    path: string
+    type: string
+}
 
 export type reponseType = {
-  code: 200;
-  message: 'ok';
-  data: any | menuListType[];
-};
+    code: 200
+    message: 'ok'
+    data: any | menuListType[]
+}
 
 export interface userInfoType {
-  username: string;
-  avator: string;
+    username: string
+    avator: string
 }
 
 export interface stateType {
-  count: Number;
-  loginContent: {
-    [propName: string]: any;
-  }
-  menuList: menuListType[]
+    componentsList: Compnents[]
+    count: Number
+    loginContent: {
+        [propName: string]: any
+    }
+    menuList: menuListType[]
 }
 
 export interface assemblyType {
-  img: string;
-  title: string;
-  content: string;
-  time: string;
+    img: string
+    title: string
+    content: string
+    time: string
+}
+
+export type Compnents = {
+    id: string
+    component: string // 组件名称，需要提前注册到 Vue
+    label: string // 左侧组件列表中显示的名字
+    propValue: string // 组件所使用的值
+    icon: string // 左侧组件列表中显示的名字
+    animations: Array<any> // 动画列表
+    events: any // 事件列表
+    style: any
 }

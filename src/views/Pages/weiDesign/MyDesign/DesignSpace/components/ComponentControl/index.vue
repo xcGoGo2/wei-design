@@ -53,13 +53,13 @@
                 </li>
             </ul>
             <ul class="chart-list">
-                <li v-for="(item, index) in layerData.chartList" :key="index + item.title">
+                <li v-for="(item, index) in layerData.chartList" :key="index + item.id" draggable='true' :data-index="index" @dragstart="handleDragStart">
                     <item-card btns="['cancel', 'enLarge', 'reduce']">
                         <template #headerRight>
-                            <span>{{ item.title }}</span>
+                            <span>{{ item.label }}</span>
                         </template>
                         <div class="layer-content">
-                            <svg-icon name="平台" style="width: 90%; height: 90%"></svg-icon>
+                            <svg-icon :name="item.icon" style="width: 90%; height: 90%"></svg-icon>
                         </div>
                     </item-card>
                 </li>
@@ -69,16 +69,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, defineProps } from 'vue';
+import { ref, reactive, defineProps, computed } from 'vue'
+import { useStore } from 'vuex';
 import { Search } from '@element-plus/icons-vue';
 import ItemCard from '@/components/ItemCard/index.vue';
 
+const store = useStore();
 const props = defineProps({
     shrinkComponent: {
         type: Boolean,
         default: false
     }
 })
+
+store.dispatch('fetchComponentsList');
 
 const layerData = reactive({
     componentsList: [
@@ -105,50 +109,9 @@ const layerData = reactive({
             value: 'barChart'
         }
     ],
-    chartList: [{
-        id: '001',
-        title: '柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },{
-        id: '002',
-        title: '横向柱状图'
-    },]
-})
+    chartList: computed(() => store.state.componentsList)
+});
+
 
 const activeComponentIndex = ref(0);
 const selectComponentList = (index: number) => {
@@ -160,6 +123,10 @@ const selectLayerIndex = (index: number) => {
 }
 
 const searchValue = ref('');
+
+const handleDragStart = (e: any) => {
+    e.dataTransfer.setData('index', e.target.dataset.index)
+}
 </script>
 
 <style src="./index.scss" lang="scss" scoped></style>

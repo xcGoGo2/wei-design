@@ -152,7 +152,7 @@ export default defineComponent({
 
         // 菜单
         store.dispatch('fetchMenuList');
-        const menuList = computed(() => store.state.menuList)
+        const menuList = computed(() => store.state.menuList);
 
         onMounted(() => { });
 

@@ -14,6 +14,7 @@ import WeiCol from '@/components/Layout/Col/index.vue'
 import Echarts from '@/components/Echarts/index.vue'  // echarts组件
 import waycloudUI from '@waycloud/ui'
 import 'animate.css/animate.min.css' //引入
+import * as customComponents from '@/custom-components/index';
 
 const app = createApp(App)
 
@@ -25,6 +26,12 @@ app.component('svg-icon', svgIcon)
 app.component('wei-row', WeiRow)
 app.component('wei-col', WeiCol)
 app.component('Echarts', Echarts)
+
+// 自定义组件注册
+for (let key in customComponents) {
+    // @ts-ignore
+    app.component(key, customComponents[key]);
+}
 
 app.use(router).use(store).use(waycloudUI);
 // app.config.globalProperties.$api = Api;  // 配置全局数据请求

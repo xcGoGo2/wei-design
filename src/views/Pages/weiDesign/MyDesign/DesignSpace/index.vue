@@ -110,7 +110,7 @@ const editName = (e: any) => {
     (webNameRef.value as any).focus();
 };
 
-const showChart = ref(false);
+const showChart = ref(true);
 const showLayer = ref(false);
 const showSide = ref(false);
 const layerShrink = () => {

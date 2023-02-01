@@ -155,3 +155,46 @@ export function throttle(fn: Function, delay: number) {
         }
     }
 }
+
+export function deepCopy (data: any) {
+    // 匹配函数
+    function metaType (obj: any) {
+        const MAP = {
+            '[object String]': 'string',
+            '[object Number]': 'number',
+            '[object Boolean]': 'boolean',
+            '[object Null]': 'null',
+            '[object Undefined]': 'undefined',
+            '[object Symbol]': 'symbol',
+            '[object BigInt]': 'bigInt',
+            '[object Object]': 'object',
+            '[object Function]': 'function',
+            '[object Array]': 'array',
+            '[object Date]': 'date',
+            '[object RegExp]': 'regExp',
+            '[object Error]': 'error'
+        };
+
+        // @ts-ignore
+        return MAP[Object.prototype.toString.call(obj)];
+    }
+
+    const type = metaType(data);
+    let obj: any = null;
+    if (type === 'array') {
+        obj = [];
+        for (let i = 0; i < data.length; i++) {
+            obj.push(deepCopy(data[i]));
+        }
+    } else if (type === 'object') {
+        obj = {};
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                obj[key] = deepCopy(data[key]);
+            }
+        }
+    } else {
+        return data;
+    }
+    return obj;
+}

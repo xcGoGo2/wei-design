@@ -1,4 +1,5 @@
-import Mock from 'mockjs'
+import Mock from 'mockjs';
+import { uuid } from '@/utils/index';
 
 const MockAPI = [
     // 测试接口信息
@@ -186,6 +187,57 @@ const MockAPI = [
                         content: '这是一个组件33',
                         time: new Date(),
                     },
+                ]
+            }
+        },
+    },
+    // 自定义组件信息
+    {
+        url: 'api/weiManage/getComponentsList',
+        method: 'post',
+        response: () => {
+            return {
+                code: 200,
+                message: 'ok',
+                data: [
+                    {
+                        id: uuid(),
+                        component: 'w-button', // 组件名称，需要提前注册到 Vue
+                        label: '按钮', // 左侧组件列表中显示的名字
+                        propValue: '按钮', // 组件所使用的值
+                        icon: '平台', // 左侧组件列表中显示的图标
+                        animations: [], // 动画列表
+                        events: {}, // 事件列表
+                        style: { // 组件样式
+                            width: '',
+                            height: '',
+                            fontSize: 14,
+                            fontWeight: 500,
+                            lineHeight: '',
+                            letterSpacing: 0,
+                            textAlign: '',
+                            color: '',
+                        },
+                    },
+                    {
+                        id: uuid(),
+                        component: 'WBarChart', // 组件名称，需要提前注册到 Vue
+                        label: '柱状图', // 左侧组件列表中显示的名字
+                        propValue: '柱状图', // 组件所使用的值
+                        icon: '平台', // 左侧组件列表中显示的图标
+                        animations: [], // 动画列表
+                        events: {}, // 事件列表
+                        style: { // 组件样式
+                            width: '200px',
+                            height: '200px',
+                            fontSize: 14,
+                            fontWeight: 500,
+                            lineHeight: '',
+                            letterSpacing: 0,
+                            textAlign: '',
+                            color: '',
+                        },
+                    }
                 ]
             }
         },
