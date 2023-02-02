@@ -1,37 +1,40 @@
 <template>
     <div class="edit-control-container">
-        <div class='wrap-container'>
-            <div id="wrap" @scroll="scrollEdit" ref="$wrap">
+        <div class="wrap-container">
+            <div
+                id="wrap"
+                @scroll.prevent="scrollEdit"
+                @mousedown.prevent="wrapMousedown"
+                @mouseenter.prevent="wrapMouseenter"
+                @mouseout.prevent="wrapMouseout"
+                @mouseup.prevent="wrapMouseup"
+                @mousemove.prevent="wrapMousemove"
+                @mousewheel.prevent="mouseWheel"
+                ref="$wrap"
+            >
                 <div id="content">
-                    <div ref="$canvas" class="edit-canvas" :style='{transform: `scale(${ scaleValueReal })`}' @drop="handleDrop" @dragover="handleDragOver" @click="deselectCurComponent">
-                        <div class='components-show-content'>
-                            <component
-                                v-for="item in componentData"
-                                :key="item.id"
-                                :is="item.component"
-                                class='custom-component-class'
-                                :style="item.style"
-                                :propValue="item.propValue"
-                            />
+                    <div ref="$canvas" class="edit-canvas" :style="{transform: `scale(${ scaleValueReal })`}" @drop="handleDrop" @dragover="handleDragOver" @click="deselectCurComponent">
+                        <div class="components-show-content">
+                            <component v-for="item in componentData" :key="item.id" :is="item.component" class="custom-component-class" :style="item.style" :propValue="item.propValue" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class='edit-bottom-menu'>
-                <el-slider v-model="sliderConfig.scaleValue" :format-tooltip="sliderConfig.formatSliderTip" @input='sliderConfig.inputScale' show-input size="small" />
+            <div class="edit-bottom-menu">
+                <el-slider v-model="sliderConfig.scaleValue" :format-tooltip="sliderConfig.formatSliderTip" @input="sliderConfig.inputScale" show-input size="small" />
             </div>
         </div>
         <SketchRule
-            :key='sketchRuleKey'
+            :key="sketchRuleKey"
             ref="$sketchRule"
             class="ruler-container"
             :lang="lang"
             :thick="thick"
-            :scale="1"
+            :scale="scaleValueReal"
             :width="10000"
             :height="10000"
-            :startX="-5000"
-            :startY="-5000"
+            :startX="-5000 / scaleValueReal"
+            :startY="-5000 / scaleValueReal"
             :shadow="shadow"
             :horLineArr="lines.h"
             :verLineArr="lines.v"
@@ -46,12 +49,11 @@
 import { reactive, ref, onMounted, watch } from "vue";
 import { useStore } from 'vuex';
 import { Compnents } from '@/type';
-import { deepCopy } from '@/utils/index';
+import { deepCopy } from '@/utils';
 import { useElementScale } from '@/hooks/useElementScale';
 import { useMouseXY } from '@/hooks/useMouseXY';
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
-import { sliderContextKey } from 'element-plus'
 
 const store = useStore();
 
@@ -62,7 +64,7 @@ const sketchRuleKey =ref<string>('');
 
 // 缩放可视区
 const sliderConfig: any = reactive({
-    scaleValue: 100,
+    scaleValue: 60,
     inputScale: (scale: number) => {
         sliderConfig.scaleValue = scale;
         sketchRuleKey.value = (new Date).toString();
@@ -74,15 +76,7 @@ const sliderConfig: any = reactive({
 const scaleValueReal = computed(() => {
     return sliderConfig.scaleValue / 100
 });
-const scaleValueRuler = computed(() => {
-    return (sliderConfig.scaleValue / 100) * 10000 + 'px'
-});
-const scaleValueRulerWH = computed(() => {
-    return (sliderConfig.scaleValue / 100) * 10000
-})
 
-const rulerScale = ref(1);
-const startXY = computed(() => -(scaleValueRulerWH.value / 2));
 const lines = reactive({
     h: [0],
     v: [0],
@@ -95,8 +89,6 @@ const shadow = reactive({
     width: 0,
     height: 0,
 });
-const isShowRuler = ref(true);
-const isShowReferLine = ref(true);
 
 const handleLine = (e: any) => {
     console.log(e)
@@ -115,17 +107,77 @@ const scrollEdit = (e: any) => {
     hRulerX.value = '-' + e.target.scrollLeft + 'px';
 }
 
-const setWrapPosition = () => {
+const isWrapMousedown = ref(false);
+const startMoveWrap = reactive({
+    x: 0,
+    y: 0
+})
+const wrapMousedown = (e: any) => {
+    if(e.target && e.target.id === 'content') {
+        isWrapMousedown.value = true;
+        startMoveWrap.x = e.x;
+        startMoveWrap.y = e.y;
+    }
+}
+
+const wrapMouseup = (e: any) => {
+    if(e.target && e.target.id === 'content') {
+        isWrapMousedown.value = false;
+    }
+}
+
+const wrapMousemove = (e: any) => {
+    if(isWrapMousedown.value) {
+        $wrap.value.scrollLeft =  $wrap.value.scrollLeft - (e.x - startMoveWrap.x);
+        $wrap.value.scrollTop = $wrap.value.scrollTop - (e.y - startMoveWrap.y);
+        hRulerY.value = '-' + $wrap.value.scrollTop + 'px';
+        hRulerX.value = '-' + $wrap.value.scrollLeft + 'px';
+        startMoveWrap.x = e.x;
+        startMoveWrap.y = e.y;
+    }
+}
+
+const wrapMouseout = (e: any) => {
+    // isWrapMousedown.value = false;
+}
+
+const wrapMouseenter = (e: any) => {
+
+}
+
+const mouseWheel = (e: any) => {
+    let mouseTo = e && (e.deltaY > 0 || e.deltaX > 0) ? 'down' : 'up';
+    if(mouseTo === 'down') {
+        sliderConfig.scaleValue = sliderConfig.scaleValue - 5;
+    }else {
+        sliderConfig.scaleValue = sliderConfig.scaleValue + 5
+    }
+}
+
+/**
+ * 设置wrap显示的位置和大小
+ */
+const setWrapPositionSize = () => {
+    const wrapW = $wrap.value.clientWidth;
+    const wrapH = $wrap.value.clientHeight;
+    const canvasW = $canvas.value.clientWidth;
+    const canvasH = $canvas.value.clientHeight;
+    if(canvasW > canvasH) {
+        sliderConfig.scaleValue = ~~(((wrapW -200) / canvasW) * 100);  // 数字取整
+    }else {
+        sliderConfig.scaleValue = ~~(((wrapH -200) / canvasH) * 100);  // 数字取整
+    }
     const scale = sliderConfig.scaleValue / 100;
     const x = ($wrap.value.clientWidth - $canvas.value.clientWidth * scale) / 2;
     const y = ($wrap.value.clientHeight - $canvas.value.clientHeight * scale) / 2;
     $wrap.value.scrollTop = 5000 - y;
     $wrap.value.scrollLeft = 5000 - x;
+    hRulerY.value = '-' + $wrap.value.scrollTop + 'px';
+    hRulerX.value = '-' + $wrap.value.scrollLeft + 'px';
 }
 
 onMounted(() => {
-    useElementScale($canvas.value);
-    setWrapPosition();
+    setWrapPositionSize();
 });
 
 // 自定义组件
@@ -147,12 +199,9 @@ const handleDragOver = (e: any) => {
     e.preventDefault();
 }
 
-watch(sliderConfig.scaleValue, (n, o) => {
-    debugger
-
+watch(() => sliderConfig.scaleValue, (n) => {
+    sliderConfig.scaleValue = n < 10 ? 10 : n;
 })
-
-
 </script>
 
 <style lang="scss" scoped src="./index.scss"></style>
@@ -165,6 +214,7 @@ watch(sliderConfig.scaleValue, (n, o) => {
         width: 10000px!important;
         top: 0;
         left: v-bind(hRulerX)!important;
+        transform-origin: center;
     }
 
     .v-container {
@@ -172,7 +222,7 @@ watch(sliderConfig.scaleValue, (n, o) => {
         height: 10000px!important;
         left: 0;
         top: v-bind(hRulerY)!important;
-
+        transform-origin: center;
     }
 }
 </style>
