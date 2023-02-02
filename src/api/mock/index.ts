@@ -228,8 +228,8 @@ const MockAPI = [
                         animations: [], // 动画列表
                         events: {}, // 事件列表
                         style: { // 组件样式
-                            width: '200px',
-                            height: '200px',
+                            width: '500px',
+                            height: '300px',
                             fontSize: 14,
                             fontWeight: 500,
                             lineHeight: '',

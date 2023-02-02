@@ -3,6 +3,8 @@
  * @param key key值
  * @param value 存入值
  */
+import FunnelView from 'echarts/types/src/chart/funnel/FunnelView'
+
 export const setItem = (key: string, value: any) => {
     if (value instanceof Object) {
         value = JSON.stringify(value)
@@ -135,26 +137,33 @@ export function debounce(func: Function, wait: number, immediate?: boolean) {
 
 /**
  * 函数节流：n 秒内只运行一次，若在 n 秒内重复触发，只有一次生效
- * @param fn 函数
- * @param delay 等待时间
+ * @param func 函数
+ * @param wait 等待时间
  */
-export function throttle(fn: Function, delay: number) {
-    let timer: any = null
-    let starttime = Date.now()
-    return function () {
-        let curTime = Date.now() // 当前时间
-        let remaining = delay - (curTime - starttime) // 从上一次到现在，还剩下多少多余时间
-        let context = this
-        let args = arguments
-        clearTimeout(timer)
-        if (remaining <= 0) {
-            fn.apply(context, args)
-            starttime = Date.now()
-        } else {
-            timer = setTimeout(fn, remaining)
+
+export function throttle(func: any, wait: number) {
+    var timer: any = null;
+    var startTime = Date.now();
+
+    return function(){
+        var curTime = Date.now();
+        var remaining = wait-(curTime-startTime);
+        var context = this;
+        var args = arguments;
+
+        clearTimeout(timer);
+
+        if(remaining<=0){
+            func.apply(context, args);
+
+            startTime = Date.now();
+
+        }else{
+            timer = setTimeout(func, remaining);  // 如果小于wait 保证在差值时间后执行
         }
     }
 }
+
 
 export function deepCopy (data: any) {
     // 匹配函数

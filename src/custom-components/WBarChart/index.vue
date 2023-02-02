@@ -19,9 +19,8 @@ defineProps({
 });
 
 const options = reactive({
-    backgroundColor:'#323a5e',
     tooltip: {
-        trigger: 'axis',
+        trigger: 'item',
         axisPointer: { // 坐标轴指示器，坐标轴触发有效
             type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
         }
@@ -34,131 +33,148 @@ const options = reactive({
         containLabel: true
     },
     legend: {
-        data: ['1', '2', '3'],
-        right: 10,
-        top:12,
+        data: ['调解成功', '调解失败', '调解终止','调解成功率'],
+        left: '7%',
+        top:'5%',
         textStyle: {
-            color: "#fff"
+            color: "#666666"
         },
-        itemWidth: 12,
+        itemWidth: 15,
         itemHeight: 10,
-        // itemGap: 35
+        itemGap: 25
     },
     xAxis: {
         type: 'category',
         data: ['2012','2013','2014','2015','2016','2017','2018','2019'],
         axisLine: {
             lineStyle: {
-                color: 'white'
+                color: '#cdd5e2'
 
             }
         },
         axisLabel: {
-            // interval: 0,
-            // rotate: 40,
             textStyle: {
-                fontFamily: 'Microsoft YaHei'
+                color: "#666666"
             }
         },
     },
 
-    yAxis: {
+    yAxis: [{
         type: 'value',
-        max:'1200',
         axisLine: {
             show: false,
             lineStyle: {
-                color: 'white'
+                color: '#cdd5e2'
             }
         },
         splitLine: {
-            show: true,
-            lineStyle: {
-                color: 'rgba(255,255,255,0.3)'
-            }
+            show: false,
         },
-        axisLabel: {}
+        axisLabel: {                textStyle: {
+                color: "#666666"
+            }},
     },
-    "dataZoom": [{
-        "show": true,
-        "height": 12,
-        "xAxisIndex": [
-            0
-        ],
-        bottom:'8%',
-        "start": 10,
-        "end": 90,
-        handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
-        handleSize: '110%',
-        handleStyle:{
-            color:"#d3dee5",
-
-        },
-        textStyle:{
-            color:"#fff"},
-        borderColor:"#90979c"
-    }, {
-        "type": "inside",
-        "show": true,
-        "height": 15,
-        "start": 1,
-        "end": 35
-    }],
+        {
+            type: "value",
+            name: "百分比",
+            nameTextStyle: {
+                color: "#666666"
+            },
+            position: "right",
+            axisLine: {
+                lineStyle: {
+                    color: '#cdd5e2'
+                }
+            },
+            splitLine: {
+                show: false,
+            },
+            axisLabel: {
+                show: true,
+                formatter: "{value} %", //右侧Y轴文字显示
+                textStyle: {
+                    color: "#666666"
+                }
+            }
+        }
+    ],
     series: [{
-        name: '1',
+        name: '调解成功',
         type: 'bar',
-        barWidth: '15%',
+        barWidth: '12px',
         itemStyle: {
             normal: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                     offset: 0,
-                    color: '#fccb05'
+                    color: '#29acff'
                 }, {
                     offset: 1,
-                    color: '#f5804d'
+                    color: '#4bdfff'
                 }]),
-                barBorderRadius: 12,
+                barBorderRadius: 6,
             },
         },
         data: [400, 400, 300, 300, 300, 400, 400, 400, 300]
     },
         {
-            name: '2',
+            name: '调解失败',
             type: 'bar',
-            barWidth: '15%',
+            barWidth: '12px',
             itemStyle: {
                 normal: {
                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                         offset: 0,
-                        color: '#8bd46e'
+                        color: '#3d93f2'
                     }, {
                         offset: 1,
-                        color: '#09bcb7'
+                        color: '#5dc1fd'
                     }]),
-                    barBorderRadius: 11,
+                    barBorderRadius: 6,
                 }
 
             },
             data: [400, 500, 500, 500, 500, 400,400, 500, 500]
         },
         {
-            name: '3',
+            name: '调解终止',
             type: 'bar',
-            barWidth: '15%',
+            barWidth: '12px',
             itemStyle: {
                 normal: {
                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                         offset: 0,
-                        color: '#248ff7'
+                        color: '#01c871'
                     }, {
                         offset: 1,
-                        color: '#6851f1'
+                        color: '#55f49c'
                     }]),
-                    barBorderRadius: 11,
+                    barBorderRadius: 6,
                 }
             },
             data: [400, 600, 700, 700, 1000, 400, 400, 600, 700]
-        }]
+        },{
+            name: "调解成功率",
+            type: "line",
+            yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
+            smooth: false, //平滑曲线显示
+
+            symbol: "circle", //标记的图形为实心圆
+            symbolSize: 8, //标记的大小
+            itemStyle: {
+                normal: {
+                    color: '#ffa43a',
+                    borderColor: 'rgba(255, 234, 0, 0.5)',  //圆点透明 边框
+                    borderWidth: 5
+                },
+
+            },
+            lineStyle: {
+                color: "#ffa43a"
+            },
+
+            data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8, 3, 5]
+        }
+    ]
 })
 </script>
 

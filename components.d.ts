@@ -44,6 +44,7 @@ declare module 'vue' {
     Line: typeof import('./src/components/Ruler/line.vue')['default']
     Row: typeof import('./src/components/Layout/Row/index.vue')['default']
     RulerWrapper: typeof import('./src/components/Ruler/rulerWrapper.vue')['default']
+    Shape: typeof import('./src/components/Shape/index.vue')['default']
     Sidebar: typeof import('./src/components/Sidebar/index.vue')['default']
     SketchRuler: typeof import('./src/components/Ruler/sketchRuler.vue')['default']
     Submenu: typeof import('./src/components/Submenu/index.vue')['default']

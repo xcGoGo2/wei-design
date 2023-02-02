@@ -29,6 +29,8 @@ export interface stateType {
         [propName: string]: any
     }
     menuList: menuListType[]
+    curComponentIndex: number
+    canvasScale: number
 }
 
 export interface assemblyType {

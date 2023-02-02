@@ -15,7 +15,11 @@
                 <div id="content">
                     <div ref="$canvas" class="edit-canvas" :style="{transform: `scale(${ scaleValueReal })`}" @drop="handleDrop" @dragover="handleDragOver" @click="deselectCurComponent">
                         <div class="components-show-content">
-                            <component v-for="item in componentData" :key="item.id" :is="item.component" class="custom-component-class" :style="item.style" :propValue="item.propValue" />
+                            <!--页面组件列表展示-->
+                            <Shape v-for="(item, index) in componentData" :defaultStyle="item.style" :style="item.style" :key="item.id" :element="item" :zIndex="index" :index="index">
+                                <component class="custom-component-class" :is="item.component" :propValue="item.propValue" />
+                                <!--                                <component v-for="item in componentData" :key="item.id" :is="item.component" class="custom-component-class" :style="item.style" :propValue="item.propValue" />-->
+                            </Shape>
                         </div>
                     </div>
                 </div>
@@ -54,6 +58,7 @@ import { useElementScale } from '@/hooks/useElementScale';
 import { useMouseXY } from '@/hooks/useMouseXY';
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
+import Shape from '@/components/Shape/index.vue';
 
 const store = useStore();
 
@@ -78,8 +83,8 @@ const scaleValueReal = computed(() => {
 });
 
 const lines = reactive({
-    h: [0],
-    v: [0],
+    h: [],
+    v: [],
 });
 const thick = ref(20);
 const lang = ref("zh-CN");
@@ -92,12 +97,10 @@ const shadow = reactive({
 
 const handleLine = (e: any) => {
     console.log(e)
-    debugger;
 };
 
 const handleCornerClick = (e: any) => {
     console.log(e);
-    debugger;
 };
 
 const hRulerX = ref("0");
@@ -189,10 +192,9 @@ const handleDrop = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
     const component = deepCopy(componentsList.value[e.dataTransfer.getData('index')]);
-
-    const { x, y } = useMouseXY($canvas.value, e);
-    component.style.top = y + 'px';
-    component.style.left = x + 'px';
+    const { x, y } = useMouseXY();
+    component.style.top = y - $canvas.value.getBoundingClientRect().top + 'px';
+    component.style.left = x - $canvas.value.getBoundingClientRect().left + 'px';
     componentData.push(component);
 }
 const handleDragOver = (e: any) => {
@@ -201,6 +203,7 @@ const handleDragOver = (e: any) => {
 
 watch(() => sliderConfig.scaleValue, (n) => {
     sliderConfig.scaleValue = n < 10 ? 10 : n;
+    store.commit('setCanvasScale', scaleValueReal.value)
 })
 </script>
 

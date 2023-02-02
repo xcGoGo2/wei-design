@@ -3,12 +3,14 @@ import { stateType, reponseType, menuListType, Compnents } from "@/type";
 import { system, myDesign } from '@/api/service';
 // 创建store实例
 export default createStore({
-    state(): { componentsList: Compnents[]; menuList: any[]; count: number; loginContent: {} } {
+    state(): { componentsList: any[]; menuList: any[]; canvasScale: number; count: number; curComponentIndex: number; loginContent: {} } {
         return {
             count: 0,  // 测试
             loginContent: {},  // 登录用户信息
             menuList: [],  // 菜单list
-            componentsList: []
+            componentsList: [],
+            curComponentIndex: -1, // 当前选中组件
+            canvasScale: 1
         }
     },
     getters: {
@@ -26,6 +28,12 @@ export default createStore({
         },
         setComponentsList(state: stateType, data: Compnents[]) {
             state.componentsList = data;
+        },
+        setComponentIndex(state: stateType, data: number) {
+            state.curComponentIndex = data;
+        },
+        setCanvasScale(state: stateType, data: number) {
+            state.canvasScale = data;
         },
 
     },
