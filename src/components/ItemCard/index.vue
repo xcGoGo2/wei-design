@@ -111,6 +111,10 @@ const reduce = () => {
                 background-color: #34c749;
             }
         }
+
+        .item-right {
+            font-weight: 700;
+        }
     }
 }
 </style>
