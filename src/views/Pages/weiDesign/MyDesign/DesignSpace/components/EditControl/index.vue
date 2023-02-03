@@ -19,6 +19,8 @@
                             <Shape v-for="(item, index) in componentData" :defaultStyle="item.style" :style="item.style" :key="item.id + item.id" :element="item" :zIndex="index" :index="index">
                                 <component class="custom-component-class" :is="item.component" :propValue="item.propValue" />
                             </Shape>
+
+                            <MarkLine></MarkLine>
                         </div>
                     </div>
                 </div>
@@ -56,7 +58,8 @@ import { deepCopy, uuid } from '@/utils';
 import { useMouseXY } from '@/hooks/useMouseXY';
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
-import Shape from '@/components/Shape/index.vue';
+import Shape from '@/components/Editor/Shape.vue';
+import MarkLine from '@/components/Editor/MarkLine.vue'
 
 const store = useStore();
 

@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-import { uuid } from '@/utils/index';
+import { uuid } from '@/utils';
 
 const MockAPI = [
     // 测试接口信息

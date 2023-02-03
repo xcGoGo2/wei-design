@@ -116,9 +116,8 @@ const getPointList = () => {
 }
 
 const getPointStyle = (point: any) => {
-    let { width, height } = props.defaultStyle;
-    width = parseInt(width);
-    height = parseInt(height);
+    const width = $shape.value.clientWidth;
+    const height = $shape.value.clientHeight;
     const hasT = /t/.test(point)
     const hasB = /b/.test(point)
     const hasL = /l/.test(point)
