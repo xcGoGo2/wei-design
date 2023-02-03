@@ -16,9 +16,8 @@
                     <div ref="$canvas" class="edit-canvas" :style="{transform: `scale(${ scaleValueReal })`}" @drop="handleDrop" @dragover="handleDragOver" @click="deselectCurComponent">
                         <div class="components-show-content">
                             <!--页面组件列表展示-->
-                            <Shape v-for="(item, index) in componentData" :defaultStyle="item.style" :style="item.style" :key="item.id" :element="item" :zIndex="index" :index="index">
+                            <Shape v-for="(item, index) in componentData" :defaultStyle="item.style" :style="item.style" :key="item.id + item.id" :element="item" :zIndex="index" :index="index">
                                 <component class="custom-component-class" :is="item.component" :propValue="item.propValue" />
-                                <!--                                <component v-for="item in componentData" :key="item.id" :is="item.component" class="custom-component-class" :style="item.style" :propValue="item.propValue" />-->
                             </Shape>
                         </div>
                     </div>
@@ -54,7 +53,6 @@ import { reactive, ref, onMounted, watch } from "vue";
 import { useStore } from 'vuex';
 import { Compnents } from '@/type';
 import { deepCopy } from '@/utils';
-import { useElementScale } from '@/hooks/useElementScale';
 import { useMouseXY } from '@/hooks/useMouseXY';
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
