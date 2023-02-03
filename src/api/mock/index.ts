@@ -4,7 +4,7 @@ import { uuid } from '@/utils/index';
 const MockAPI = [
     // 测试接口信息
     {
-        url: 'api/weiManage/getUsers',
+        url: 'api/weiDesign/getUsers',
         method: 'get',
         response: () => {
             return {
@@ -25,7 +25,7 @@ const MockAPI = [
     },
     //登录
     {
-        url: 'api/weiManage/login',
+        url: 'api/weiDesign/login',
         method: 'post',
         response: (loginContent: any) => {
             const { username, password } = JSON.parse(loginContent.body)
@@ -44,7 +44,7 @@ const MockAPI = [
     },
     // menuList信息
     {
-        url: 'api/weiManage/getMenuLists',
+        url: 'api/weiDesign/getMenuLists',
         method: 'post',
         response: () => {
             return {
@@ -57,6 +57,33 @@ const MockAPI = [
                         router: '/index',
                     },
                     {
+                        title: '我的设计',
+                        icon: 'myDesign',
+                        router: '/weiDesign/myDesign',
+                    },
+                    {
+                        title: '模板市场',
+                        icon: 'tplMarket',
+                        router: '/weiDesign/tplMarket',
+                    },
+                    // {
+                    //     title: 'WEI-DESIGN',
+                    //     icon: 'weiDesign',
+                    //     router: 'weiDesign',
+                    //     children: [
+                    //         {
+                    //             title: '我的设计',
+                    //             icon: 'myDesign',
+                    //             router: '/weiDesign/myDesign',
+                    //         },
+                    //         {
+                    //             title: '模板市场',
+                    //             icon: 'tplMarket',
+                    //             router: '/weiDesign/tplMarket',
+                    //         },
+                    //     ],
+                    // },
+                    {
                         title: '组件',
                         icon: 'assembly',
                         router: '/assembly',
@@ -66,64 +93,47 @@ const MockAPI = [
                         icon: 'boardsheet',
                         router: '/boardsheet',
                     },
-                    {
-                        title: 'WEI-DESIGN',
-                        icon: 'weiDesign',
-                        router: 'weiDesign',
-                        children: [
-                            {
-                                title: '界面设计',
-                                icon: 'myDesign',
-                                router: '/weiDesign/myDesign',
-                            },
-                            {
-                                title: '模板市场',
-                                icon: 'tplMarket',
-                                router: '/weiDesign/tplMarket',
-                            },
-                        ],
-                    },
-                    {
-                        title: '管理配置',
-                        icon: 'manage',
-                        router: 'manage',
-                        children: [
-                            {
-                                title: '用户管理',
-                                icon: 'userManage',
-                                router: '/manage/userManage',
-                            },
-                            {
-                                title: '组织管理',
-                                icon: 'userGroupManage',
-                                router: '/manage/userGroupManage',
-                            },
-                        ],
-                    },
-                    {
-                        title: '错误页',
-                        icon: 'errPage',
-                        router: 'errPage',
-                        children: [
-                            {
-                                title: '404',
-                                icon: 'is404',
-                                router: '/errPage/is404',
-                            },
-                            {
-                                title: '500',
-                                icon: 'is500',
-                                router: '/errPage/is500',
-                            },
-                        ],
-                    },
+                    // {
+                    //     title: '管理配置',
+                    //     icon: 'manage',
+                    //     router: 'manage',
+                    //     children: [
+                    //         {
+                    //             title: '用户管理',
+                    //             icon: 'userManage',
+                    //             router: '/manage/userManage',
+                    //         },
+                    //         {
+                    //             title: '组织管理',
+                    //             icon: 'userGroupManage',
+                    //             router: '/manage/userGroupManage',
+                    //         },
+                    //     ],
+                    // },
+                    // {
+                    //     title: '错误页',
+                    //     icon: 'errPage',
+                    //     router: 'errPage',
+                    //     children: [
+                    //         {
+                    //             title: '404',
+                    //             icon: 'is404',
+                    //             router: '/errPage/is404',
+                    //         },
+                    //         {
+                    //             title: '500',
+                    //             icon: 'is500',
+                    //             router: '/errPage/is500',
+                    //         },
+                    //     ],
+                    // },
                 ],
             }
         },
     },
     // 产品生态
     {
-        url: 'api/weiManage/getProductEcology',
+        url: 'api/weiDesign/getProductEcology',
         method: 'post',
         response: () => {
             return {
@@ -156,7 +166,7 @@ const MockAPI = [
     },
     // 组件信息
     {
-        url: 'api/weiManage/getAssemblyLists',
+        url: 'api/weiDesign/getAssemblyLists',
         method: 'post',
         response: () => {
             return {
@@ -193,7 +203,7 @@ const MockAPI = [
     },
     // 自定义组件信息
     {
-        url: 'api/weiManage/getComponentsList',
+        url: 'api/weiDesign/getComponentsList',
         method: 'post',
         response: () => {
             return {

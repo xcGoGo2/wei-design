@@ -82,7 +82,7 @@ const props = defineProps({
     }
 })
 
-store.dispatch('fetchComponentsList');
+store.dispatch('weiDesign/fetchComponentsList')
 
 const layerData = reactive({
     componentsList: [
@@ -109,7 +109,7 @@ const layerData = reactive({
             value: 'barChart'
         }
     ],
-    chartList: computed(() => store.state.componentsList)
+    chartList: computed(() => store.state.weiDesign.componentsList)
 });
 
 

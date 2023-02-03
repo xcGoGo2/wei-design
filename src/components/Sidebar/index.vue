@@ -1,8 +1,8 @@
 <template>
     <div class="sidebar-container" :class="isCollapse? 'arrow': 'expand'" :style="{ width: !isCollapse ? '200px' : '70px' }">
-        <div class="logo" title="weiManage" @click="router.push('/')">
-            <svg-icon name="lightning" size="4em" color="#0ca296"></svg-icon>
-            <span class="title" v-if="!isCollapse">Vue-Wei-Manage</span>
+        <div class="logo" title="weiDesign" @click="router.push('/')">
+            <svg-icon name="lightning" size="2.5em" color="#0ca296"></svg-icon>
+            <span class="title" v-if="!isCollapse">WEI-DESIGN</span>
         </div>
         <div class="sidebar-list">
             <el-menu :default-active="route.path" ref="elMenu" :router="true" class="el-menu-vertical"

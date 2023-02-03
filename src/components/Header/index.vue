@@ -106,7 +106,7 @@ export default defineComponent({
       {
         name: 'GitHub',
         icon: 'github',
-        path: 'https://github.com/Wayne1308/weiManage',
+        path: 'https://github.com/Wayne1308/weiDesign',
       },
       {
         name: '退出登录',

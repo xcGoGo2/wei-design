@@ -1,14 +1,14 @@
 [简体中文](./README.en.md) | English
 
 <div align="center"><img width="200" src="./src/assets/logo.png"/>
-<h1> WEI-MANAGE </h1>
+<h1> WEI-DESIGN </h1>
 
 <p>Never extinguish the fire in your heart, even if others only see smoke.</p>
 </div>
 
-[![stars](https://img.shields.io/github/stars/Wayne1308/weiManage?style=flat-square&logo=GitHub)](https://github.com/Wayne1308/weiManage)
-[![star](https://gitee.com/Wayne1308/wei-manage/badge/star.svg?theme=gray)](https://gitee.com/Wayne1308/wei-manage)
-[![license](https://img.shields.io/github/license/Wayne1308/weiManage?style=flat-square)](https://en.wikipedia.org/wiki/MulanPSL-2.0)
+[![stars](https://img.shields.io/github/stars/Wayne1308/weiDesign?style=flat-square&logo=GitHub)](https://github.com/Wayne1308/weiDesign)
+[![star](https://gitee.com/Wayne1308/wei-design/badge/star.svg?theme=gray)](https://gitee.com/Wayne1308/wei-design)
+[![license](https://img.shields.io/github/license/Wayne1308/weiDesign?style=flat-square)](https://en.wikipedia.org/wiki/MulanPSL-2.0)
 [![vue](https://img.shields.io/badge/vue-3.2.41-brightgreen.svg?style=flat-square)](https://github.com/vuejs/vue)
 
 ---
@@ -48,7 +48,7 @@
 
 ```bash
 # Clone Project
-git clone https://github.com/Wayne1308/weiManage.git
+git clone https://github.com/Wayne1308/weiDesign.git
 
 # Toggle Branch
 git checkout dev # Main branch of development iteration version

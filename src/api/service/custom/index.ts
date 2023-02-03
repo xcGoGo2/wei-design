@@ -6,7 +6,7 @@ export default {
     },
     getProductLists: async () => {
         return await api.Post(
-            'api/weiManage/getProductEcology',
+            'api/weiDesign/getProductEcology',
             {}
         )
     },

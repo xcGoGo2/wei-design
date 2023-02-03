@@ -1,7 +1,7 @@
 <template>
     <div class="submenu-container">
         <div class="submenu-title">
-            <span>weiManage</span>
+            <span>weiDesign</span>
         </div>
         <div class="select-title">
             <div class="line"></div>

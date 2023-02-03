@@ -10,6 +10,7 @@ import { defineProps, computed, onMounted } from 'vue'
 import { useMouseXY } from '@/hooks/useMouseXY'
 import { useStore } from 'vuex';
 import { debounce, throttle } from '@/utils'
+import { Compnents } from '@/type'
 const store = useStore();
 
 const $shape = ref();
@@ -61,41 +62,42 @@ const shapeData = reactive<any>({
     cursors: {}
 })
 
-const curComponentIndex = computed(() => store.state.curComponentIndex);
+const curComponentIndex = computed(() => store.state.weiDesign.curComponentIndex);
 
 const selectCurComponent = (e: any) => {
-    store.commit('setComponentIndex', props.index ? props.index : 0);
+    store.commit('weiDesign/setComponentIndex', props.index ? props.index : 0);
     // 阻止向父组件冒泡
     e.stopPropagation()
     e.preventDefault()
 }
 
 const shapeXY = reactive({
-    toMove: false,
-    position: {
-        x: 0,
-        y: 0
-    }
+    x: 0,
+    y: 0
 })
+const component: Compnents = computed(() => store.state.weiDesign.componentsInCanvas).value[props.index];
 
-const scale = computed(() => store.state.canvasScale)
+const scale = computed(() => store.state.weiDesign.canvasScale)
 
 const vDrag = {
     mounted: (el: any) => {
         el.onmousedown=function(e: any){
-            store.commit('setComponentIndex', props.index ? props.index : 0);
+            store.commit('weiDesign/setComponentIndex', props.index ? props.index : 0);
             const { x, y } = useMouseXY();
-            shapeXY.position.x = x;
-            shapeXY.position.y = y;
+            shapeXY.x = x;
+            shapeXY.y = y;
 
             document.onmousemove=function(e: any){
                 const { x, y } = useMouseXY();
                 const top = parseInt($shape.value.style.top) ;
                 const left = parseInt($shape.value.style.left);
-                $shape.value.style.top = top + (y / scale.value - shapeXY.position.y / scale.value) + 'px';
-                $shape.value.style.left = left + (x / scale.value - shapeXY.position.x / scale.value) + 'px';
-                shapeXY.position.x = x;
-                shapeXY.position.y = y;
+                $shape.value.style.top = top + (y / scale.value - shapeXY.y / scale.value) + 'px';
+                $shape.value.style.left = left + (x / scale.value - shapeXY.x / scale.value) + 'px';
+                component.style.top = $shape.value.style.top;
+                component.style.left = $shape.value.style.left;
+                store.commit('weiDesign/changeComponentsInCanvasByIndex', {index: props.index, component});
+                shapeXY.x = x;
+                shapeXY.y = y;
             };
             document.onmouseup=function(){
                 document.onmousemove=null;

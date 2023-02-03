@@ -3,9 +3,9 @@
  * @Date: 2022-02-11 12:52:42
  * @LastEditors: chenwei
  * @LastEditTime: 2022-02-11 14:06:21
- * @FilePath: \weiManage\src\api\config.ts
+ * @FilePath: \weiDesign\src\api\config.ts
  * @Description: 数据请求配置
- * 
+ *
  */
 
 import axios from 'axios';

@@ -3,7 +3,7 @@
  * @Date: 2022-02-10 13:30:14
  * @LastEditors: chenwei
  * @LastEditTime: 2022-02-11 12:49:07
- * @FilePath: \weiManage\src\router\routes.ts
+ * @FilePath: \weiDesign\src\router\routes.ts
  * @Description: 路由配置
  *
  */

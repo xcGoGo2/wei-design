@@ -164,7 +164,10 @@ export function throttle(func: any, wait: number) {
     }
 }
 
-
+/**
+ * 深拷贝
+ * @param data
+ */
 export function deepCopy (data: any) {
     // 匹配函数
     function metaType (obj: any) {

@@ -3,7 +3,7 @@
  * @Date: 2022-02-10 17:22:26
  * @LastEditors: chenwei
  * @LastEditTime: 2022-02-11 18:27:11
- * @FilePath: \weiManage\src\views\Login\index.vue
+ * @FilePath: \weiDesign\src\views\Login\index.vue
  * @Description: 登录页
  *
 -->
@@ -12,7 +12,7 @@
   <div class="login-container">
     <div class="login-box">
       <div class="hello">HELLO！</div>
-      <div class="welcome">欢迎来到weiManage！</div>
+      <div class="welcome">欢迎来到weiDesign！</div>
       <div class="center">
         <el-input
           :prefix-icon="Avatar"
@@ -70,7 +70,7 @@ export default defineComponent({
             router.push({ path: '/home' });
             ElNotification({
               title: '登录成功！',
-              message: '欢迎登录weiManage管理系统！',
+              message: '欢迎登录weiDesign设计系统！',
               type: 'success',
               offset: 50,
               duration: 2000

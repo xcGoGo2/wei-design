@@ -52,7 +52,7 @@
 import { reactive, ref, onMounted, watch } from "vue";
 import { useStore } from 'vuex';
 import { Compnents } from '@/type';
-import { deepCopy } from '@/utils';
+import { deepCopy, uuid } from '@/utils';
 import { useMouseXY } from '@/hooks/useMouseXY';
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
@@ -182,18 +182,22 @@ onMounted(() => {
 });
 
 // 自定义组件
-const componentsList = computed(() => store.state.componentsList);
-const componentData: Compnents[] = reactive([]);
+const componentsList = computed(() => store.state.weiDesign.componentsList);
+const componentData = computed(() => store.state.weiDesign.componentsInCanvas);
 
 // 拖拽事件
 const handleDrop = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
     const component = deepCopy(componentsList.value[e.dataTransfer.getData('index')]);
-    const { x, y } = useMouseXY();
-    component.style.top = y - $canvas.value.getBoundingClientRect().top + 'px';
-    component.style.left = x - $canvas.value.getBoundingClientRect().left + 'px';
-    componentData.push(component);
+    const x = e.offsetX;
+    const y = e.offsetY;
+    const width = parseInt(component.style.width || 0);
+    const height = parseInt(component.style.height || 0);
+    component.style.top = y - height / 2 + 'px';
+    component.style.left = x - width / 2 + 'px';
+    component.id = uuid(); // 拖入画布时重新生成uuid
+    store.commit('weiDesign/setComponentsInCanvas', [...componentData.value, component]);
 }
 const handleDragOver = (e: any) => {
     e.preventDefault();
@@ -201,7 +205,7 @@ const handleDragOver = (e: any) => {
 
 watch(() => sliderConfig.scaleValue, (n) => {
     sliderConfig.scaleValue = n < 10 ? 10 : n;
-    store.commit('setCanvasScale', scaleValueReal.value)
+    store.commit('weiDesign/setCanvasScale', scaleValueReal.value)
 })
 </script>
 

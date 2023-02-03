@@ -1,16 +1,15 @@
-import { createStore } from 'vuex'
+import { createStore, useStore as baseUseStore, Store } from 'vuex'
 import { stateType, reponseType, menuListType, Compnents } from "@/type";
 import { system, myDesign } from '@/api/service';
+import { RootStateTypes } from '@/store/interface'
+import weiDesign from './modules/weiDesign'
 // 创建store实例
-export default createStore({
-    state(): { componentsList: any[]; menuList: any[]; canvasScale: number; count: number; curComponentIndex: number; loginContent: {} } {
+export default createStore<RootStateTypes>({
+    state() {
         return {
             count: 0,  // 测试
             loginContent: {},  // 登录用户信息
             menuList: [],  // 菜单list
-            componentsList: [],
-            curComponentIndex: -1, // 当前选中组件
-            canvasScale: 1
         }
     },
     getters: {
@@ -23,19 +22,9 @@ export default createStore({
         setLoginContent(state, data) {
             state.loginContent = data;
         },
-        setMenuList(state: stateType, data: menuListType[]) {
+        setMenuList(state: RootStateTypes, data: menuListType[]) {
             state.menuList = data;
-        },
-        setComponentsList(state: stateType, data: Compnents[]) {
-            state.componentsList = data;
-        },
-        setComponentIndex(state: stateType, data: number) {
-            state.curComponentIndex = data;
-        },
-        setCanvasScale(state: stateType, data: number) {
-            state.canvasScale = data;
-        },
-
+        }
     },
     actions: {
         addCount(context) {
@@ -45,9 +34,9 @@ export default createStore({
             const res = await system.getMenuList();
             context.commit('setMenuList', res.data);
         },
-        async fetchComponentsList(context) {
-            const res = await myDesign.fetchComponentsList();
-            context.commit('setComponentsList', res.data);
-        },
+    },
+    modules: {
+        weiDesign
     }
 })
+
