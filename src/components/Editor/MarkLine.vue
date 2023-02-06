@@ -30,6 +30,8 @@ const markLineData = reactive<any>({
     },
 })
 
+debugger
+
 const curComponentIndex = computed(() => store.state.weiDesign.curComponentIndex);
 const componentData = computed(() => store.state.weiDesign.componentsInCanvas);
 

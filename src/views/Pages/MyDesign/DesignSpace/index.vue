@@ -135,7 +135,7 @@ const showConfig = (show: string, event: any) => {
 }
 </script>
 
-<style scoped lang="scss" src="./index.scss"></style>
+<style scoped lang="scss" src='./index.scss'></style>
 
 <style lang="scss">
 

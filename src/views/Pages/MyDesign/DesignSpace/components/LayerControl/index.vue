@@ -91,4 +91,4 @@ const shrink = () => {
 }
 </script>
 
-<style scoped src="./index.scss" lang="scss"></style>
+<style scoped src='./index.scss' lang="scss"></style>

@@ -31,7 +31,7 @@ export default defineConfig({
     server: {
         // host: '127.0.0.1',
         port: 8999,
-        https: true,
+        // https: true,
         // proxy: {
         //   '/recommend_api': {
         //     target: 'https://api.juejin.cn/recommend_api',

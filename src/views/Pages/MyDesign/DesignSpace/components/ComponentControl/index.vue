@@ -129,7 +129,7 @@ const handleDragStart = (e: any) => {
 }
 </script>
 
-<style src="./index.scss" lang="scss" scoped></style>
+<style src='./index.scss' lang="scss" scoped></style>
 
 <style lang="scss">
 .component-control-container {
