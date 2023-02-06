@@ -9,7 +9,7 @@
 import { defineProps, computed, onMounted } from 'vue'
 import { useMouseXY } from '@/hooks/useMouseXY'
 import { useStore } from 'vuex';
-import { debounce, throttle } from '@/utils'
+import bus from '@/utils/eventBus';
 import { Compnents } from '@/type'
 const store = useStore();
 
@@ -81,6 +81,10 @@ const scale = computed(() => store.state.weiDesign.canvasScale)
 
 const vDrag = {
     mounted: (el: any) => {
+        component.style.width = $shape.value.offsetWidth + 'px';
+        component.style.height = $shape.value.offsetHeight + 'px';
+        store.commit('weiDesign/changeComponentsInCanvasByIndex', {index: props.index, component});
+
         el.onmousedown=function(e: any){
             store.commit('weiDesign/setComponentIndex', props.index ? props.index : 0);
             const { x, y } = useMouseXY();
@@ -98,10 +102,14 @@ const vDrag = {
                 store.commit('weiDesign/changeComponentsInCanvasByIndex', {index: props.index, component});
                 shapeXY.x = x;
                 shapeXY.y = y;
+
+                // 全局事件处理
+                bus.emit('moveComponent', component);
             };
             document.onmouseup=function(){
                 document.onmousemove=null;
                 document.onmouseup=null;
+                bus.emit('unMoveComponent');
             };
         };
     }
