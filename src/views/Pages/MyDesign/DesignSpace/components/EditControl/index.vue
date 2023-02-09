@@ -13,19 +13,19 @@
                 ref="$wrap"
             >
                 <div id="content">
-                    <div ref="$canvas" class="edit-canvas" :style="{transform: `scale(${ scaleValueReal })`}" @drop="handleDrop" @dragover="handleDragOver" @click="deselectCurComponent">
+                    <div ref="$canvas" class="edit-canvas" :style="{transform: `scale(${ scaleValueReal })`, cursor: isEnterSpace ? 'pointer' : 'auto'}" @drop="handleDrop" @dragover="handleDragOver">
                         <div class="components-show-content">
                             <!--页面组件列表展示-->
                             <Shape v-for="(item, index) in componentData" :defaultStyle="item.style" :style="item.style" :key="item.id + item.id" :element="item" :zIndex="index" :index="index">
                                 <component class="custom-component-class" :is="item.component" :propValue="item.propValue" />
                             </Shape>
-
                             <MarkLine></MarkLine>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="edit-bottom-menu">
+                <span class="key-down-show">按下 [ {{}} ] 键</span>
                 <el-slider v-model="sliderConfig.scaleValue" :format-tooltip="sliderConfig.formatSliderTip" @input="sliderConfig.inputScale" show-input size="small" />
             </div>
         </div>
@@ -117,7 +117,7 @@ const startMoveWrap = reactive({
     y: 0
 })
 const wrapMousedown = (e: any) => {
-    if(e.target && e.target.id === 'content') {
+    if(e.target && e.target.id === 'content' || isEnterSpace.value) {
         isWrapMousedown.value = true;
         startMoveWrap.x = e.x;
         startMoveWrap.y = e.y;
@@ -125,7 +125,7 @@ const wrapMousedown = (e: any) => {
 }
 
 const wrapMouseup = (e: any) => {
-    if(e.target && e.target.id === 'content') {
+    if(e.target && e.target.id === 'content' || isEnterSpace.value) {
         isWrapMousedown.value = false;
     }
 }
@@ -142,7 +142,7 @@ const wrapMousemove = (e: any) => {
 }
 
 const wrapMouseout = (e: any) => {
-    // isWrapMousedown.value = false;
+    isWrapMousedown.value = false;
 }
 
 const wrapMouseenter = (e: any) => {
@@ -180,8 +180,26 @@ const setWrapPositionSize = () => {
     hRulerX.value = '-' + $wrap.value.scrollLeft + 'px';
 }
 
+// 监听键盘按键事件
+const isEnterSpace = ref(false);
+const keyEvent = () => {
+    document.addEventListener('keydown', (e: any) => {
+        if(e && e.code === 'Space') {
+            isEnterSpace.value = true;
+            e.preventDefault(); // 阻止默认事件行为
+        }
+    });
+    document.addEventListener('keyup', (e: any) => {
+        if(e && e.code === 'Space') {
+            isEnterSpace.value = false;
+            e.preventDefault(); // 阻止默认事件行为
+        }
+    });
+}
+
 onMounted(() => {
     setWrapPositionSize();
+    keyEvent();
 });
 
 // 自定义组件

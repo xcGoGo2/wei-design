@@ -45,22 +45,12 @@ const checkLine = () => {
             yc: parseInt(style.left) + parseInt(style.width) / 2 + 'px',
             yr: parseInt(style.left) + parseInt(style.width) + 'px',
         }
-        // const xt = parseInt(style.top) + 'px';
-        // const xc = parseInt(style.top) + parseInt(style.height) / 2 + 'px';
-        // const xb = parseInt(style.top) + parseInt(style.height) + 'px';
-        // const yl = parseInt(style.left) + 'px';
-        // const yc = parseInt(style.left) + parseInt(style.width) / 2 + 'px';
-        // const yr = parseInt(style.left) + parseInt(style.width) + 'px';
         Object.entries(markLineData.lineConfig).forEach(([key, value]: any) => {
             const position = key.indexOf('x') >= 0 ? 'top' : 'left';
-            console.log(curComponent, com);
             if(curComponent.id === com.id) {
                 return
             }
-            if( Math.abs(parseInt(value.style[position]) - parseInt(componentStyle[key])) <= 5 ) {
-                markLineData.lineConfig[key].show = true;
-                console.log(parseInt(value.style[position]), parseInt(componentStyle[key]), Math.abs(parseInt(value.style[position]) - parseInt(componentStyle[key])) <= 5);
-            }
+            markLineData.lineConfig[key].show = Math.abs(parseInt(value.style[position]) - parseInt(componentStyle[key])) <= markLineData.diff;
         })
     })
 }

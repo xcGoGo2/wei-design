@@ -37,7 +37,7 @@
                     height: 1080px;
                     width: 1920px;
                     position: absolute;
-                    background-color: #fff;
+                    background-color: #f2f3f5;
                     top: 50%;
                     left: 50%;
                     box-shadow: 0 8px 10px #00000012;
@@ -76,6 +76,10 @@
                 width: 300px;
                 float: right;
                 margin-left: auto;
+            }
+
+            .key-down-show {
+                font-weight: bold;
             }
         }
 
