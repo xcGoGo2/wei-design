@@ -87,7 +87,7 @@
                 <edit-control></edit-control>
             </div>
             <div class="side-setting-control" :class="!showSide? 'hideLayer': ''">
-                侧边栏
+                <side-setting-control></side-setting-control>
             </div>
         </div>
     </div>
@@ -98,6 +98,7 @@ import {ref} from 'vue';
 import ComponentControl from './components/ComponentControl/index.vue';
 import LayerControl from './components/LayerControl/index.vue';
 import EditControl from './components/EditControl/index.vue';
+import SideSettingControl from './components/SideSettingControl/index.vue';
 
 const ifShowEditInput = ref(false);
 const webName = ref('项目一');

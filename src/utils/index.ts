@@ -137,29 +137,21 @@ export function debounce(func: Function, wait: number, immediate?: boolean) {
 
 /**
  * 函数节流：n 秒内只运行一次，若在 n 秒内重复触发，只有一次生效
- * @param func 函数
- * @param wait 等待时间
+ * @param fn 函数
+ * @param delay 等待时间
  */
 
-export function throttle(func: any, wait: number) {
-    var timer: any = null;
-    var startTime = Date.now();
+export function throttle (fn: any, delay = 300) {
+    let timer: any = null
+    console.log(2222)
+    return function (...args) {
+        if(timer == null){
+            timer = setTimeout(() => {
+                fn.call(this, ...args)
 
-    return function(){
-        var curTime = Date.now();
-        var remaining = wait-(curTime-startTime);
-        var context = this;
-        var args = arguments;
-
-        clearTimeout(timer);
-
-        if(remaining<=0){
-            func.apply(context, args);
-
-            startTime = Date.now();
-
-        }else{
-            timer = setTimeout(func, remaining);  // 如果小于wait 保证在差值时间后执行
+                clearTimeout(timer)
+                timer = null
+            }, delay);
         }
     }
 }

@@ -5,8 +5,10 @@
 declare module 'vue' {
   export interface GlobalComponents {
     App: typeof import('./src/components/Ruler/app.vue')['default']
+    CanvasAttrList: typeof import('./src/components/Editor/CanvasAttrList.vue')['default']
     CanvasRuler: typeof import('./src/components/Ruler/canvasRuler/canvasRuler.vue')['default']
     Col: typeof import('./src/components/Layout/Col/index.vue')['default']
+    ComponentAttrList: typeof import('./src/components/Editor/ComponentAttrList.vue')['default']
     Dialog: typeof import('./src/components/Dialog/index.vue')['default']
     Echarts: typeof import('./src/components/Echarts/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
@@ -16,6 +18,7 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
     ElCard: typeof import('element-plus/es')['ElCard']
+    ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
@@ -26,6 +29,7 @@ declare module 'vue' {
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']

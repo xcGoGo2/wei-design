@@ -39,37 +39,36 @@ const props = defineProps({
 const shapeData = reactive<any>({
     pointList: ['lt', 't', 'rt', 'r', 'rb', 'b', 'lb', 'l'], // 八个方向
     pointList2: ['r', 'l'], // 左右两个方向
-    initialAngle: { // 每个点对应的初始角度
-        lt: 0,
-        t: 45,
-        rt: 90,
-        r: 135,
-        rb: 180,
-        b: 225,
-        lb: 270,
-        l: 315,
-    },
-    angleToCursor: [ // 每个范围的角度对应的光标
-        { start: 338, end: 23, cursor: 'nw' },
-        { start: 23, end: 68, cursor: 'n' },
-        { start: 68, end: 113, cursor: 'ne' },
-        { start: 113, end: 158, cursor: 'e' },
-        { start: 158, end: 203, cursor: 'se' },
-        { start: 203, end: 248, cursor: 's' },
-        { start: 248, end: 293, cursor: 'sw' },
-        { start: 293, end: 338, cursor: 'w' },
-    ],
-    cursors: {}
+    cursors: {
+        lt: 'nw-resize',
+        t: 'n-resize',
+        rt: 'ne-resize',
+        r: 'e-resize',
+        rb: 'se-resize',
+        b: 'n-resize',
+        lb: 'sw-resize',
+        l: 'e-resize',
+    }
 })
 
 const curComponentIndex = computed(() => store.state.weiDesign.curComponentIndex);
 
+const delComponentIndex = (e: any) => {
+    store.commit('weiDesign/setComponentIndex', -1);
+}
 const selectCurComponent = (e: any) => {
     store.commit('weiDesign/setComponentIndex', props.index ? props.index : 0);
+
+    window.document.addEventListener('click', delComponentIndex);
+
     // 阻止向父组件冒泡
     e.stopPropagation()
     e.preventDefault()
 }
+
+watch(curComponentIndex, (n, o) => {
+    window.document.removeEventListener('click', delComponentIndex);
+})
 
 const shapeXY = reactive({
     x: 0,
@@ -124,36 +123,55 @@ const getPointList = () => {
 }
 
 const getPointStyle = (point: any) => {
-    const width = $shape.value.clientWidth;
-    const height = $shape.value.clientHeight;
-    const hasT = /t/.test(point)
-    const hasB = /b/.test(point)
-    const hasL = /l/.test(point)
-    const hasR = /r/.test(point)
-    let newLeft = 0
-    let newTop = 0
-    // 四个角的点
-    if (point.length === 2) {
-        newLeft = hasL ? 0 : width
-        newTop = hasT ? 0 : height
-    } else {
-        // 上下两点的点，宽度居中
-        if (hasT || hasB) {
-            newLeft = width / 2
-            newTop = hasT ? 0 : height
-        }
-        // 左右两边的点，高度居中
-        if (hasL || hasR) {
-            newLeft = hasL ? 0 : width
-            newTop = Math.floor(height / 2)
-        }
+    const offsetWidth = $shape.value.offsetWidth;
+    const offsetHeight = $shape.value.offsetHeight;
+    let width = 10, height = 10, left, top;
+    switch (point) {
+        case 'lt':
+            left = -6;
+            top = -6;
+            break;
+        case 'rt':
+            left = offsetWidth -7;
+            top = -7;
+            break;
+        case 'rb':
+            left = offsetWidth - 7;
+            top = offsetHeight - 7;
+            break;
+        case 'lb':
+            left = -7;
+            top = offsetHeight - 7;
+            break;
+        case 't':
+            width = 18;
+            left = (offsetWidth / 2) - 10;
+            top = -7;
+            break;
+        case 'r':
+            height = 18;
+            left = offsetWidth - 7;
+            top = (offsetHeight / 2) - 10;
+            break;
+        case 'b':
+            width = 18;
+            left = (offsetWidth / 2) - 10;
+            top = offsetHeight - 7;
+            break;
+        case 'l':
+            height = 18;
+            left = -7;
+            top = (offsetHeight / 2) - 10;
+            break;
+
     }
+
     return {
-        marginLeft: '-5px',
-        marginTop: '-5px',
-        left: `${newLeft}px`,
-        top: `${newTop}px`,
+        left: `${left}px`,
+        top: `${top}px`,
         cursor: shapeData.cursors[point],
+        width: `${width}px`,
+        height: `${height}px`,
     }
 }
 
@@ -181,17 +199,17 @@ const isActive = () => {
 }
 
 .active {
-    outline: 1px solid #70c0ff;
+    //outline: 1px solid $activeColor-1;
     user-select: none;
 }
 
 .shape-point {
     position: absolute;
     background: #fff;
-    border: 1px solid #59c7f9;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+    border: 1px solid $activeColor-1;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
     z-index: 1;
 }
 
@@ -201,7 +219,7 @@ const isActive = () => {
     left: 50%;
     transform: translateX(-50%);
     cursor: grab;
-    color: #59c7f9;
+    color: $activeColor-1;
     font-size: 20px;
     font-weight: 600;
 

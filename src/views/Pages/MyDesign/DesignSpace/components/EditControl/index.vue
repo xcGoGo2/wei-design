@@ -5,10 +5,6 @@
                 id="wrap"
                 @scroll.prevent="scrollEdit"
                 @mousedown.prevent="wrapMousedown"
-                @mouseenter.prevent="wrapMouseenter"
-                @mouseout.prevent="wrapMouseout"
-                @mouseup.prevent="wrapMouseup"
-                @mousemove.prevent="wrapMousemove"
                 @mousewheel.prevent="mouseWheel"
                 ref="$wrap"
             >
@@ -53,13 +49,11 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted, watch } from "vue";
 import { useStore } from 'vuex';
-import { Compnents } from '@/type';
 import { deepCopy, uuid } from '@/utils';
-import { useMouseXY } from '@/hooks/useMouseXY';
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
 import Shape from '@/components/Editor/Shape.vue';
-import MarkLine from '@/components/Editor/MarkLine.vue'
+import MarkLine from '@/components/Editor/MarkLine.vue';
 
 const store = useStore();
 
@@ -111,42 +105,31 @@ const scrollEdit = (e: any) => {
     hRulerX.value = '-' + e.target.scrollLeft + 'px';
 }
 
-const isWrapMousedown = ref(false);
+
 const startMoveWrap = reactive({
     x: 0,
     y: 0
 })
+
 const wrapMousedown = (e: any) => {
     if(e.target && e.target.id === 'content' || isEnterSpace.value) {
-        isWrapMousedown.value = true;
         startMoveWrap.x = e.x;
         startMoveWrap.y = e.y;
+
+        document.onmousemove = (e: any) => {
+            $wrap.value.scrollLeft =  $wrap.value.scrollLeft - (e.x - startMoveWrap.x);
+            $wrap.value.scrollTop = $wrap.value.scrollTop - (e.y - startMoveWrap.y);
+            hRulerY.value = '-' + $wrap.value.scrollTop + 'px';
+            hRulerX.value = '-' + $wrap.value.scrollLeft + 'px';
+            startMoveWrap.x = e.x;
+            startMoveWrap.y = e.y;
+        }
+
+        document.onmouseup = () => {
+            document.onmousemove=null;
+            document.onmouseup=null;
+        }
     }
-}
-
-const wrapMouseup = (e: any) => {
-    if(e.target && e.target.id === 'content' || isEnterSpace.value) {
-        isWrapMousedown.value = false;
-    }
-}
-
-const wrapMousemove = (e: any) => {
-    if(isWrapMousedown.value) {
-        $wrap.value.scrollLeft =  $wrap.value.scrollLeft - (e.x - startMoveWrap.x);
-        $wrap.value.scrollTop = $wrap.value.scrollTop - (e.y - startMoveWrap.y);
-        hRulerY.value = '-' + $wrap.value.scrollTop + 'px';
-        hRulerX.value = '-' + $wrap.value.scrollLeft + 'px';
-        startMoveWrap.x = e.x;
-        startMoveWrap.y = e.y;
-    }
-}
-
-const wrapMouseout = (e: any) => {
-    isWrapMousedown.value = false;
-}
-
-const wrapMouseenter = (e: any) => {
-
 }
 
 const mouseWheel = (e: any) => {
