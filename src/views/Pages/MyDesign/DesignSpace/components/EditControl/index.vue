@@ -47,13 +47,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted, watch } from "vue";
+import { reactive, ref, onMounted, watch, defineExpose } from "vue";
 import { useStore } from 'vuex';
 import { deepCopy, uuid } from '@/utils';
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
 import Shape from '@/components/Editor/Shape.vue';
 import MarkLine from '@/components/Editor/MarkLine.vue';
+import { useResizeObserver } from "@vueuse/core";
 
 const store = useStore();
 
@@ -145,23 +146,35 @@ const mouseWheel = (e: any) => {
  * 设置wrap显示的位置和大小
  */
 const setWrapPositionSize = () => {
-    const wrapW = $wrap.value.clientWidth;
-    const wrapH = $wrap.value.clientHeight;
-    const canvasW = $canvas.value.clientWidth;
-    const canvasH = $canvas.value.clientHeight;
-    if(canvasW > canvasH) {
-        sliderConfig.scaleValue = ~~(((wrapW -200) / canvasW) * 100);  // 数字取整
-    }else {
-        sliderConfig.scaleValue = ~~(((wrapH -200) / canvasH) * 100);  // 数字取整
-    }
-    const scale = sliderConfig.scaleValue / 100;
-    const x = ($wrap.value.clientWidth - $canvas.value.clientWidth * scale) / 2;
-    const y = ($wrap.value.clientHeight - $canvas.value.clientHeight * scale) / 2;
-    $wrap.value.scrollTop = 5000 - y;
-    $wrap.value.scrollLeft = 5000 - x;
-    hRulerY.value = '-' + $wrap.value.scrollTop + 'px';
-    hRulerX.value = '-' + $wrap.value.scrollLeft + 'px';
+    // 监听wrap的尺寸变化
+    useResizeObserver($wrap, (e: any) => {
+        // console.log(e[0]);
+        // console.log(e[0].borderBoxSize[0]);
+        // console.log(e[0].contentBoxSize[0]);
+        // console.log(e[0].contentRect);
+        // console.log(e[0].devicePixelContentBoxSize[0]);
+        const wrapW = $wrap.value.clientWidth;
+        const wrapH = $wrap.value.clientHeight;
+        const canvasW = $canvas.value.clientWidth;
+        const canvasH = $canvas.value.clientHeight;
+        if(canvasW > canvasH) {
+            sliderConfig.scaleValue = ~~(((wrapW -200) / canvasW) * 100);  // 数字取整
+        }else {
+            sliderConfig.scaleValue = ~~(((wrapH -200) / canvasH) * 100);  // 数字取整
+        }
+        const scale = sliderConfig.scaleValue / 100;
+        const x = ($wrap.value.clientWidth - $canvas.value.clientWidth * scale) / 2;
+        const y = ($wrap.value.clientHeight - $canvas.value.clientHeight * scale) / 2;
+        $wrap.value.scrollTop = 5000 - y;
+        $wrap.value.scrollLeft = 5000 - x;
+        hRulerY.value = '-' + $wrap.value.scrollTop + 'px';
+        hRulerX.value = '-' + $wrap.value.scrollLeft + 'px';
+    });
 }
+
+defineExpose({
+    setWrapPositionSize
+})
 
 // 监听键盘按键事件
 const isEnterSpace = ref(false);
