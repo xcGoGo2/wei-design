@@ -121,8 +121,9 @@
 
         .side-setting-control {
             width: 350px;
+            transition: width 0.4s;
 
-            &.hideLayer {
+            &.hideSideSetting {
                 width: 0;
             }
         }

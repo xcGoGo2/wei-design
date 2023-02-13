@@ -86,7 +86,7 @@
             <div class="edit-control">
                 <edit-control></edit-control>
             </div>
-            <div class="side-setting-control" :class="!showSide? 'hideLayer': ''">
+            <div class="side-setting-control" :class="!showSide? 'hideSideSetting': ''">
                 <side-setting-control></side-setting-control>
             </div>
         </div>
