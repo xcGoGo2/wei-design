@@ -1,21 +1,21 @@
 [简体中文](./README.en.md) | English
 
 <div align="center"><img width="200" src="./src/assets/logo.png"/>
-<h1> WEI-DESIGN </h1>
+<h1> WAYCLOUD-DESIGN </h1>
 
 <p>Never extinguish the fire in your heart, even if others only see smoke.</p>
 </div>
 
-[![stars](https://img.shields.io/github/stars/Wayne1308/weiDesign?style=flat-square&logo=GitHub)](https://github.com/Wayne1308/weiDesign)
-[![star](https://gitee.com/Wayne1308/wei-design/badge/star.svg?theme=gray)](https://gitee.com/Wayne1308/wei-design)
-[![license](https://img.shields.io/github/license/Wayne1308/weiDesign?style=flat-square)](https://en.wikipedia.org/wiki/MulanPSL-2.0)
+[![stars](https://img.shields.io/github/stars/Wayne1308/waycloud-design?style=flat-square&logo=GitHub)](https://github.com/Wayne1308/waycloud-design)
+[![star](https://gitee.com/Wayne1308/weiManage/badge/star.svg?theme=gray)](https://gitee.com/Wayne1308/weiManage)
+[![license](https://img.shields.io/github/license/Wayne1308/waycloud-design?style=flat-square)](https://en.wikipedia.org/wiki/MulanPSL-2.0)
 [![vue](https://img.shields.io/badge/vue-3.2.41-brightgreen.svg?style=flat-square)](https://github.com/vuejs/vue)
 
 ---
 
 ## 🍊 Project introduction
 
-- WEI-MANAGE is a front-end development system including optional common front-end rapid development templates and general system of components
+- WAYCLOUD-DESIGN is a front-end development system including optional common front-end rapid development templates and general system of components
 - Technology stack: vue3+vite+TypeScript+axios+ElementuiPlus
 - Two modes are optional: self built framework development, optional configuration drag and drop development
 - Good type definition
@@ -37,7 +37,7 @@
 
 ```bash
 # Clone Project
-git clone https://github.com/Wayne1308/weiDesign.git
+git clone https://github.com/Wayne1308/waycloud-design.git
 
 # Toggle Branch
 git checkout dev # Main branch of development iteration version
