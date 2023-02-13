@@ -26,23 +26,12 @@
 - dev - Main branch of development iteration version
 - dev-base - Basic development version
 
-## 🍻 Front end discussion QQ group
+## 🍻 Is there a problem & Learn with me!
 
-- contact QQ 1398022382 Invite to join the group
+- If you think it's good, click start!
+- WeChat: CW_ GOGOGO_ XD (note: design)
 
-<!-- <table>
-<tr>
-<td>
-<img width="200px" src="">
-</td>
-<td>
-<img width="200px" src="">
-</td>
-<td>
-<img width="200px" src="">
-</td>
-</tr>
-</table> -->
+<img width="200px" src="public/me.png">
 
 ## 🌱 Project development start
 

@@ -26,23 +26,12 @@
 -   dev - 开发迭代版本主分支
 -   dev-base - 基础开发版本
 
-## 🍻 前端讨论 QQ 群
+## 🍻 有问题？ & 加我一起学习！
 
--   联系 QQ 1398022382 邀请进群
-
-<!-- <table>
-<tr>
-<td>
-<img width="200px" src="">
-</td>
-<td>
-<img width="200px" src="">
-</td>
-<td>
-<img width="200px" src="">
-</td>
-</tr>
-</table> -->
+-   大佬们觉得不错的话，点个start吧！
+-   加我微信：CW_GOGOGO_XD （备注：design）
+  
+<img width="200px" src="public/me.png">
 
 ## 🌱 项目开发启动
 
