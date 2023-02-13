@@ -112,8 +112,8 @@ const editName = (e: any) => {
 };
 
 const showChart = ref(true);
-const showLayer = ref(false);
-const showSide = ref(false);
+const showLayer = ref(true);
+const showSide = ref(true);
 const layerShrink = () => {
     showLayer.value = false;
 }

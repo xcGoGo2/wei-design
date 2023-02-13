@@ -10,7 +10,10 @@ const weiDesignModule: Module<WeiDesignStateTypes, RootStateTypes> = {
         componentsList: [],
         curComponentIndex: -1, // 当前选中组件
         canvasScale: 1,
-        componentsInCanvas: [] // 当前界面中显示的组件数据
+        componentsInCanvas: [], // 当前界面中显示的组件数据
+        editCanvasConfig: {
+            
+        }
     }),
     mutations: {
         setComponentsList(state: WeiDesignStateTypes, data: Compnents[]) {

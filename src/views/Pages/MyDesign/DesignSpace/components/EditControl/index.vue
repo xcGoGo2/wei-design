@@ -148,11 +148,6 @@ const mouseWheel = (e: any) => {
 const setWrapPositionSize = () => {
     // 监听wrap的尺寸变化
     useResizeObserver($wrap, (e: any) => {
-        // console.log(e[0]);
-        // console.log(e[0].borderBoxSize[0]);
-        // console.log(e[0].contentBoxSize[0]);
-        // console.log(e[0].contentRect);
-        // console.log(e[0].devicePixelContentBoxSize[0]);
         const wrapW = $wrap.value.clientWidth;
         const wrapH = $wrap.value.clientHeight;
         const canvasW = $canvas.value.clientWidth;
