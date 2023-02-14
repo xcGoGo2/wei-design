@@ -52,19 +52,14 @@ const MockAPI = [
                 message: 'ok',
                 data: [
                     {
-                        title: '首页',
-                        icon: 'index',
-                        router: '/index',
-                    },
-                    {
                         title: '我的设计',
                         icon: 'myDesign',
-                        router: '/weiDesign/myDesign',
+                        router: '/weiDesign',
                     },
                     {
                         title: '模板市场',
                         icon: 'tplMarket',
-                        router: '/weiDesign/tplMarket',
+                        router: '/tplMarket',
                     },
                     // {
                     //     title: 'WEI-DESIGN',
@@ -92,6 +87,11 @@ const MockAPI = [
                         title: '数据集',
                         icon: 'boardsheet',
                         router: '/boardsheet',
+                    },
+                    {
+                        title: '系统信息',
+                        icon: 'index',
+                        router: '/systemInfo',
                     },
                     // {
                     //     title: '管理配置',

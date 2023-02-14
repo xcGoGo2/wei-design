@@ -1,24 +1,37 @@
 import Home from '@/views/Home/index.vue'
 import Login from '@/views/Login/index.vue'
-import Index from '@/views/Pages/Index/index.vue'
+import SystemInfo from '@/views/Pages/SystemInfo/index.vue'
 import Assembly from '@/views/Pages/Assembly/index.vue'
 import Boardsheet from '@/views/Pages/Boardsheet/index.vue'
-import MyDesign from '@/views/Pages/MyDesign/index.vue'
+import WeiDesign from '@/views/Pages/WeiDesign/index.vue'
 import TplMarket from '@/views/Pages/TplMarket/index.vue'
-import DesignSpace from '@/views/Pages/MyDesign/DesignSpace/index.vue'
+import DesignSpace from '@/views/Pages/WeiDesign/DesignSpace/index.vue'
 
 export default [
     { path: '/', redirect: '/home' },
     { path: '/login', component: Login, name: 'Login' },
     {
         path: '/home',
-        redirect: '/index',
+        redirect: '/weiDesign',
         component: Home,
         children: [
             {
-                path: '/index',
-                name: '首页',
-                component: Index,
+                path: '/weiDesign',
+                name: '界面设计',
+                component: WeiDesign,
+            },
+            {
+                path: '/weiDesign/designSpace',
+                name: '工作空间',
+                component: DesignSpace,
+                meta: {
+                    title: '工作空间'
+                },
+            },
+            {
+                path: '/tplMarket',
+                name: '模板市场',
+                component: TplMarket,
             },
             {
                 path: '/assembly',
@@ -31,20 +44,9 @@ export default [
                 component: Boardsheet,
             },
             {
-                path: '/weiDesign',
-                name: '',
-                children: [
-                    {
-                        path: 'myDesign',
-                        name: '界面设计',
-                        component: MyDesign,
-                    },
-                    {
-                        path: 'tplMarket',
-                        name: '模板市场',
-                        component: TplMarket,
-                    },
-                ],
+                path: '/systemInfo',
+                name: '系统信息',
+                component: SystemInfo,
             },
             // {
             //     path: '/manage/userManage',
@@ -68,12 +70,4 @@ export default [
             // },
         ],
     },
-    {
-        path: '/weiDesign/designSpace',
-        name: '工作空间',
-        component: DesignSpace,
-        meta: {
-            title: '工作空间'
-        },
-    }
 ]
