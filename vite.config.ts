@@ -14,6 +14,7 @@ function pathResolve(dir: string) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: './',
     // 路径重定向
     resolve: {
         alias: [
