@@ -1,5 +1,11 @@
 import Home from '@/views/Home/index.vue'
 import Login from '@/views/Login/index.vue'
+import Index from '@/views/Pages/Index/index.vue'
+import Assembly from '@/views/Pages/Assembly/index.vue'
+import Boardsheet from '@/views/Pages/Boardsheet/index.vue'
+import MyDesign from '@/views/Pages/MyDesign/index.vue'
+import TplMarket from '@/views/Pages/TplMarket/index.vue'
+import DesignSpace from '@/views/Pages/MyDesign/DesignSpace/index.vue'
 
 export default [
     { path: '/', redirect: '/home' },
@@ -12,17 +18,17 @@ export default [
             {
                 path: '/index',
                 name: '首页',
-                component: import('@/views/Pages/Index/index.vue'),
+                component: Index,
             },
             {
                 path: '/assembly',
                 name: '组件',
-                component: import('@/views/Pages/Assembly/index.vue'),
+                component: Assembly,
             },
             {
                 path: '/boardsheet',
                 name: '数据集',
-                component: import('@/views/Pages/Boardsheet/index.vue'),
+                component: Boardsheet,
             },
             {
                 path: '/weiDesign',
@@ -31,12 +37,12 @@ export default [
                     {
                         path: 'myDesign',
                         name: '界面设计',
-                        component: import('@/views/Pages/MyDesign/index.vue'),
+                        component: MyDesign,
                     },
                     {
                         path: 'tplMarket',
                         name: '模板市场',
-                        component: import('@/views/Pages/TplMarket/index.vue'),
+                        component: TplMarket,
                     },
                 ],
             },
@@ -65,7 +71,7 @@ export default [
     {
         path: '/weiDesign/designSpace',
         name: '工作空间',
-        component: import('@/views/Pages/MyDesign/DesignSpace/index.vue'),
+        component: DesignSpace,
         meta: {
             title: '工作空间'
         },
