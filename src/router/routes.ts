@@ -21,14 +21,6 @@ export default [
                 component: WeiDesign,
             },
             {
-                path: '/weiDesign/designSpace',
-                name: '工作空间',
-                component: DesignSpace,
-                meta: {
-                    title: '工作空间'
-                },
-            },
-            {
                 path: '/tplMarket',
                 name: '模板市场',
                 component: TplMarket,
@@ -69,5 +61,13 @@ export default [
             //     component: import('@/views/Pages/errPage/Is500/index.vue'),
             // },
         ],
+    },
+    {
+        path: '/weiDesign/designSpace',
+        name: '工作空间',
+        component: DesignSpace,
+        meta: {
+            title: '工作空间'
+        },
     },
 ]

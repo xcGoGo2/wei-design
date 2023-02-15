@@ -144,7 +144,7 @@ export function debounce(func: Function, wait: number, immediate?: boolean) {
 export function throttle (fn: any, delay = 300) {
     let timer: any = null
     console.log(2222)
-    return function (...args) {
+    return function (...args: any) {
         if(timer == null){
             timer = setTimeout(() => {
                 fn.call(this, ...args)

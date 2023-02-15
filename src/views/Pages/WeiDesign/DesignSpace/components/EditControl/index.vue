@@ -55,6 +55,8 @@ import SketchRule from "@/components/Ruler/sketchRuler.vue";
 import Shape from '@/components/Editor/Shape.vue';
 import MarkLine from '@/components/Editor/MarkLine.vue';
 import { useResizeObserver } from "@vueuse/core";
+import { debounce } from '@/utils'
+import {log} from "echarts/types/src/util/log";
 
 const store = useStore();
 
@@ -148,6 +150,7 @@ const mouseWheel = (e: any) => {
 const setWrapPositionSize = () => {
     // 监听wrap的尺寸变化
     useResizeObserver($wrap, (e: any) => {
+
         const wrapW = $wrap.value.clientWidth;
         const wrapH = $wrap.value.clientHeight;
         const canvasW = $canvas.value.clientWidth;

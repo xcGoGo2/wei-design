@@ -26,7 +26,7 @@ const router = useRouter();
 const tagList: tagType[] = reactive([
   {
     title: '首页',
-    path: '/index',
+    path: '/weiDesign',
     type: getTagColor()
   }
 ]);
