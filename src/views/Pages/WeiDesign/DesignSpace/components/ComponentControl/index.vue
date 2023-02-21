@@ -59,7 +59,8 @@
                             <span>{{ item.label }}</span>
                         </template>
                         <div class="layer-content">
-                            <svg-icon :name="item.icon" style="width: 90%; height: 90%"></svg-icon>
+                            <html2-canvas :component="item"></html2-canvas>
+                            <!--<svg-icon :name="item.icon" style="width: 90%; height: 90%"></svg-icon>-->
                         </div>
                     </item-card>
                 </li>
@@ -73,6 +74,7 @@ import { ref, reactive, defineProps, computed } from 'vue'
 import { useStore } from 'vuex';
 import { Search } from '@element-plus/icons-vue';
 import ItemCard from '@/components/ItemCard/index.vue';
+import Html2Canvas from '@/components/Html2canvas/index.vue';
 
 const store = useStore();
 const props = defineProps({
