@@ -49,13 +49,12 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted, watch, defineExpose } from "vue";
 import { useStore } from 'vuex';
-import { deepCopy, uuid } from '@/utils';
+import { debounce, deepCopy, uuid, throttle } from "@/utils";
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
 import Shape from '@/components/Editor/Shape.vue';
 import MarkLine from '@/components/Editor/MarkLine.vue';
 import { useResizeObserver } from "@vueuse/core";
-import { debounce } from '@/utils'
 import {log} from "echarts/types/src/util/log";
 
 const store = useStore();
@@ -149,8 +148,7 @@ const mouseWheel = (e: any) => {
  */
 const setWrapPositionSize = () => {
     // 监听wrap的尺寸变化
-    useResizeObserver($wrap, (e: any) => {
-
+    useResizeObserver($wrap, throttle(function() {
         const wrapW = $wrap.value.clientWidth;
         const wrapH = $wrap.value.clientHeight;
         const canvasW = $canvas.value.clientWidth;
@@ -167,7 +165,7 @@ const setWrapPositionSize = () => {
         $wrap.value.scrollLeft = 5000 - x;
         hRulerY.value = '-' + $wrap.value.scrollTop + 'px';
         hRulerX.value = '-' + $wrap.value.scrollLeft + 'px';
-    });
+    }, 50));
 }
 
 defineExpose({

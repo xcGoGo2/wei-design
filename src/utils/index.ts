@@ -113,7 +113,6 @@ export const  uuid = (len?: number, radix?: number) => {
  */
 export function debounce(func: Function, wait: number, immediate?: boolean) {
     let timeout: any
-
     return function () {
         let context = this
         let args = arguments
