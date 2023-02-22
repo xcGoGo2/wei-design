@@ -6,10 +6,10 @@
 import * as echarts from 'echarts';
 //import elementResizeDetectorMaker from 'element-resize-detector';
 import { throttle, debounce } from '@/utils'
+import bus from '@/utils/eventBus';
 import geoJson from '@/assets/assembly/china.json';
 
 import { getRandomKey } from '@/utils'
-
 const props = defineProps({
     options: {
         type: Object,
@@ -46,7 +46,10 @@ const initCharts = () => {
         // 基于准备好的dom，初始化echarts实例
         myChart = echarts.init(myEchartRef.value);
         echarts.registerMap('china', geoJson as any );
-        myChart.setOption(myOptions.value);
+        bus.emit('chartRender', myChart);
+        myChart.setOption(myOptions.value, {
+            lazyUpdate: false
+        });
     }
 
 }

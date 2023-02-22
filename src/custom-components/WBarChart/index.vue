@@ -1,13 +1,11 @@
 <template>
-    <Echarts :options="options" ref="echartRef"></Echarts>
+    <Echarts :options="options"></Echarts>
 </template>
 
 <script lang="ts" setup>
 import ECharts from '@/components/Echarts/index.vue';
 import * as echarts from 'echarts';
-import {defineProps, reactive, defineExpose, onMounted} from 'vue'
-
-const echartRef = ref();
+import { reactive, onMounted} from 'vue'
 
 defineProps({
     propValue: {

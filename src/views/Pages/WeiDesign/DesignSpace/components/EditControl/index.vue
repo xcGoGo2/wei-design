@@ -47,15 +47,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted, watch, defineExpose } from "vue";
+import { reactive, ref, onMounted, watch } from "vue";
 import { useStore } from 'vuex';
-import { debounce, deepCopy, uuid, throttle } from "@/utils";
+import { deepCopy, uuid, throttle } from "@/utils";
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
 import Shape from '@/components/Editor/Shape.vue';
 import MarkLine from '@/components/Editor/MarkLine.vue';
 import { useResizeObserver } from "@vueuse/core";
-import {log} from "echarts/types/src/util/log";
 
 const store = useStore();
 
@@ -202,7 +201,9 @@ const componentData = computed(() => store.state.weiDesign.componentsInCanvas);
 const handleDrop = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log(e.dataTransfer.getData('index'));
     const component = deepCopy(componentsList.value[e.dataTransfer.getData('index')]);
+    debugger
     const x = e.offsetX;
     const y = e.offsetY;
     const width = parseInt(component.style.width || 0);

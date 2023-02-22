@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useMouseXY } from '@/hooks/useMouseXY'
 import { useStore } from 'vuex';
 import bus from '@/utils/eventBus';

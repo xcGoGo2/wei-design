@@ -3,10 +3,7 @@
 </template>
 
 <script lang='ts' setup>
-import { defineProps, defineExpose } from 'vue';
-
 const compRef = ref();
-
 defineProps({
     propValue: {
         type: String,
