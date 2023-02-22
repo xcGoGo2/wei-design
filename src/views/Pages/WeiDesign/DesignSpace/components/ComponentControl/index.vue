@@ -53,13 +53,13 @@
                 </li>
             </ul>
             <ul class="chart-list">
-                <li v-for="(item, index) in layerData.chartList" :key="index + item.id" draggable='true' :data-index="index" @dragstart="handleDragStart">
-                    <item-card btns="['cancel', 'enLarge', 'reduce']">
+                <li v-for="(item, index) in layerData.chartList" :key="index + item.id" draggable='true' :data-index="index" @dragstart="handleDragStart($event, index)">
+                    <item-card :btns="['cancel', 'enLarge', 'reduce']">
                         <template #headerRight>
                             <span>{{ item.label }}</span>
                         </template>
                         <div class="layer-content">
-                            <html2-canvas :component="item"></html2-canvas>
+                            <html2-canvas :component-data="item"></html2-canvas>
                             <!--<svg-icon :name="item.icon" style="width: 90%; height: 90%"></svg-icon>-->
                         </div>
                     </item-card>
@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, defineProps, computed } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex';
 import { Search } from '@element-plus/icons-vue';
 import ItemCard from '@/components/ItemCard/index.vue';
@@ -126,8 +126,8 @@ const selectLayerIndex = (index: number) => {
 
 const searchValue = ref('');
 
-const handleDragStart = (e: any) => {
-    e.dataTransfer.setData('index', e.target.dataset.index)
+const handleDragStart = (e: any, index: number) => {
+    e.dataTransfer.setData('index', index)
 }
 </script>
 
