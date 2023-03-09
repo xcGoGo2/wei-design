@@ -81,7 +81,7 @@ import DependenceInfo from './components/DependenceInfo/index.vue'
 
 import { getRandomColor } from '@/utils'
 
-import { systemInfomationData, systemUserData, growData, growRoateData } from '@/views/Pages/Index/chartConfig';
+import { systemInfomationData, systemUserData, growData, growRoateData } from '@/views/Pages/SystemInfo/chartConfig';
 
 let chartRef = ref<HTMLElement>();
 const chartWidth = ref<string | number>(0);

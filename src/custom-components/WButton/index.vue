@@ -1,15 +1,18 @@
 <template>
-    <el-button>{{ propValue }}</el-button>
+    <el-button ref="compRef">{{ propValue }}</el-button>
 </template>
 
 <script lang='ts' setup>
-import { defineProps } from 'vue';
-
+const compRef = ref();
 defineProps({
     propValue: {
         type: String,
         default: '这是button'
     }
+})
+
+defineExpose({
+    compRef
 })
 </script>
 

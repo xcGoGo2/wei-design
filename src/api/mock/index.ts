@@ -52,19 +52,14 @@ const MockAPI = [
                 message: 'ok',
                 data: [
                     {
-                        title: '首页',
-                        icon: 'index',
-                        router: '/index',
-                    },
-                    {
                         title: '我的设计',
                         icon: 'myDesign',
-                        router: '/weiDesign/myDesign',
+                        router: '/weiDesign',
                     },
                     {
                         title: '模板市场',
                         icon: 'tplMarket',
-                        router: '/weiDesign/tplMarket',
+                        router: '/tplMarket',
                     },
                     // {
                     //     title: 'WEI-DESIGN',
@@ -92,6 +87,11 @@ const MockAPI = [
                         title: '数据集',
                         icon: 'boardsheet',
                         router: '/boardsheet',
+                    },
+                    {
+                        title: '系统信息',
+                        icon: 'index',
+                        router: '/systemInfo',
                     },
                     // {
                     //     title: '管理配置',
@@ -212,6 +212,7 @@ const MockAPI = [
                 data: [
                     {
                         id: uuid(),
+                        type: 'element', // 元素类性
                         component: 'w-button', // 组件名称，需要提前注册到 Vue
                         label: '按钮', // 左侧组件列表中显示的名字
                         propValue: '按钮', // 组件所使用的值
@@ -231,6 +232,7 @@ const MockAPI = [
                     },
                     {
                         id: uuid(),
+                        type: 'chart', // 元素类性
                         component: 'WBarChart', // 组件名称，需要提前注册到 Vue
                         label: '柱状图', // 左侧组件列表中显示的名字
                         propValue: '柱状图', // 组件所使用的值

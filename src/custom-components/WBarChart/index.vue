@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import ECharts from '@/components/Echarts/index.vue';
 import * as echarts from 'echarts';
-import { defineProps, reactive } from 'vue'
+import { reactive, onMounted} from 'vue'
 
 defineProps({
     propValue: {
@@ -176,6 +176,10 @@ const options = reactive({
         }
     ]
 })
+
+onMounted(() => {
+})
+
 </script>
 
 <style lang="scss" scoped src="./index.scss"></style>

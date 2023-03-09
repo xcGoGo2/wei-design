@@ -15,11 +15,14 @@
 
 ## 🍊 项目介绍
 
--   WEI-DESIGN 是一款包含可选常用前端快速开发模板、包含组件通用系统的前端开发系统
--   技术栈：vue3 + vite + TypeScript + axios + ElementuiPlus
--   双种模式可选：自己快速搭建框架开发，可选式配置拖拽式开发
--   良好的类型定义
--   后端路由动态渲染
+- WEI-DESIGN 是一款包含可选常用前端快速开发模板、包含组件通用系统的前端开发系统
+- 技术栈：vue3 + vite + TypeScript + axios + ElementuiPlus
+- 双种模式可选：自己快速搭建框架开发，可选式配置拖拽式开发
+- 良好的类型定义
+- 后端路由动态渲染
+
+## 🍚 项目预览
+- github托管：https://wayne1308.github.io/wei-design
 
 ## 🌐 分支说明
 

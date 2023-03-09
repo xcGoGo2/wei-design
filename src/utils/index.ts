@@ -3,8 +3,6 @@
  * @param key key值
  * @param value 存入值
  */
-import FunnelView from 'echarts/types/src/chart/funnel/FunnelView'
-
 export const setItem = (key: string, value: any) => {
     if (value instanceof Object) {
         value = JSON.stringify(value)
@@ -113,7 +111,6 @@ export const  uuid = (len?: number, radix?: number) => {
  */
 export function debounce(func: Function, wait: number, immediate?: boolean) {
     let timeout: any
-
     return function () {
         let context = this
         let args = arguments
@@ -144,7 +141,7 @@ export function debounce(func: Function, wait: number, immediate?: boolean) {
 export function throttle (fn: any, delay = 300) {
     let timer: any = null
     console.log(2222)
-    return function (...args) {
+    return function (...args: any) {
         if(timer == null){
             timer = setTimeout(() => {
                 fn.call(this, ...args)

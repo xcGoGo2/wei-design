@@ -42,6 +42,7 @@ export interface assemblyType {
 
 export type Compnents = {
     id: string
+    type: string; // 组件类性
     component: string // 组件名称，需要提前注册到 Vue
     label: string // 左侧组件列表中显示的名字
     propValue: string // 组件所使用的值

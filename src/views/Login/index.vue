@@ -45,7 +45,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { system } from '@/api/service';
 import { setItem } from '@/utils/index';
 export default defineComponent({
-  name: 'index',
+  name: 'login',
   components: {},
   setup() {
     // 路由api创建

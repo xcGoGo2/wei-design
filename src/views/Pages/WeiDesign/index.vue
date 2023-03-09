@@ -192,7 +192,7 @@ const enLarge = (item: designListType) => {
 // 界面设计
 const toDesignSpace = () => {
     const newUrl = router.resolve({
-        path: "designSpace"
+        path: "weiDesign/designSpace"
     });
     window.open(newUrl.href, "_blank");
 }

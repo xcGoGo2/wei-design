@@ -1,15 +1,15 @@
 <template>
-    <div class="my-echarts" :key="getRandomKey" ref="myEchartRef"></div>
+    <div class="my-echarts" :key="getRandomKey" :style="{height, width}" ref="myEchartRef"></div>
 </template>
 
 <script setup lang="ts">
 import * as echarts from 'echarts';
 //import elementResizeDetectorMaker from 'element-resize-detector';
 import { throttle, debounce } from '@/utils'
+import bus from '@/utils/eventBus';
 import geoJson from '@/assets/assembly/china.json';
 
 import { getRandomKey } from '@/utils'
-
 const props = defineProps({
     options: {
         type: Object,
@@ -30,6 +30,14 @@ const props = defineProps({
                 ]
             }
         }
+    },
+    width: {
+        type: [String],
+        default: '100%'
+    },
+    height: {
+        type: [String],
+        default: '100%'
     }
 });
 
@@ -46,6 +54,7 @@ const initCharts = () => {
         // 基于准备好的dom，初始化echarts实例
         myChart = echarts.init(myEchartRef.value);
         echarts.registerMap('china', geoJson as any );
+        bus.emit('chartRender', myChart);
         myChart.setOption(myOptions.value);
     }
 
@@ -72,10 +81,12 @@ const resizeCharts = () => {
     resizeObserver.observe(myEchartRef.value as HTMLElement);
 }
 onMounted(() => {
-    setTimeout(() => {
-        initCharts();
-        resizeCharts();
-    });
+    setTimeout(function() {
+        nextTick(() => {
+            initCharts();
+            resizeCharts();
+        })
+    }, 0)
 });
 </script>
 
@@ -85,3 +96,4 @@ onMounted(() => {
     height: 100%;
 }
 </style>
+
