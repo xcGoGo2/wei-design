@@ -201,9 +201,7 @@ const componentData = computed(() => store.state.weiDesign.componentsInCanvas);
 const handleDrop = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(e.dataTransfer.getData('index'));
     const component = deepCopy(componentsList.value[e.dataTransfer.getData('index')]);
-    debugger
     const x = e.offsetX;
     const y = e.offsetY;
     const width = parseInt(component.style.width || 0);

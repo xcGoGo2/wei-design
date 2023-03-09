@@ -1,6 +1,6 @@
 <template>
     <div class="shape" ref="$shape" :class="[isActive() ? 'active': '', active]" v-drag @click='selectCurComponent'>
-        <div v-for="item in (isActive()? getPointList() : [])" :key="item" class="shape-point" :style="getPointStyle(item)" @mousedown="handleMouseDownOnPoint(item, $event)"></div>
+        <div v-for="item in (isActive()? getPointList() : [])" :key="item" :data-name="item" class="shape-point" :style="getPointStyle(item)" @mousedown="handleMouseDownOnPoint(item, $event)"></div>
         <slot></slot>
     </div>
 </template>
@@ -86,6 +86,10 @@ const vDrag = {
 
         el.onmousedown=function(e: any){
             store.commit('weiDesign/setComponentIndex', props.index ? props.index : 0);
+
+            if(e.target && e.target.dataset.name) {
+                return;
+            }
             const { x, y } = useMouseXY();
             shapeXY.x = x;
             shapeXY.y = y;
@@ -115,7 +119,30 @@ const vDrag = {
 }
 
 const handleMouseDownOnPoint = (item: any, e: any) => {
+    const { x: oldX, y: oldY } = useMouseXY();
+    document.onmousemove = () => {
+        if(item.length === 2) {
+            // 四周
+            const { x, y } = useMouseXY();
+            console.log('x', x - oldX);
+            console.log('y', y - oldY);
+            component.style.width = $shape.value.offsetWidth + ( x - oldX) * scale.value + 'px';
+            component.style.height = $shape.value.offsetHeight + (y - oldY) * scale.value + 'px';
 
+        }else if (item === 'r' || item === 'l') {
+            // 横向
+        }else {
+            // 竖向
+        }
+    };
+    document.onmouseup = () => {
+        document.onmousemove=null;
+        document.onmouseup=null;
+    }
+
+    // 阻止向父组件冒泡
+    e.stopPropagation()
+    e.preventDefault()
 }
 
 const getPointList = () => {
