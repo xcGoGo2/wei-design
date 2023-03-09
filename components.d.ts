@@ -47,7 +47,6 @@ declare module 'vue' {
     ItemBox: typeof import('./src/components/ItemBox/index.vue')['default']
     ItemCard: typeof import('./src/components/ItemCard/index.vue')['default']
     Line: typeof import('./src/components/Ruler/line.vue')['default']
-    Loading: typeof import('element-plus/es')['ElLoadingDirective']
     MarkLine: typeof import('./src/components/Editor/MarkLine.vue')['default']
     Row: typeof import('./src/components/Layout/Row/index.vue')['default']
     RulerWrapper: typeof import('./src/components/Ruler/rulerWrapper.vue')['default']

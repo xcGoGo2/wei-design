@@ -1,68 +1,66 @@
 <template>
-    <div :class="`component-${componentType}-container`" ref="componentContainerRef">
-        <component ref="componentRef" :is="componentData.component"></component>
+    <div :class="`component-${componentType}-container show-content`" ref="componentContainerRef">
+        <component ref="componentRef" class="html-2-canvas-component" :style="{ width: chartStyle.width, height: chartStyle.height, transform: chartStyle.transform }" :is="componentData.component"></component>
     </div>
-    <!-- <div class="component-canvas-container" v-if="!canvasInit">
-        <component ref="componentRef" :is="componentData.component"></component>
-    </div>
-    <img class="show-imgs-container" v-if="canvasInit === 'chart'" :src="imgSrc" ref="imgRef" />
-    <div class="show-div-container" ref="divRef"></div> -->
 </template>
 
 <script lang="ts" setup>
-import { he } from "element-plus/es/locale";
-import { onMounted } from "vue";
-import { scale } from "zrender/lib/core/vector";
+import { PropType } from "vue";
+import { getComponentType } from '@/utils/component'
+import { Compnents } from '@/type'
 const componentRef = ref();
 const props = defineProps({
     componentData: {
-        type: Object,
+        type: Object as PropType<Compnents>,
         default: {}
     }
 });
 
-const componentType = ref('normal');
+// const componentType = ref('normal');
 const componentContainerRef = ref();
 const chartStyle = reactive({
     height: '100%',
     width: '100%',
-    transform: "scale(1)"
+    transform: "scale(1)",
+    'z-index': '100'
 });
 
-onMounted(() => {
-    // 非echart组件
-    if(!componentRef.value.$el.classList.contains('my-echarts')) {
-        componentType.value = 'normal';
-    }else{
-        // echart 组件
-        // console.log(componentContainerRef);
-        // debugger
+// 组件类性
+const componentType = ref('element');
+componentType.value = getComponentType(props.componentData)[0];
 
-        componentType.value = 'chart'
-        const { width, height } = props.componentData.style;
-        const scale = 93 / parseInt(width);
-        chartStyle.width = 158 / scale + 'px';  // 158
-        chartStyle.height = 93 / scale + 'px';  // 93
-        chartStyle.transform = `scale(${scale})`
-        console.log(props.componentData);
-        debugger
+const { width, height } = props.componentData.style;
+const scale = 93 / parseInt(width);
+chartStyle.width = 158 / scale + 'px';  // 158
+chartStyle.height = 93 / scale + 'px';  // 93
+chartStyle.transform = `scale(${scale})`
 
-    }
-})
 </script>
 
 <style scoped lang="scss">
 
-.component-chart-container {
-    position: relative;
-    width: v-bind('chartStyle.width');
-    height: v-bind('chartStyle.height');
-    transform: v-bind('chartStyle.transform');
+.show-content {
+    pointer-events: none;
 }
 
-.component-mormal-container {
+.component-chart-container {
+    position: relative;
     width: 100%;
     height: 100%;
 }
 
+.component-element-container {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+</style>
+
+<style lang="scss">
+.html-2-canvas-component {
+    transform-origin: 0 0;
+}
 </style>

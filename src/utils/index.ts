@@ -3,8 +3,6 @@
  * @param key key值
  * @param value 存入值
  */
-import FunnelView from 'echarts/types/src/chart/funnel/FunnelView'
-
 export const setItem = (key: string, value: any) => {
     if (value instanceof Object) {
         value = JSON.stringify(value)
