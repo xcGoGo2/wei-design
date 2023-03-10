@@ -6,6 +6,7 @@ import Boardsheet from '@/views/Pages/Boardsheet/index.vue'
 import WeiDesign from '@/views/Pages/WeiDesign/index.vue'
 import TplMarket from '@/views/Pages/TplMarket/index.vue'
 import DesignSpace from '@/views/Pages/WeiDesign/DesignSpace/index.vue'
+import ElementDrag from '@/test/elementDrag/index.vue'
 
 export default [
     { path: '/', redirect: '/home' },
@@ -70,4 +71,9 @@ export default [
             title: '工作空间'
         },
     },
+    {
+        path: '/demos',
+        name: '演示测试',
+        component: ElementDrag
+    }
 ]
