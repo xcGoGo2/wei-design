@@ -49,5 +49,9 @@ export type Compnents = {
     icon: string // 左侧组件列表中显示的名字
     animations: Array<any> // 动画列表
     events: any // 事件列表
-    style: any
+    style: any;
+    ifLock?: boolean;
+    ifShow?: boolean;
+    title?: string;
+    [key: string]: any
 }

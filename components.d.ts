@@ -48,6 +48,8 @@ declare module 'vue' {
     ItemCard: typeof import('./src/components/ItemCard/index.vue')['default']
     Line: typeof import('./src/components/Ruler/line.vue')['default']
     MarkLine: typeof import('./src/components/Editor/MarkLine.vue')['default']
+    Menu: typeof import('./src/components/Menu/index.vue')['default']
+    MenuItem: typeof import('./src/components/Menu/menuItem.vue')['default']
     Row: typeof import('./src/components/Layout/Row/index.vue')['default']
     RulerWrapper: typeof import('./src/components/Ruler/rulerWrapper.vue')['default']
     Shape: typeof import('./src/components/Editor/Shape.vue')['default']

@@ -27,7 +27,7 @@
         </div>
         <div class="content">
             <ul>
-                <li :class="activeLayerIndex === index ? 'active': ''" v-for="(item, index) in layerControlData.layerList" :key="item.title + index" @click="selectLayer(index)">
+                <li :class="curComponentIndex === index ? 'active': ''" v-for="(item, index) in layerControlData.layerList" :key="item.title + index" @click="selectLayer(index)">
                     <svg-icon :name="item.icon" class="img"></svg-icon>
                     <span class="title">{{ item.title }}</span>
                     <span class="control">
@@ -42,48 +42,32 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
+import { useStore } from 'vuex';
+import {Compnents} from "@/type";
 
+const store = useStore();
 const emits = defineEmits(['shrink']);
 
-const layerControlData = reactive({
-    layerList: [
-        {
-            icon: '平台',
-            title: '图层一',
-            ifLock: false,
-            ifShow: true
-        },{
-            icon: '平台',
-            title: '图层一',
-            ifLock: false,
-            ifShow: true
-        },{
-            icon: '平台',
-            title: '图层一',
-            ifLock: false,
-            ifShow: true
-        },{
-            icon: '平台',
-            title: '图层一',
-            ifLock: false,
-            ifShow: true
-        },{
-            icon: '平台',
-            title: '图层一',
-            ifLock: false,
-            ifShow: true
-        },{
-            icon: '平台',
-            title: '图层一',
-            ifLock: false,
-            ifShow: true
-        },
-    ]
+// layer 组件数据集合
+const layerControlData = reactive<{layerList: Compnents[]}>({
+    layerList: []
 });
 
-const activeLayerIndex = ref(0);
+// 获取当前展示在 画布中的组件列表
+const layerList = computed(() => store.state.weiDesign.componentsInCanvas);
+// 当前选中组件
+const curComponentIndex = computed(() => store.state.weiDesign.curComponentIndex);
+
+watch(layerList, (n, o) => {
+    layerControlData.layerList = (n || []).map((o: Compnents) => {
+        o.ifLock = o.ifLock ? o.ifLock: false;
+        o.ifShow= o.ifShow ? o.ifShow: true;
+        return o;
+    })
+})
+
 const selectLayer = (index: number) => {
-    activeLayerIndex.value = index;
+    store.commit('weiDesign/setComponentIndex', index);
 }
 
 const shrink = () => {

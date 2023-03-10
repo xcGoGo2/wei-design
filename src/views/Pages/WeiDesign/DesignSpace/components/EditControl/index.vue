@@ -197,7 +197,7 @@ onMounted(() => {
 const componentsList = computed(() => store.state.weiDesign.componentsList);
 const componentData = computed(() => store.state.weiDesign.componentsInCanvas);
 
-// 拖拽事件
+// 拖拽组件到当前画布
 const handleDrop = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -208,8 +208,12 @@ const handleDrop = (e: any) => {
     const height = parseInt(component.style.height || 0);
     component.style.top = y - height / 2 + 'px';
     component.style.left = x - width / 2 + 'px';
-    component.id = uuid(); // 拖入画布时重新生成uuid
-    store.commit('weiDesign/setComponentsInCanvas', [...componentData.value, component]);
+    component.style.zIndex = componentData.value.length + 1; // 组件的定位层级
+    component.id = uuid(); // 生成uuid
+    component.ifLock = false; // 是否锁定
+    component.ifShow = true; // 是否显示
+    component.title = `${component.label}-${componentData.value.length + 1}`;
+    store.commit('weiDesign/addComponentsInCanvas', component);
 }
 const handleDragOver = (e: any) => {
     e.preventDefault();

@@ -11,9 +11,7 @@ const weiDesignModule: Module<WeiDesignStateTypes, RootStateTypes> = {
         curComponentIndex: -1, // 当前选中组件
         canvasScale: 1,
         componentsInCanvas: [], // 当前界面中显示的组件数据
-        editCanvasConfig: {
-            
-        }
+        editCanvasConfig: {}
     }),
     mutations: {
         setComponentsList(state: WeiDesignStateTypes, data: Compnents[]) {
@@ -27,6 +25,9 @@ const weiDesignModule: Module<WeiDesignStateTypes, RootStateTypes> = {
         },
         setComponentsInCanvas(state: WeiDesignStateTypes, data: Compnents[]) {
             state.componentsInCanvas = data;
+        },
+        addComponentsInCanvas(state: WeiDesignStateTypes, data: Compnents) {
+            state.componentsInCanvas = [...state.componentsInCanvas, data];
         },
         changeComponentsInCanvasByIndex(state: WeiDesignStateTypes, data: { index: number; component: Compnents[] }) {
             state.componentsInCanvas[data.index] = data.component;
