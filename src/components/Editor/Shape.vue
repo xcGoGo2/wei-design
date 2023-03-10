@@ -122,31 +122,75 @@ const handleMouseDownOnPoint = (item: any, e: any) => {
     let { x: oldX, y: oldY } = useMouseXY();
     document.onmousemove = () => {
         const { x, y } = useMouseXY();
+        // 初始化元素的 width height top bottom right left
+        $shape.value.style.left = $shape.value.offsetLeft  + 'px';
+        $shape.value.style.right = $shape.value.offsetParent.offsetWidth - $shape.value.offsetWidth - $shape.value.offsetLeft + 'px';
+        $shape.value.style.top = $shape.value.offsetTop + 'px';
+        $shape.value.style.bottom = $shape.value.offsetParent.offsetHeight - $shape.value.offsetHeight - $shape.value.offsetTop + 'px';
+        $shape.value.style.width = $shape.value.offsetWidth + 'px';
+        $shape.value.style.height = $shape.value.offsetHeight + 'px';
         if(item.length === 2) {
             // 四周
-            component.style.width = $shape.value.offsetWidth + ( x - oldX)  + 'px';
-            component.style.height = $shape.value.offsetHeight + (y - oldY)  + 'px';
+            if(item === 'rt') {
+                $shape.value.style.right = 'auto';
+                $shape.value.style.top = 'auto';
+                $shape.value.style.width = $shape.value.offsetWidth + ( x - oldX) / scale.value  + 'px';
+                $shape.value.style.height = $shape.value.offsetHeight - (y - oldY) / scale.value  + 'px';
+            }else if(item === 'rb') {
+                $shape.value.style.right = 'auto';
+                $shape.value.style.bottom = 'auto';
+                $shape.value.style.width = $shape.value.offsetWidth + ( x - oldX) / scale.value  + 'px';
+                $shape.value.style.height = $shape.value.offsetHeight + (y - oldY) / scale.value  + 'px';
+            }else if(item === 'lt') {
+                $shape.value.style.left = 'auto';
+                $shape.value.style.top = 'auto';
+                $shape.value.style.width = $shape.value.offsetWidth - ( x - oldX) / scale.value  + 'px';
+                $shape.value.style.height = $shape.value.offsetHeight - (y - oldY) / scale.value  + 'px';
+            }else {
+                $shape.value.style.left = 'auto';
+                $shape.value.style.bottom = 'auto';
+                $shape.value.style.width = $shape.value.offsetWidth - ( x - oldX) / scale.value  + 'px';
+                $shape.value.style.height = $shape.value.offsetHeight + (y - oldY) / scale.value  + 'px';
+            }
 
         }else if (item === 'r' || item === 'l') {
             // 横向
-            component.style.width = $shape.value.offsetWidth + ( x - oldX)  + 'px';
+            if(item === 'r') {
+                $shape.value.style.right = 'auto';
+                $shape.value.style.width = $shape.value.offsetWidth + ( x - oldX) / scale.value  + 'px';
+            }else {
+                $shape.value.style.left = 'auto';
+                $shape.value.style.width = $shape.value.offsetWidth - ( x - oldX) / scale.value  + 'px';
+            }
         }else {
             // 竖向
-            component.style.height = $shape.value.offsetHeight + (y - oldY)  + 'px';
+            if(item === 't') {
+                $shape.value.style.top = 'auto';
+                $shape.value.style.height = $shape.value.offsetHeight - (y - oldY) / scale.value  + 'px';
+            }else {
+                $shape.value.style.bottom = 'auto';
+                $shape.value.style.height = $shape.value.offsetHeight + (y - oldY) / scale.value  + 'px';
+            }
         }
+        component.style.width = $shape.value.offsetWidth + 'px';
+        component.style.height = $shape.value.offsetHeight + 'px';
+        component.style.left = $shape.value.offsetLeft + 'px';
+        component.style.top = $shape.value.offsetTop + 'px';
+        component.style.right = $shape.value.offsetParent.offsetWidth - $shape.value.offsetWidth - $shape.value.offsetLeft + 'px';
+        component.style.bottom = $shape.value.offsetParent.offsetHeight - $shape.value.offsetHeight - $shape.value.offsetTop + 'px';
+
+        store.commit('weiDesign/changeComponentsInCanvasByIndex', {index: props.index, component});
         oldX = x;
         oldY = y;
     };
     document.onmouseup = () => {
         document.onmousemove=null;
-        document.onmouseup=null;
     }
 
     // 阻止向父组件冒泡
     e.stopPropagation()
     e.preventDefault()
 }
-
 const getPointList = () => {
     return props.element.component === 'line-shape' ? shapeData.pointList2 : shapeData.pointList
 }
