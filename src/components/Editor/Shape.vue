@@ -119,21 +119,23 @@ const vDrag = {
 }
 
 const handleMouseDownOnPoint = (item: any, e: any) => {
-    const { x: oldX, y: oldY } = useMouseXY();
+    let { x: oldX, y: oldY } = useMouseXY();
     document.onmousemove = () => {
+        const { x, y } = useMouseXY();
         if(item.length === 2) {
             // 四周
-            const { x, y } = useMouseXY();
-            console.log('x', x - oldX);
-            console.log('y', y - oldY);
-            component.style.width = $shape.value.offsetWidth + ( x - oldX) * scale.value + 'px';
-            component.style.height = $shape.value.offsetHeight + (y - oldY) * scale.value + 'px';
+            component.style.width = $shape.value.offsetWidth + ( x - oldX)  + 'px';
+            component.style.height = $shape.value.offsetHeight + (y - oldY)  + 'px';
 
         }else if (item === 'r' || item === 'l') {
             // 横向
+            component.style.width = $shape.value.offsetWidth + ( x - oldX)  + 'px';
         }else {
             // 竖向
+            component.style.height = $shape.value.offsetHeight + (y - oldY)  + 'px';
         }
+        oldX = x;
+        oldY = y;
     };
     document.onmouseup = () => {
         document.onmousemove=null;
@@ -152,42 +154,42 @@ const getPointList = () => {
 const getPointStyle = (point: any) => {
     const offsetWidth = $shape.value.offsetWidth;
     const offsetHeight = $shape.value.offsetHeight;
-    let width = 10, height = 10, left, top;
+    let width = 10, height = 10, left, top, right, bottom;
     switch (point) {
         case 'lt':
-            left = -6;
-            top = -6;
+            left = -5;
+            top = -5;
             break;
         case 'rt':
-            left = offsetWidth -7;
-            top = -7;
+            right = -5;
+            top = -5;
             break;
         case 'rb':
-            left = offsetWidth - 7;
-            top = offsetHeight - 7;
+            right = -5;
+            bottom = -5;
             break;
         case 'lb':
-            left = -7;
-            top = offsetHeight - 7;
+            left = -5;
+            bottom = -5;
             break;
         case 't':
-            width = 18;
+            width = 20;
             left = (offsetWidth / 2) - 10;
-            top = -7;
+            top = -5;
             break;
         case 'r':
-            height = 18;
-            left = offsetWidth - 7;
+            height = 20;
+            right = - 5;
             top = (offsetHeight / 2) - 10;
             break;
         case 'b':
-            width = 18;
+            width = 20;
             left = (offsetWidth / 2) - 10;
-            top = offsetHeight - 7;
+            bottom = - 5;
             break;
         case 'l':
-            height = 18;
-            left = -7;
+            height = 20;
+            left = -5;
             top = (offsetHeight / 2) - 10;
             break;
 
@@ -196,9 +198,12 @@ const getPointStyle = (point: any) => {
     return {
         left: `${left}px`,
         top: `${top}px`,
+        right: `${right}px`,
+        bottom: `${bottom}px`,
         cursor: shapeData.cursors[point],
         width: `${width}px`,
         height: `${height}px`,
+        'border-radius': `${width / 2}px`
     }
 }
 
@@ -210,17 +215,17 @@ const isActive = () => {
 <style lang="scss" scoped>
 .shape {
     position: absolute;
-    border: 2px solid transparent;
+    outline: 2px solid transparent;
 
     &:hover {
         cursor: move;
-        border: 2px solid $activeColor-2;
+        outline: 2px solid $activeColor-2;
         background: rgba(134, 209, 203, 0.1);
     }
 
     &.active {
         cursor: move;
-        border: 2px solid $activeColor-2;
+        outline: 2px solid $activeColor-2;
         background: rgba(134, 209, 203, 0.3);
     }
 }
@@ -233,10 +238,7 @@ const isActive = () => {
 .shape-point {
     position: absolute;
     background: #fff;
-    border: 1px solid $activeColor-1;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
+    outline: 2px solid $activeColor-1;
     z-index: 1;
 }
 

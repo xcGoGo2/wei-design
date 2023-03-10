@@ -9,7 +9,7 @@
                 ref="$wrap"
             >
                 <div id="content">
-                    <div ref="$canvas" class="edit-canvas" :style="{transform: `scale(${ scaleValueReal })`, cursor: isEnterSpace ? 'pointer' : 'auto'}" @drop="handleDrop" @dragover="handleDragOver">
+                    <div ref="$canvas" class="edit-canvas" @mousemove="canvasMousemove" :style="{transform: `scale(${ scaleValueReal })`, cursor: isEnterSpace ? 'pointer' : 'auto'}" @drop="handleDrop" @dragover="handleDragOver">
                         <div class="components-show-content">
                             <!--页面组件列表展示-->
                             <Shape v-for="(item, index) in componentData" :defaultStyle="item.style" :style="item.style" :key="item.id + item.id" :element="item" :zIndex="index" :index="index">
@@ -55,7 +55,7 @@ import SketchRule from "@/components/Ruler/sketchRuler.vue";
 import Shape from '@/components/Editor/Shape.vue';
 import MarkLine from '@/components/Editor/MarkLine.vue';
 import { useResizeObserver } from "@vueuse/core";
-
+import { useMouseXY } from '@/hooks/useMouseXY'
 const store = useStore();
 
 const $wrap = ref<any>();
@@ -219,6 +219,11 @@ watch(() => sliderConfig.scaleValue, (n) => {
     sliderConfig.scaleValue = n < 10 ? 10 : n;
     store.commit('weiDesign/setCanvasScale', scaleValueReal.value)
 })
+
+const canvasMousemove = () => {
+    // const { x, y } = useMouseXY();
+    // console.log(x, y)
+}
 </script>
 
 <style lang="scss" scoped src='./index.scss'></style>
