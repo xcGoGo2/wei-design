@@ -9,7 +9,7 @@
                 ref="$wrap"
             >
                 <div id="content">
-                    <div ref="$canvas" class="edit-canvas" @mousemove="canvasMousemove" :style="{transform: `scale(${ scaleValueReal })`, cursor: isEnterSpace ? 'pointer' : 'auto'}" @drop="handleDrop" @dragover="handleDragOver">
+                    <div ref="$canvas" class="edit-canvas" @mousemove="canvasMousemove" :style="{transform: `scale(${ scaleValueReal })`, cursor: isEnterSpace ? 'pointer' : 'auto', ...pageConfig}" @drop="handleDrop" @dragover="handleDragOver">
                         <div class="components-show-content">
                             <!--页面组件列表展示-->
                             <Shape v-for="(item, index) in componentData" :defaultStyle="item.style" :style="item.style" :key="item.id + item.id" :element="item" :zIndex="index" :index="index">
@@ -49,7 +49,7 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted, watch } from "vue";
 import { useStore } from 'vuex';
-import { deepCopy, uuid, throttle } from "@/utils";
+import {deepCopy, uuid, throttle, debounce} from "@/utils";
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
 import Shape from '@/components/Editor/Shape.vue';
@@ -147,7 +147,7 @@ const mouseWheel = (e: any) => {
  */
 const setWrapPositionSize = () => {
     // 监听wrap的尺寸变化
-    useResizeObserver($wrap, throttle(function() {
+    useResizeObserver($wrap, debounce(function() {
         const wrapW = $wrap.value.clientWidth;
         const wrapH = $wrap.value.clientHeight;
         const canvasW = $canvas.value.clientWidth;
@@ -228,6 +228,16 @@ const canvasMousemove = () => {
     // const { x, y } = useMouseXY();
     // console.log(x, y)
 }
+
+// page 配置变动
+const pageConfig = computed(() => {
+    const pageConfig = store.state.weiDesign.pageConfig;
+    return {
+        width: pageConfig.width + 'px',
+        height: pageConfig.height + 'px',
+        backgroundColor: pageConfig.backgroundColor
+    }
+});
 </script>
 
 <style lang="scss" scoped src='./index.scss'></style>

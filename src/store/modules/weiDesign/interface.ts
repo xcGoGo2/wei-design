@@ -3,4 +3,5 @@ export interface WeiDesignStateTypes {
     curComponentIndex: number;
     canvasScale: number;
     componentsInCanvas: any[];
+    pageConfig: any;
 }

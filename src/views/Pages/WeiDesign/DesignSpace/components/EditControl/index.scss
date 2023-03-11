@@ -34,21 +34,21 @@
                 left: 0;
 
                 .edit-canvas {
-                    height: 1080px;
-                    width: 1920px;
+                    height: v-bind('pageConfig.height')px;
+                    width: v-bind('pageConfig.width')px;
                     position: absolute;
-                    background-color: #f2f3f5;
+                    background-color: v-bind('pageConfig.value.backgroundColor');
                     top: 50%;
                     left: 50%;
                     box-shadow: 0 8px 10px #00000012;
-                    border-radius: 10px;
+                    border-radius: 20px;
                     -webkit-transform-origin: 0 0;
                     transform-origin: 0 0;
                     overflow: hidden;
 
                     .components-show-content {
-                        height: 1080px;
-                        width: 1920px;
+                        height: v-bind('pageConfig.value.height')px;
+                        width: v-bind('pageConfig.value.width')px;
 
                         .custom-component-class {
                             width: 100%;
