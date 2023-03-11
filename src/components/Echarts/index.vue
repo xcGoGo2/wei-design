@@ -8,6 +8,13 @@ import * as echarts from 'echarts';
 import { throttle, debounce } from '@/utils'
 import bus from '@/utils/eventBus';
 import geoJson from '@/assets/assembly/china.json';
+import { registerTheme } from '@/hooks/useEchartTheme'
+import { useStore } from "vuex";
+
+const store = useStore();
+
+// 主题
+const theme = computed(() => store.state.weiDesign.pageConfig.theme);
 
 import { getRandomKey } from '@/utils'
 const props = defineProps({
@@ -47,17 +54,21 @@ const myOptions = computed(() => {
     return props.options;
 });
 
+
+
 const myEchartRef = ref<HTMLElement>();
 
 const initCharts = () => {
-    if (myEchartRef.value && !myChart) {
+    if (myEchartRef.value) {
+        if( myChart ) {
+            myChart.dispose();
+        }
         // 基于准备好的dom，初始化echarts实例
-        myChart = echarts.init(myEchartRef.value);
+        myChart = echarts.init(myEchartRef.value, theme.value);
         echarts.registerMap('china', geoJson as any );
         bus.emit('chartRender', myChart);
         myChart.setOption(myOptions.value);
     }
-
 }
 
 const resizeCharts = () => {
@@ -81,6 +92,10 @@ const resizeCharts = () => {
     resizeObserver.observe(myEchartRef.value as HTMLElement);
 }
 onMounted(() => {
+    // 注册echarts主题
+    if(echarts) {
+        registerTheme(echarts);
+    };
     setTimeout(function() {
         nextTick(() => {
             initCharts();
@@ -88,13 +103,17 @@ onMounted(() => {
         })
     }, 0)
 });
+
+watch(theme, (n) => {
+    initCharts();
+})
 </script>
 
 <style scoped lang="scss">
 .my-echarts {
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    //background-color: #fff;
 }
 </style>
 
