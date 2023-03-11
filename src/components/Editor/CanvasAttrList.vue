@@ -7,16 +7,16 @@
         <div class="size-config config-item">
             <span class="size-width">
                 <label for="canvas-size-width">宽度</label>
-                <el-input-number id="canvas-size-width" size="small" v-model="canvasAttrListData.width" :min="1" />
+                <el-input-number id="canvas-size-width" size="small" v-model="pageConfig.width" :min="1" />
             </span>
             <span class="size-height">
                 <label for="canvas-size-height">长度</label>
-                <el-input-number id="canvas-size-height" size="small" v-model="canvasAttrListData.height" :min="1" />
+                <el-input-number id="canvas-size-height" size="small" v-model="pageConfig.height" :min="1" />
             </span>
         </div>
-        <div class="config-item">
+        <div class="config-item color-config">
             <label>背景颜色</label>
-            <el-color-picker v-model="canvasAttrListData.bgColor" show-alpha />
+            <el-color-picker popper-class="color-popper-container" v-model="pageConfig.backgroundColor" show-alpha @active-change="changePageBgColor" />
         </div>
         <div class="config-item">
             <label>背景控制</label>
@@ -25,19 +25,19 @@
         </div>
         <div class="config-item">
             <label>适配方式</label>
-            <el-button-group>
-                <el-button size="small">自适应</el-button>
-                <el-button size="small">X轴铺满</el-button>
-                <el-button size="small">Y轴铺满</el-button>
-                <el-button size="small">四周拉伸</el-button>
-            </el-button-group>
+            <el-radio-group size="small" v-model="pageConfig.adapter">
+                <el-radio-button size="small" label="auto" >自适应</el-radio-button>
+                <el-radio-button size="small" label="XPro" >X轴铺满</el-radio-button>
+                <el-radio-button size="small" label="YPro" >Y轴铺满</el-radio-button>
+                <el-radio-button size="small" label="XYPro" >四周铺满</el-radio-button>
+            </el-radio-group>
         </div>
         <div class="title">
             <span>主题颜色</span>
             <svg-icon name="调色板" size="1.15em"></svg-icon>
         </div>
-        <div class="config-item color-config">
-            <div v-for="(item, key) in themeColor" :style="{borderTop: `2px solid ${showThemeBorderColor(key)}`}" :key="item.name" :class="[`color-line theme-color-${key}`, canvasAttrListData.selectTheme === key ? 'active': '']" @click="selectThemeColor(key)">
+        <div class="config-item theme-config">
+            <div v-for="(item, key) in themeColor" :style="{borderTop: `2px solid ${showThemeBorderColor(key)}`}" :key="item.name" :class="[`color-line theme-color-${key}`, pageConfig.theme === key ? 'active': '']" @click="selectThemeColor(key)">
                 <label>{{ item.name }}</label>
                 <div class="color-item-box">
                     <span v-for="color in item.colors" :key="color" class="color-item" :style="{backgroundColor: color}"></span>
@@ -49,72 +49,85 @@
 
 <script lang="ts" setup>
 import { computed, watch } from 'vue';
-const canvasAttrListData = reactive<any>({
-    width: 1920,
-    height: 1080,
-    bgColor: '#ffffff',
-    selectTheme: 'light'
-});
+import { useStore } from 'vuex';
+import { themeColor } from '@/hooks/useEchartTheme'
 
-const themeColor = reactive<any>({
-    light: {
-        name: '明亮',
-        colors: ["#4992FF", "#00B7FF", "#00D3F3", "#00E8BF", "#90F58B", "#F9F871"]
-    },
-    dim: {
-        name: '暗淡',
-        colors: ['#5470C6', '#BB70C5', '#FF77A9', '#FF9583', '#FFC567', '#F9F871']
-    },
-    Macaroon: {
-        name: '马卡龙',
-        colors: ['#2EC7C9','#41D6BE','#68E2AC','#95ED96','#C5F481','#F9F871']
-    },
-    blueGreen: {
-        name: '蓝绿',
-        colors: ['#3FB1E3', '#00C8E3', '#00DBD0', '#5FEBAF', '#ADF58B', '#F9F871']
-    },
-    deepPurple: {
-        name: '深紫',
-        colors: ['', '', '', '', '', '']
-    },
-    retro: {
-        name: '复古',
-        colors: ['', '', '', '', '', '']
-    },
-    pinkishBlue: {
-        name: '粉青',
-        colors: ['', '', '', '', '', '']
-    },
-    ashPowder: {
-        name: '灰粉',
-        colors: ['', '', '', '', '', '']
-    },
-    greenGrass: {
-        name: '青草',
-        colors: ['', '', '', '', '', '']
-    },
-    orangeRed: {
-        name: '橘红',
-        colors: ['', '', '', '', '', '']
-    },
-    dark: {
-        name: '深色',
-        colors: ['', '', '', '', '', '']
-    },
-    romanRed: {
-        name: '罗马红',
-        colors: ['', '', '', '', '', '']
-    },
+const store = useStore();
 
-});
+const pageConfig = computed(() => store.state.weiDesign.pageConfig);
+
+// 宽度
+// const width = computed({
+//     get() {
+//         return pageConfig.value.width;
+//     },
+//     set(v) {
+//         store.commit('weiDesign/setPageConfigByKey', {key: 'width', value: v})
+//     }
+// })
+
+// const themeColor = reactive<any>({
+//     light: {
+//         name: '明亮',
+//         colors: ["#4992FF", "#00B7FF", "#00D3F3", "#00E8BF", "#90F58B", "#F9F871"]
+//     },
+//     dim: {
+//         name: '暗淡',
+//         colors: ['#5470C6', '#BB70C5', '#FF77A9', '#FF9583', '#FFC567', '#F9F871']
+//     },
+//     Macaroon: {
+//         name: '马卡龙',
+//         colors: ['#2EC7C9','#41D6BE','#68E2AC','#95ED96','#C5F481','#F9F871']
+//     },
+//     blueGreen: {
+//         name: '蓝绿',
+//         colors: ['#3FB1E3', '#00C8E3', '#00DBD0', '#5FEBAF', '#ADF58B', '#F9F871']
+//     },
+//     deepPurple: {
+//         name: '深紫',
+//         colors: ['#9B8BBA', '#D390BE', '#FF98AD', '#FFAD8F', '#FFCF73', '#F9F871']
+//     },
+//     retro: {
+//         name: '复古',
+//         colors: ['#D97B7C', '#BB6D8A', '#93658D', '#695E85', '#455572', '#2F4858']
+//     },
+//     pinkishBlue: {
+//         name: '粉青',
+//         colors: ['#FD98AF', '#D087B1', '#9E7AA8', '#6F6B94', '#485B78', '#2F4858']
+//     },
+//     ashPowder: {
+//         name: '灰粉',
+//         colors: ['#516B91', '#208EB2', '#00B0BC', '#30CFAA', '#97E98A', '#F9F871']
+//     },
+//     greenGrass: {
+//         name: '青草',
+//         colors: ['#4FA397', '#5BB898', '#76CB92', '#9ADD87', '#C6EC7B', '#F9F871']
+//     },
+//     orangeRed: {
+//         name: '橘红',
+//         colors: ['#8A3349', '#984932', '#916820', '#77862C', '#44A15B', '#00B7A0']
+//     },
+//     dark: {
+//         name: '深色',
+//         colors: ['#C22E34', '#CA2E67', '#BD4598', '#9B62C0', '#637BD9', '#008EE0']
+//     },
+//     romanRed: {
+//         name: '罗马红',
+//         colors: ['#E12054', '#C7510D', '#957200', '#548500', '#008E4B', '#00918C']
+//     }
+// });
 
 const selectThemeColor = (key: string | number) => {
-    canvasAttrListData.selectTheme = key || 'light'
+    pageConfig.value.theme = key || 'light'
 }
 
 const showThemeBorderColor = (key: string | number) => {
-    const isSel = key === canvasAttrListData.selectTheme;
+    const isSel = key === pageConfig.value.theme;
     return isSel ? themeColor[key].colors[0] : 'transparent';
+}
+
+const changePageBgColor = (e: string) => {
+    store.commit('weiDesign/setPageConfigByKey', { key: 'backgroundColor', value: e});
 }
 
 
@@ -159,14 +172,14 @@ $themeColor: v-bind(themeColor);
         display: flex;
         align-items: center;
 
-        label {
+        & > label {
             width: auto;
             margin-right: 8px;
 
         }
     }
 
-    .color-config {
+    .theme-config {
         display: flex;
         flex-direction: column;
 
@@ -216,5 +229,19 @@ $themeColor: v-bind(themeColor);
         }
     }
 }
+</style>
+
+<style lang="scss">
+.canvas-attr-list-container {
+    .color-config .el-color-picker .el-color-picker__trigger {
+        width: 200px;
+
+    }
+}
+
+.color-popper-container .el-color-dropdown__btns button {
+    display: none;
+}
+
 </style>
 

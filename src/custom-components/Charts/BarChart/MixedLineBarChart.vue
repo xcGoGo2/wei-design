@@ -104,13 +104,6 @@ const options = reactive({
         barWidth: '12px',
         itemStyle: {
             normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                    offset: 0,
-                    color: '#29acff'
-                }, {
-                    offset: 1,
-                    color: '#4bdfff'
-                }]),
                 barBorderRadius: 6,
             },
         },
@@ -122,13 +115,6 @@ const options = reactive({
             barWidth: '12px',
             itemStyle: {
                 normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#3d93f2'
-                    }, {
-                        offset: 1,
-                        color: '#5dc1fd'
-                    }]),
                     barBorderRadius: 6,
                 }
 
@@ -141,13 +127,6 @@ const options = reactive({
             barWidth: '12px',
             itemStyle: {
                 normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#01c871'
-                    }, {
-                        offset: 1,
-                        color: '#55f49c'
-                    }]),
                     barBorderRadius: 6,
                 }
             },
@@ -162,14 +141,9 @@ const options = reactive({
             symbolSize: 8, //标记的大小
             itemStyle: {
                 normal: {
-                    color: '#ffa43a',
-                    borderColor: 'rgba(255, 234, 0, 0.5)',  //圆点透明 边框
                     borderWidth: 5
                 },
 
-            },
-            lineStyle: {
-                color: "#ffa43a"
             },
 
             data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8, 3, 5]
@@ -182,4 +156,6 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss" scoped src="./index.scss"></style>
+<style lang="scss" scoped >
+
+</style>
