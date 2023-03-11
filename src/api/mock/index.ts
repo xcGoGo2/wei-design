@@ -233,7 +233,7 @@ const MockAPI = [
                     {
                         id: uuid(),
                         type: 'chart', // 元素类性
-                        component: 'WBarChart', // 组件名称，需要提前注册到 Vue
+                        component: 'WMixedLineBarChart', // 组件名称，需要提前注册到 Vue
                         label: '柱状图', // 左侧组件列表中显示的名字
                         propValue: '柱状图', // 组件所使用的值
                         icon: '平台', // 左侧组件列表中显示的图标
@@ -249,7 +249,104 @@ const MockAPI = [
                             textAlign: '',
                             color: '',
                         },
-                    }
+                    },
+                    {
+                        id: uuid(),
+                        type: 'chart', // 元素类性
+                        component: 'WBasicPieChart', // 组件名称，需要提前注册到 Vue
+                        label: '基础饼图', // 左侧组件列表中显示的名字
+                        propValue: '饼图', // 组件所使用的值
+                        icon: '平台', // 左侧组件列表中显示的图标
+                        animations: [], // 动画列表
+                        events: {}, // 事件列表
+                        style: { // 组件样式
+                            width: '500px',
+                            height: '300px',
+                            fontSize: 14,
+                            fontWeight: 500,
+                            lineHeight: '',
+                            letterSpacing: 0,
+                            textAlign: '',
+                            color: '',
+                        },
+                    },
+                    {
+                        id: uuid(),
+                        type: 'chart', // 元素类性
+                        component: 'WSmoothedLineChart', // 组件名称，需要提前注册到 Vue
+                        label: '平滑折线图', // 左侧组件列表中显示的名字
+                        propValue: '折线图', // 组件所使用的值
+                        icon: '平台', // 左侧组件列表中显示的图标
+                        animations: [], // 动画列表
+                        events: {}, // 事件列表
+                        style: { // 组件样式
+                            width: '500px',
+                            height: '300px',
+                            fontSize: 14,
+                            fontWeight: 500,
+                            lineHeight: '',
+                            letterSpacing: 0,
+                            textAlign: '',
+                            color: '',
+                        },
+                    },{
+                        id: uuid(),
+                        type: 'chart', // 元素类性
+                        component: 'WBasicAreaChart', // 组件名称，需要提前注册到 Vue
+                        label: '基础面积图', // 左侧组件列表中显示的名字
+                        propValue: '折线图', // 组件所使用的值
+                        icon: '平台', // 左侧组件列表中显示的图标
+                        animations: [], // 动画列表
+                        events: {}, // 事件列表
+                        style: { // 组件样式
+                            width: '500px',
+                            height: '300px',
+                            fontSize: 14,
+                            fontWeight: 500,
+                            lineHeight: '',
+                            letterSpacing: 0,
+                            textAlign: '',
+                            color: '',
+                        },
+                    },{
+                        id: uuid(),
+                        type: 'chart', // 元素类性
+                        component: 'WStackedLineChart', // 组件名称，需要提前注册到 Vue
+                        label: '堆叠折线图', // 左侧组件列表中显示的名字
+                        propValue: '折线图', // 组件所使用的值
+                        icon: '平台', // 左侧组件列表中显示的图标
+                        animations: [], // 动画列表
+                        events: {}, // 事件列表
+                        style: { // 组件样式
+                            width: '500px',
+                            height: '300px',
+                            fontSize: 14,
+                            fontWeight: 500,
+                            lineHeight: '',
+                            letterSpacing: 0,
+                            textAlign: '',
+                            color: '',
+                        },
+                    },{
+                        id: uuid(),
+                        type: 'chart', // 元素类性
+                        component: 'WHorizontalBarChart', // 组件名称，需要提前注册到 Vue
+                        label: '横向条形图', // 左侧组件列表中显示的名字
+                        propValue: '柱状图图', // 组件所使用的值
+                        icon: '平台', // 左侧组件列表中显示的图标
+                        animations: [], // 动画列表
+                        events: {}, // 事件列表
+                        style: { // 组件样式
+                            width: '500px',
+                            height: '300px',
+                            fontSize: 14,
+                            fontWeight: 500,
+                            lineHeight: '',
+                            letterSpacing: 0,
+                            textAlign: '',
+                            color: '',
+                        },
+                    },
                 ]
             }
         },
