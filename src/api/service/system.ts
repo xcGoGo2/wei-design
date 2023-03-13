@@ -24,7 +24,7 @@ export default {
   login: async (loginData: {
     username: string;
     password: string;
-  }) => {
-    return await api.Post('api/weiDesign/login', {username: loginData.username, password: loginData.password});
+  }): Promise<reponseType> => {
+    return await api.Post('design/api/user/login', {username: loginData.username, password: loginData.password});
   },
 };

@@ -14,11 +14,9 @@ import axios from 'axios';
 const instance = axios.create({
     // baseURL: '',
     timeout: 3000,
-    // headers: {
-    //   post: {
-    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-    //   }
-    // }
+    headers: {
+        // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    }
 })
 
 // 请求拦截

@@ -2,7 +2,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 // 引入routes配置
 import routes from './routes';
-import { getItem } from '@/utils';
+import {getCookie, getItem} from '@/utils';
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -10,7 +10,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
-  const isAuthenticated = getItem('loginContent');
+  const isAuthenticated = getCookie('design.token');
   if (
     // 检查用户是否已登录
     !isAuthenticated &&

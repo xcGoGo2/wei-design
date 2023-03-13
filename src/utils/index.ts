@@ -199,3 +199,39 @@ export function deepCopy (data: any) {
     }
     return obj;
 }
+
+
+export function setCookie(cookieName: string, cookieValue: string, cookieTime?: number) {
+    cookieTime = cookieTime || 30;   //没有传入时间参数就默认设成 30
+    let expires = "";   //存放过期时间
+    if (cookieTime != 0) {
+        let date = new Date();
+        date.setTime(date.getTime() + (cookieTime * 1000));
+        expires = ";expires=" + date; //过去时间
+    }
+    document.cookie = cookieName + "=" + window.escape(cookieValue) + expires + ";Path=/";
+    //cookie进行编码
+}
+
+
+export function getCookie(name: string) {
+    let result = "";
+    let nameEQ = name + '='
+    let strArr = document.cookie.split(';') // 把cookie分割成组
+    for (let i = 0; i < strArr.length; i++) {
+        let str = strArr[i] // 取得字符串
+        //去除字符串数组的前面的空格
+        while (str.charAt(0) == ' ') { // 判断一下字符串有没有前导空格
+            str = str.substring(1, str.length) // 有的话，从第二位开始取
+        }
+        if (str.indexOf(nameEQ) == 0) { // 如果含有我们要的name  indexOf -- 查找字符串
+            result = window.unescape(str.substring(nameEQ.length, str.length))
+            // cookie解码并截取我们要值
+        }
+    }
+    return result;
+}
+
+export function clearCookie (name: string) {
+    setCookie(name, '', -1);
+}

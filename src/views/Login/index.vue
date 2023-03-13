@@ -39,11 +39,12 @@
 
 <script lang="ts">
 import { Avatar, Lock } from '@element-plus/icons-vue';
-import { ElMessage, ElNotification } from 'element-plus';
+import { ElMessage, ElNotification, ElLoading } from 'element-plus';
 import { reactive, defineComponent, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { system } from '@/api/service';
-import { setItem } from '@/utils/index';
+import { setItem, setCookie } from '@/utils/index';
+import { openLoading, closeLoading } from '@/hooks/useLoading'
 export default defineComponent({
   name: 'login',
   components: {},
@@ -63,10 +64,13 @@ export default defineComponent({
       click: async () => {
         if (loginForm.username !== '' && loginForm.password !== '') {
           const { username, password } = loginForm;
+          openLoading()
           const res = await system.login({username, password});
-          if(res && res.code === 200) {
+          if(res && res.status === "success") {
             // 登录成功
-            setItem('loginContent', res.data);
+            setItem('loginContent', res.data); // 存用户信息
+            setCookie('design.token', res.data.token);  // 存token
+            closeLoading();
             router.push({ path: '/home' });
             ElNotification({
               title: '登录成功！',

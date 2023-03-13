@@ -12,8 +12,9 @@ export type tagType = {
 }
 
 export type reponseType = {
-    code: 200
-    message: 'ok'
+    code: number;
+    status: string;
+    message: string;
     data: any | menuListType[]
 }
 

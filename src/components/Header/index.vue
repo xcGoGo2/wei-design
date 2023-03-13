@@ -56,7 +56,7 @@ import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { menuListType, userInfoType } from '@/type';
-import { getItem, removeItem } from '@/utils';
+import { getItem, removeItem, clearCookie } from '@/utils';
 
 type goUrlType = {
   name: string;
@@ -118,7 +118,7 @@ export default defineComponent({
     const goTo = (item: goUrlType) => {
       switch (item.path) {
         case 'exit':
-          removeItem('loginContent');
+          clearCookie('design.token');
           router.push('/login');
           break;
 
