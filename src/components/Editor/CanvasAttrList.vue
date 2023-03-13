@@ -14,9 +14,24 @@
                 <el-input-number id="canvas-size-height" size="small" v-model="pageConfig.height" :min="1" />
             </span>
         </div>
+        <div class="config-item background-img-config">
+            <!--<label>背景图片</label>-->
+            <el-upload
+                style="width: 100%"
+                drag
+                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                multiple
+            >
+                <el-icon class="el-icon--upload" size="100px"><PictureFilled /></el-icon>
+                <div class="el-upload__text">
+                    背景图需小于 5M ，格式为 png/jpg/gif 的文件
+                </div>
+            </el-upload>
+        </div>
         <div class="config-item color-config">
             <label>背景颜色</label>
-            <el-color-picker popper-class="color-popper-container" v-model="pageConfig.backgroundColor" show-alpha @active-change="changePageBgColor" />
+            <el-color-picker label="1111" color-format="hex" popper-class="color-popper-container" v-model="pageConfig.backgroundColor" show-alpha @active-change="changePageBgColor" />
+            <!--<span class="color-pick-value">{{ pageConfig.backgroundColor }}</span>-->
         </div>
         <div class="config-item">
             <label>背景控制</label>
@@ -55,67 +70,6 @@ import { themeColor } from '@/hooks/useEchartTheme'
 const store = useStore();
 
 const pageConfig = computed(() => store.state.weiDesign.pageConfig);
-
-// 宽度
-// const width = computed({
-//     get() {
-//         return pageConfig.value.width;
-//     },
-//     set(v) {
-//         store.commit('weiDesign/setPageConfigByKey', {key: 'width', value: v})
-//     }
-// })
-
-// const themeColor = reactive<any>({
-//     light: {
-//         name: '明亮',
-//         colors: ["#4992FF", "#00B7FF", "#00D3F3", "#00E8BF", "#90F58B", "#F9F871"]
-//     },
-//     dim: {
-//         name: '暗淡',
-//         colors: ['#5470C6', '#BB70C5', '#FF77A9', '#FF9583', '#FFC567', '#F9F871']
-//     },
-//     Macaroon: {
-//         name: '马卡龙',
-//         colors: ['#2EC7C9','#41D6BE','#68E2AC','#95ED96','#C5F481','#F9F871']
-//     },
-//     blueGreen: {
-//         name: '蓝绿',
-//         colors: ['#3FB1E3', '#00C8E3', '#00DBD0', '#5FEBAF', '#ADF58B', '#F9F871']
-//     },
-//     deepPurple: {
-//         name: '深紫',
-//         colors: ['#9B8BBA', '#D390BE', '#FF98AD', '#FFAD8F', '#FFCF73', '#F9F871']
-//     },
-//     retro: {
-//         name: '复古',
-//         colors: ['#D97B7C', '#BB6D8A', '#93658D', '#695E85', '#455572', '#2F4858']
-//     },
-//     pinkishBlue: {
-//         name: '粉青',
-//         colors: ['#FD98AF', '#D087B1', '#9E7AA8', '#6F6B94', '#485B78', '#2F4858']
-//     },
-//     ashPowder: {
-//         name: '灰粉',
-//         colors: ['#516B91', '#208EB2', '#00B0BC', '#30CFAA', '#97E98A', '#F9F871']
-//     },
-//     greenGrass: {
-//         name: '青草',
-//         colors: ['#4FA397', '#5BB898', '#76CB92', '#9ADD87', '#C6EC7B', '#F9F871']
-//     },
-//     orangeRed: {
-//         name: '橘红',
-//         colors: ['#8A3349', '#984932', '#916820', '#77862C', '#44A15B', '#00B7A0']
-//     },
-//     dark: {
-//         name: '深色',
-//         colors: ['#C22E34', '#CA2E67', '#BD4598', '#9B62C0', '#637BD9', '#008EE0']
-//     },
-//     romanRed: {
-//         name: '罗马红',
-//         colors: ['#E12054', '#C7510D', '#957200', '#548500', '#008E4B', '#00918C']
-//     }
-// });
 
 const selectThemeColor = (key: string | number) => {
     pageConfig.value.theme = key || 'light'
@@ -164,6 +118,11 @@ $themeColor: v-bind(themeColor);
     .size-config {
         justify-content: space-between;
 
+        .size-width,.size-height {
+            label {
+                margin-right: 5px;
+            }
+        }
     }
 
     .config-item {
@@ -177,6 +136,31 @@ $themeColor: v-bind(themeColor);
             margin-right: 8px;
 
         }
+    }
+
+    .background-img-config {
+        align-items: flex-start;
+
+        .el-upload {
+            width: 200px;
+
+            .el-icon--upload svg {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+
+    .color-config {
+        //position: relative;
+        //.color-pick-value {
+        //    display: inline-flex;
+        //    width: 200px;
+        //    position: absolute;
+        //    left: -200px;
+        //    align-items: center;
+        //    transform: translateX(100%);
+        //}
     }
 
     .theme-config {
@@ -233,9 +217,12 @@ $themeColor: v-bind(themeColor);
 
 <style lang="scss">
 .canvas-attr-list-container {
-    .color-config .el-color-picker .el-color-picker__trigger {
-        width: 200px;
+    .color-config .el-color-picker {
+        flex: 1;
 
+        .el-color-picker__trigger {
+            width: 100%;
+        }
     }
 }
 

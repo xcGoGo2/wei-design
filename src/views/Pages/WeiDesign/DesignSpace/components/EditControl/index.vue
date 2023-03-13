@@ -5,7 +5,7 @@
                 id="wrap"
                 @scroll.prevent="scrollEdit"
                 @mousedown.prevent="wrapMousedown"
-                @mousewheel.prevent="mouseWheel"
+                @mousewheel="mouseWheel"
                 ref="$wrap"
             >
                 <div id="content">
@@ -134,11 +134,13 @@ const wrapMousedown = (e: any) => {
 }
 
 const mouseWheel = (e: any) => {
-    let mouseTo = e && (e.deltaY > 0 || e.deltaX > 0) ? 'down' : 'up';
-    if(mouseTo === 'down') {
-        sliderConfig.scaleValue = sliderConfig.scaleValue - 5;
-    }else {
-        sliderConfig.scaleValue = sliderConfig.scaleValue + 5
+    if( isEnterSpace.value) {
+        let mouseTo = e && (e.deltaY > 0 || e.deltaX > 0) ? 'down' : 'up';
+        if(mouseTo === 'down') {
+            sliderConfig.scaleValue = sliderConfig.scaleValue - 5;
+        }else {
+            sliderConfig.scaleValue = sliderConfig.scaleValue + 5
+        }
     }
 }
 

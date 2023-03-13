@@ -7,6 +7,7 @@ import WeiDesign from '@/views/Pages/WeiDesign/index.vue'
 import TplMarket from '@/views/Pages/TplMarket/index.vue'
 import DesignSpace from '@/views/Pages/WeiDesign/DesignSpace/index.vue'
 import ElementDrag from '@/test/elementDrag/index.vue'
+import Preview from '@/views/Pages/WeiDesign/DesignSpace/preview/index.vue'
 
 export default [
     { path: '/', redirect: '/home' },
@@ -70,6 +71,11 @@ export default [
         meta: {
             title: '工作空间'
         },
+    },
+    {
+        path: '/preview',
+        name: '预览',
+        component: Preview
     },
     {
         path: '/demos',

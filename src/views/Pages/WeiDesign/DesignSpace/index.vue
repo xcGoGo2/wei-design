@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="right-box">
-                <el-button type="" size="large">
+                <el-button type="" size="large" @click="goPreview">
                     <svg-icon name="预览" color="" size="1.2em"></svg-icon>
                     预览
                 </el-button>
@@ -99,6 +99,12 @@ import ComponentControl from './components/ComponentControl/index.vue';
 import LayerControl from './components/LayerControl/index.vue';
 import EditControl from './components/EditControl/index.vue';
 import SideSettingControl from './components/SideSettingControl/index.vue';
+import { useRouter } from "vue-router";
+import {setItem} from "@/utils";
+import { useStore } from "vuex";
+
+const router = useRouter();
+const store = useStore();
 
 const ifShowEditInput = ref(false);
 const webName = ref('项目一');
@@ -112,7 +118,7 @@ const editName = (e: any) => {
 };
 
 const showChart = ref(true);
-const showLayer = ref(true);
+const showLayer = ref(false);
 const showSide = ref(true);
 const layerShrink = () => {
     showLayer.value = false;
@@ -133,6 +139,13 @@ const showConfig = (show: string, event: any) => {
     }
     let target = event.target
     while (target.nodeName !== 'BUTTON') { target = target.parentNode } target.blur()
+}
+
+// 预览
+const goPreview = () => {
+    setItem('componentsInCanvas', store.state.weiDesign.componentsInCanvas);
+    setItem('pageConfig', store.state.weiDesign.pageConfig);
+    window.open("http://localhost:8999/#/preview", "_blank");
 }
 </script>
 

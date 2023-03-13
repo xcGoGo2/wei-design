@@ -119,7 +119,7 @@ export default defineComponent({
   .login-box {
     width: 30vw;
     height: 85%;
-    background-color: rgba(60, 106, 118, 0.6);
+    background-color: rgb(106 166 242 / 60%);
     color: #fff;
     border-radius: 10px;
     position: absolute;
