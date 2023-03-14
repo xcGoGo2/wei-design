@@ -46,9 +46,9 @@ export default defineComponent({
     // 获取全局对象`
     const global: any = inject('global');
 
-    global.$api.Get('api/weiDesign/getUsers', {}).then((res: any) => {
-      console.log('测试接口', res);
-    });
+    // global.$api.Get('api/weiDesign/getUsers', {}).then((res: any) => {
+    //   console.log('测试接口', res);
+    // });
   },
 });
 </script>

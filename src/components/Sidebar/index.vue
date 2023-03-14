@@ -9,57 +9,14 @@
                 :unique-opened="true" :collapse="isCollapse" :collapse-transition="false" @open="handleOpen"
                 @close="handleClose" @select="selectMenu">
                 <template v-for="(item, i) in menuList" :key="item.title + i">
-                    <el-sub-menu :index="item.router" v-if="item.children">
-                        <template #title>
-                            <div class="item-container">
-                                <el-icon>
-                                    <svg-icon :name="item.icon" color=""></svg-icon>
-                                </el-icon>
-                                <span v-if="!isCollapse">{{ item.title }}</span>
-                            </div>
-                        </template>
-                        <el-menu-item-group style="padding-left: 10px">
-                            <template v-for="(jtem, j) in item.children" :key="`${i}-${j}`">
-                                <el-sub-menu :index="jtem.router" v-if="jtem.children">
-                                    <template #title>
-                                        <div class="item-container">
-                                            <el-icon>
-                                                <svg-icon :name="jtem.icon" color=""></svg-icon>
-                                            </el-icon>
-                                            <span>{{ jtem.title }}</span>
-                                        </div>
-                                    </template>
-                                    <el-menu-item-group style="padding-left: 10px">
-                                        <el-menu-item :index="item.router" v-for="(mtem, m) in jtem.children"
-                                            :key="`${i}-${j}-${m}`">
-                                            <div class="item-container">
-                                                <el-icon>
-                                                    <svg-icon :name="mtem.icon" color=""></svg-icon>
-                                                </el-icon>
-                                                <span>{{ mtem.title }}</span>
-                                            </div>
-                                        </el-menu-item>
-                                    </el-menu-item-group>
-                                </el-sub-menu>
-                                <el-menu-item :index="jtem.router" v-else>
-                                    <div class="item-container">
-                                        <el-icon>
-                                            <svg-icon :name="jtem.icon" color=""></svg-icon>
-                                        </el-icon>
-                                        <span>{{ jtem.title }}</span>
-                                    </div>
-                                </el-menu-item>
-                            </template>
-                        </el-menu-item-group>
-                    </el-sub-menu>
-                    <el-menu-item :index="item.router" v-else>
+                    <el-menu-item :index="item.router">
                         <div class="item-container">
                             <el-icon>
                                 <svg-icon :name="item.icon" color=""></svg-icon>
                             </el-icon>
-                            <span v-if="!isCollapse">{{ item.title }}</span>
+                            <span v-if="!isCollapse">{{ item.showName }}</span>
                         </div>
-                        <template v-if="isCollapse" #title>{{ item.title }}</template>
+                        <template v-if="isCollapse" #title>{{ item.showName }}</template>
                     </el-menu-item>
                 </template>
             </el-menu>
@@ -152,7 +109,7 @@ export default defineComponent({
 
         // 菜单
         store.dispatch('fetchMenuList');
-        const menuList = computed(() => store.state.menuList);
+        const menuList = computed<menuListType[]>(() => store.state.menuList);
 
         onMounted(() => { });
 

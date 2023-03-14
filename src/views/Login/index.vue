@@ -43,8 +43,9 @@ import { ElMessage, ElNotification, ElLoading } from 'element-plus';
 import { reactive, defineComponent, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { system } from '@/api/service';
-import { setItem, setCookie } from '@/utils/index';
-import { openLoading, closeLoading } from '@/hooks/useLoading'
+import { setItem } from '@/utils/index';
+import { useStorage } from '@/hooks/useStorage';
+import { openLoading, closeLoading } from '@/hooks/useLoading';
 export default defineComponent({
   name: 'login',
   components: {},
@@ -52,6 +53,7 @@ export default defineComponent({
     // 路由api创建
     const router = useRouter();
     const route = useRoute();
+    const { set } = useStorage('session');
     // 账号密码 + 登录
     interface loginType {
       username: string;
@@ -69,7 +71,7 @@ export default defineComponent({
           if(res && res.status === "success") {
             // 登录成功
             setItem('loginContent', res.data); // 存用户信息
-            setCookie('design.token', res.data.token);  // 存token
+            set('design.token', res.data.token);  // 存token
             closeLoading();
             router.push({ path: '/home' });
             ElNotification({

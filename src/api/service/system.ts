@@ -15,7 +15,7 @@ export default {
    * @returns
    */
   getMenuList: async (): Promise<reponseType> => {
-    return await api.Post('api/weiDesign/getMenuLists', {});
+    return await api.Get('design/api/menu/getMenuList', {});
   },
   /**
    * 登录

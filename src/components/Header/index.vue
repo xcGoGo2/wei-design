@@ -56,13 +56,18 @@ import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { menuListType, userInfoType } from '@/type';
-import { getItem, removeItem, clearCookie } from '@/utils';
+import { getItem, removeItem, clearCookie, deepCopy } from '@/utils';
+import { useStorage } from '@/hooks/useStorage';
+import { use } from 'echarts';
 
 type goUrlType = {
   name: string;
   icon: string;
   path: string;
 };
+
+const { remove } = useStorage('session');
+
 
 export default defineComponent({
   name: 'header',
@@ -79,7 +84,7 @@ export default defineComponent({
 
     const crumbs: {
       name: any;
-      icon: string;
+        icon: string;
     }[] = reactive([
       {
         name: '首页',
@@ -118,7 +123,7 @@ export default defineComponent({
     const goTo = (item: goUrlType) => {
       switch (item.path) {
         case 'exit':
-          clearCookie('design.token');
+          remove('design.token');
           router.push('/login');
           break;
 
@@ -139,14 +144,14 @@ export default defineComponent({
       while (path.length > 0) {
         const item: menuListType | undefined = list.find((o: menuListType) => o.icon === path[0]);
         crumbs.push({
-          name: item?.title || routeData.name,
+          name: item?.showName || routeData.name,
           icon: item?.icon || '',
         });
         if (item && item.children) {
           list = item.children;
         }
         path.shift();
-      }
+            }
     };
 
     initCrumbs(route);

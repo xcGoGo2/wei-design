@@ -61,23 +61,6 @@ const MockAPI = [
                         icon: 'tplMarket',
                         router: '/tplMarket',
                     },
-                    // {
-                    //     title: 'WEI-DESIGN',
-                    //     icon: 'weiDesign',
-                    //     router: 'weiDesign',
-                    //     children: [
-                    //         {
-                    //             title: '我的设计',
-                    //             icon: 'myDesign',
-                    //             router: '/weiDesign/myDesign',
-                    //         },
-                    //         {
-                    //             title: '模板市场',
-                    //             icon: 'tplMarket',
-                    //             router: '/weiDesign/tplMarket',
-                    //         },
-                    //     ],
-                    // },
                     {
                         title: '组件',
                         icon: 'assembly',
@@ -93,40 +76,6 @@ const MockAPI = [
                         icon: 'index',
                         router: '/systemInfo',
                     },
-                    // {
-                    //     title: '管理配置',
-                    //     icon: 'manage',
-                    //     router: 'manage',
-                    //     children: [
-                    //         {
-                    //             title: '用户管理',
-                    //             icon: 'userManage',
-                    //             router: '/manage/userManage',
-                    //         },
-                    //         {
-                    //             title: '组织管理',
-                    //             icon: 'userGroupManage',
-                    //             router: '/manage/userGroupManage',
-                    //         },
-                    //     ],
-                    // },
-                    // {
-                    //     title: '错误页',
-                    //     icon: 'errPage',
-                    //     router: 'errPage',
-                    //     children: [
-                    //         {
-                    //             title: '404',
-                    //             icon: 'is404',
-                    //             router: '/errPage/is404',
-                    //         },
-                    //         {
-                    //             title: '500',
-                    //             icon: 'is500',
-                    //             router: '/errPage/is500',
-                    //         },
-                    //     ],
-                    // },
                 ],
             }
         },

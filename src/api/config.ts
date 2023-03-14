@@ -7,9 +7,10 @@
  * @Description: 数据请求配置
  *
  */
-
+import { useStorage } from '@/hooks/useStorage';
 import axios from 'axios';
 
+const { get } = useStorage('session');
 // 创建axios实例
 const instance = axios.create({
     // baseURL: '',
@@ -20,12 +21,13 @@ const instance = axios.create({
 })
 
 // 请求拦截
-instance.interceptors.request.use(config => {
+instance.interceptors.request.use((config: any) => {
+    const designToken = get('design.token');
     // 自定义header，可添加项目token
-    // if (store.state.app.token) {
-    //   config.headers.token = store.state.app.token;
-    //   config.headers.timestamp = new Date().getTime();
-    // }
+    if (designToken) {
+      config.headers["design.token"] = designToken;
+      config.headers.timestamp = new Date().getTime();
+    }
     return config;
 }, error => {
     return Promise.reject(error);

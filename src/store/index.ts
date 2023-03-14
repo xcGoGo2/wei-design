@@ -23,6 +23,7 @@ export default createStore<RootStateTypes>({
             state.loginContent = data;
         },
         setMenuList(state: RootStateTypes, data: menuListType[]) {
+            debugger
             state.menuList = data;
         }
     },

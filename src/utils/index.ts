@@ -235,3 +235,5 @@ export function getCookie(name: string) {
 export function clearCookie (name: string) {
     setCookie(name, '', -1);
 }
+
+

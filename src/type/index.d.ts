@@ -1,7 +1,11 @@
 export interface menuListType {
-    title: string
+    id: string
     icon: string
-    router: string
+    pid: string;
+    showName: string;
+    ranking: string | null;
+    router: string;
+    createDate: string;
     children?: menuListType[]
 }
 
