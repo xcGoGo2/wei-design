@@ -20,7 +20,10 @@ export const useDesignStore = defineStore('design', {
         }
     },
     getters: {
-        editConfigContent() {
+        editConfigContent(): {
+            pageConfig: any;
+            componentsInCanvas: Compnents[]
+        } {
             return {
                 pageConfig: this.pageConfig,
                 componentsInCanvas: this.componentsInCanvas

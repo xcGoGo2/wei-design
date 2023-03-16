@@ -245,13 +245,11 @@ const pageConfig = computed(() => {
 
 
 // 在这里监听整体数据的变动
-// const editConfigContent = computed(() => store.getters.weiDesign.editConfigContent);
-// watch(() => editConfigContent, (n) => {
-//     // 发送请求
-//     console.log(n);
-//     debugger
-// }, {deep: true})
-// debugger
+const editConfigContent = computed(() => store.editConfigContent);
+watch(() => editConfigContent, (n) => {
+    // 发送请求
+    console.log(n);
+}, {deep: true})
 
 
 </script>
