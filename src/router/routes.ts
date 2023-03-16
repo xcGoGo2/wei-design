@@ -6,7 +6,6 @@ import Boardsheet from '@/views/Pages/Boardsheet/index.vue'
 import WeiDesign from '@/views/Pages/WeiDesign/index.vue'
 import TplMarket from '@/views/Pages/TplMarket/index.vue'
 import DesignSpace from '@/views/Pages/WeiDesign/DesignSpace/index.vue'
-import ElementDrag from '@/test/elementDrag/index.vue'
 import Preview from '@/views/Pages/WeiDesign/DesignSpace/preview/index.vue'
 
 export default [
@@ -80,6 +79,11 @@ export default [
     {
         path: '/demos',
         name: '演示测试',
-        component: ElementDrag
+        component: () => import("@/demos/ElementDrag.vue")
+    },
+    {
+        path: '/properMenu',
+        name: '演示测试',
+        component: () => import("@/demos/ProperMenu.vue")
     }
 ]
