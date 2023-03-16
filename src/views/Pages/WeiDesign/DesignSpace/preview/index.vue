@@ -12,7 +12,6 @@
 import { useStore } from 'vuex';
 import {getItem} from "@/utils";
 import {onMounted} from "vue";
-const store = useStore();
 
 const previewBox = ref<any>(null);
 

@@ -64,12 +64,12 @@
 
 <script lang="ts" setup>
 import { computed, watch } from 'vue';
-import { useStore } from 'vuex';
+import { useDesignStore } from '@/stores/design';
 import { themeColor } from '@/hooks/useEchartTheme'
 
-const store = useStore();
+const store = useDesignStore();
 
-const pageConfig = computed(() => store.state.weiDesign.pageConfig);
+const pageConfig = computed(() => store.$state.pageConfig);
 
 const selectThemeColor = (key: string | number) => {
     pageConfig.value.theme = key || 'light'
@@ -77,11 +77,11 @@ const selectThemeColor = (key: string | number) => {
 
 const showThemeBorderColor = (key: string | number) => {
     const isSel = key === pageConfig.value.theme;
-    return isSel ? themeColor[key].colors[0] : 'transparent';
+    return isSel ? (themeColor as any)[key].colors[0] : 'transparent';
 }
 
 const changePageBgColor = (e: string) => {
-    store.commit('weiDesign/setPageConfigByKey', { key: 'backgroundColor', value: e});
+    store.setPageConfigByKey("backgroundColor", e);
 }
 
 

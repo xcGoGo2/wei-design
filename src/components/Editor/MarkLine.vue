@@ -6,10 +6,10 @@
 
 <script lang="ts" setup>
 import { ref, reactive, computed, onMounted } from 'vue';
-import { useStore } from 'vuex'
+import { useDesignStore } from '@/stores/design';
 import bus from '@/utils/eventBus'
 
-const store = useStore();
+const store = useDesignStore();
 
 const markLineData = reactive<any>({
     lines: ['xt', 'xc', 'xb', 'yl', 'yc', 'yr'], // 分别对应三条横线和三条竖线
@@ -24,8 +24,8 @@ const markLineData = reactive<any>({
     }
 })
 
-const curComponentIndex = computed(() => store.state.weiDesign.curComponentIndex);
-const componentData = computed(() => store.state.weiDesign.componentsInCanvas);
+const curComponentIndex = computed(() => store.$state.curComponentIndex);
+const componentData = computed(() => store.$state.componentsInCanvas);
 
 const hideLine = () => {
     Object.keys(markLineData.lineConfig).forEach((line: string) => {

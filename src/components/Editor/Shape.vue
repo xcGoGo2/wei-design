@@ -8,10 +8,10 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useMouseXY } from '@/hooks/useMouseXY'
-import { useStore } from 'vuex';
+import { useDesignStore } from '@/stores/design';
 import bus from '@/utils/eventBus';
 import { Compnents } from '@/type'
-const store = useStore();
+const store = useDesignStore();
 
 const $shape = ref();
 const props = defineProps({
@@ -51,13 +51,17 @@ const shapeData = reactive<any>({
     }
 })
 
-const curComponentIndex = computed(() => store.state.weiDesign.curComponentIndex);
+const curComponentIndex = computed(() => store.$state.curComponentIndex);
 
 const delComponentIndex = (e: any) => {
-    store.commit('weiDesign/setComponentIndex', -1);
+    store.$patch({
+        curComponentIndex: -1
+    });
 }
 const selectCurComponent = (e: any) => {
-    store.commit('weiDesign/setComponentIndex', props.index ? props.index : 0);
+    store.$patch({
+        curComponentIndex: Number(props.index),
+    });
 
     window.document.addEventListener('click', delComponentIndex);
 
@@ -74,18 +78,20 @@ const shapeXY = reactive({
     x: 0,
     y: 0
 })
-const component: Compnents = computed(() => store.state.weiDesign.componentsInCanvas).value[props.index];
+const component = store.$state.componentsInCanvas[Number(props.index)];
 
-const scale = computed(() => store.state.weiDesign.canvasScale)
+const scale = computed(() => store.$state.canvasScale)
 
 const vDrag = {
     mounted: (el: any) => {
         component.style.width = $shape.value.offsetWidth + 'px';
         component.style.height = $shape.value.offsetHeight + 'px';
-        store.commit('weiDesign/changeComponentsInCanvasByIndex', {index: props.index, component});
+        store.changeComponentsInCanvasByIndex(props.index, component);
 
         el.onmousedown=function(e: any){
-            store.commit('weiDesign/setComponentIndex', props.index ? props.index : 0);
+            store.$patch({
+                curComponentIndex: Number(props.index ? props.index : 0)
+            });
 
             if(e.target && e.target.dataset.name) {
                 return;
@@ -102,7 +108,7 @@ const vDrag = {
                 $shape.value.style.left = left + (x / scale.value - shapeXY.x / scale.value) + 'px';
                 component.style.top = $shape.value.style.top;
                 component.style.left = $shape.value.style.left;
-                store.commit('weiDesign/changeComponentsInCanvasByIndex', {index: props.index, component});
+                store.changeComponentsInCanvasByIndex(props.index, component);
                 shapeXY.x = x;
                 shapeXY.y = y;
 
@@ -179,7 +185,7 @@ const handleMouseDownOnPoint = (item: any, e: any) => {
         component.style.right = $shape.value.offsetParent.offsetWidth - $shape.value.offsetWidth - $shape.value.offsetLeft + 'px';
         component.style.bottom = $shape.value.offsetParent.offsetHeight - $shape.value.offsetHeight - $shape.value.offsetTop + 'px';
 
-        store.commit('weiDesign/changeComponentsInCanvasByIndex', {index: props.index, component});
+        store.changeComponentsInCanvasByIndex(props.index, component);
         oldX = x;
         oldY = y;
     };

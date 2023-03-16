@@ -27,7 +27,7 @@
         </div>
         <div class="content">
             <ul>
-                <li :class="curComponentIndex === index ? 'active': ''" v-for="(item, index) in layerControlData.layerList" :key="item.title + index" @click="selectLayer(index)">
+                <li :class="curComponentIndex === index ? 'active': ''" v-for="(item, index) in layerControlData.layerList" :key="item.title ||'' + index" @click="selectLayer(index)">
                     <svg-icon :name="item.icon" class="img"></svg-icon>
                     <span class="title">{{ item.title }}</span>
                     <span class="control">
@@ -42,10 +42,10 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
-import { useStore } from 'vuex';
+import { useDesignStore } from '@/stores/design';
 import {Compnents} from "@/type";
 
-const store = useStore();
+const store = useDesignStore();
 const emits = defineEmits(['shrink']);
 
 // layer 组件数据集合
@@ -54,9 +54,9 @@ const layerControlData = reactive<{layerList: Compnents[]}>({
 });
 
 // 获取当前展示在 画布中的组件列表
-const layerList = computed(() => store.state.weiDesign.componentsInCanvas);
+const layerList = computed(() => store.$state.componentsInCanvas);
 // 当前选中组件
-const curComponentIndex = computed(() => store.state.weiDesign.curComponentIndex);
+const curComponentIndex = computed(() => store.$state.curComponentIndex);
 
 watch(layerList, (n, o) => {
     layerControlData.layerList = (n || []).map((o: Compnents) => {
@@ -67,7 +67,9 @@ watch(layerList, (n, o) => {
 })
 
 const selectLayer = (index: number) => {
-    store.commit('weiDesign/setComponentIndex', index);
+    store.$patch({
+        curComponentIndex: index
+    });
 }
 
 const shrink = () => {

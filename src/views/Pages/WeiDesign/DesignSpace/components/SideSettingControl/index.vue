@@ -8,8 +8,6 @@
 <script lang="ts" setup>
 import ComponentAttrList from '@/components/Editor/ComponentAttrList.vue';
 import CanvasAttrList from '@/components/Editor/CanvasAttrList.vue';
-import { useStore } from 'vuex';
-const store = useStore();
 
 </script>
 

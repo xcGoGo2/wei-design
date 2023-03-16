@@ -48,12 +48,10 @@
 import { defineComponent, ref, reactive, onMounted, computed, PropType } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex'
+import { useSystemStore } from '@/stores/system'
 
 // type
-import { menuListType, reponseType } from '@/type';
-
-import { system } from '../../api/service';
-// import { useElementMenu } from '../../hooks/useElementMenu';
+import { menuListType } from '@/type';
 export default defineComponent({
     name: 'Sidebar', // 侧边栏
     props: {
@@ -69,7 +67,7 @@ export default defineComponent({
         const elMenu = ref(); // ref Menu元素
         const router = useRouter();
         const route = useRoute();
-        const store = useStore();
+        const store= useSystemStore();
 
         const data = reactive({
             selectSign: 0,
@@ -108,8 +106,8 @@ export default defineComponent({
         };
 
         // 菜单
-        store.dispatch('fetchMenuList');
-        const menuList = computed<menuListType[]>(() => store.state.menuList);
+        await store.fetchMenuList();
+        const menuList = store.menuList;
 
         onMounted(() => { });
 

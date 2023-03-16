@@ -54,11 +54,10 @@
 import { defineComponent, PropType, reactive, watch, computed } from 'vue';
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
 import { menuListType, userInfoType } from '@/type';
 import { getItem, removeItem, clearCookie, deepCopy } from '@/utils';
 import { useStorage } from '@/hooks/useStorage';
-import { use } from 'echarts';
+import { useSystemStore } from '@/stores/system';
 
 type goUrlType = {
   name: string;
@@ -74,13 +73,14 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const store = useStore();
+    const store= useSystemStore();
     const data = reactive({
       selectIndex: 0,
       moveIndex: -1,
     });
 
-    const menuList = computed((): menuListType[] => store.state.menuList);
+
+    const menuList = store.menuList;
 
     const crumbs: {
       name: any;
@@ -140,7 +140,7 @@ export default defineComponent({
     const initCrumbs = (routeData: any) => {
       crumbs.length > 1 && crumbs.splice(1);
       const path = routeData.path.split('/').filter((o: any) => o);
-      let list = [...menuList.value];
+      let list = [...menuList];
       while (path.length > 0) {
         const item: menuListType | undefined = list.find((o: menuListType) => o.icon === path[0]);
         crumbs.push({

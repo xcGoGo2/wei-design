@@ -8,15 +8,15 @@ import * as echarts from 'echarts';
 import { throttle, debounce } from '@/utils'
 import bus from '@/utils/eventBus';
 import geoJson from '@/assets/assembly/china.json';
-import { registerTheme } from '@/hooks/useEchartTheme'
-import { useStore } from "vuex";
+import { registerTheme } from '@/hooks/useEchartTheme';
+import { getRandomKey } from '@/utils'
+import { useDesignStore } from '@/stores/design';
 
-const store = useStore();
+const store = useDesignStore();
 
 // 主题
-const theme = computed(() => store.state.weiDesign.pageConfig.theme);
+const theme = computed(() => store.$state.pageConfig.theme);
 
-import { getRandomKey } from '@/utils'
 const props = defineProps({
     options: {
         type: Object,

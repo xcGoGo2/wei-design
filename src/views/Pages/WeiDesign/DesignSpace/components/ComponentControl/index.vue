@@ -71,14 +71,12 @@
 
 <script lang="ts" setup>
 import { ref, reactive, computed } from 'vue'
-import { useStore } from 'vuex';
 import { Search } from '@element-plus/icons-vue';
 import ItemCard from '@/components/ItemCard/index.vue';
 import Html2Canvas from '@/components/Html2canvas/index.vue';
 import List from '@/custom-components/config';
 import { Compnents } from '@/type';
 
-const store = useStore();
 const props = defineProps({
     shrinkComponent: {
         type: Boolean,

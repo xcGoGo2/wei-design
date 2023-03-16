@@ -101,10 +101,10 @@ import EditControl from './components/EditControl/index.vue';
 import SideSettingControl from './components/SideSettingControl/index.vue';
 import { useRouter } from "vue-router";
 import {setItem} from "@/utils";
-import { useStore } from "vuex";
+import { useDesignStore } from '@/stores/design';
 
 const router = useRouter();
-const store = useStore();
+const store = useDesignStore();
 
 const ifShowEditInput = ref(false);
 const webName = ref('项目一');
@@ -143,8 +143,8 @@ const showConfig = (show: string, event: any) => {
 
 // 预览
 const goPreview = () => {
-    setItem('componentsInCanvas', store.state.weiDesign.componentsInCanvas);
-    setItem('pageConfig', store.state.weiDesign.pageConfig);
+    setItem('componentsInCanvas', store.$state.componentsInCanvas);
+    setItem('pageConfig', store.$state.pageConfig);
     window.open("http://localhost:8999/#/preview", "_blank");
 }
 </script>

@@ -48,7 +48,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref, onMounted, watch } from "vue";
-import { useStore } from 'vuex';
+import { useDesignStore } from '@/stores/design';
 import {deepCopy, uuid, throttle, debounce} from "@/utils";
 
 import SketchRule from "@/components/Ruler/sketchRuler.vue";
@@ -56,7 +56,7 @@ import Shape from '@/components/Editor/Shape.vue';
 import MarkLine from '@/components/Editor/MarkLine.vue';
 import { useResizeObserver } from "@vueuse/core";
 import { useMouseXY } from '@/hooks/useMouseXY'
-const store = useStore();
+const store = useDesignStore();
 
 const $wrap = ref<any>();
 const $sketchRule = ref<any>();
@@ -196,8 +196,7 @@ onMounted(() => {
 });
 
 // 自定义组件
-const componentsList = computed(() => store.state.weiDesign.componentsList);
-const componentData = computed(() => store.state.weiDesign.componentsInCanvas);
+const componentData = computed(() => store.$state.componentsInCanvas);
 
 // 拖拽组件到当前画布
 const handleDrop = (e: any) => {
@@ -216,7 +215,7 @@ const handleDrop = (e: any) => {
     component.ifLock = false; // 是否锁定
     component.ifShow = true; // 是否显示
     component.title = `${component.label}-${componentData.value.length + 1}`;
-    store.commit('weiDesign/addComponentsInCanvas', component);
+    store.addComponentsInCanvas(component);
 }
 const handleDragOver = (e: any) => {
     e.preventDefault();
@@ -224,7 +223,9 @@ const handleDragOver = (e: any) => {
 
 watch(() => sliderConfig.scaleValue, (n) => {
     sliderConfig.scaleValue = n < 10 ? 10 : n;
-    store.commit('weiDesign/setCanvasScale', scaleValueReal.value)
+    store.$patch({
+        canvasScale: scaleValueReal.value
+    })
 })
 
 const canvasMousemove = () => {
@@ -234,11 +235,11 @@ const canvasMousemove = () => {
 
 // page 配置变动
 const pageConfig = computed(() => {
-    const pageConfig = store.state.weiDesign.pageConfig;
+    const pageConfig = computed(() => store.$state.pageConfig);
     return {
-        width: pageConfig.width + 'px',
-        height: pageConfig.height + 'px',
-        backgroundColor: pageConfig.backgroundColor
+        width: pageConfig.value.width + 'px',
+        height: pageConfig.value.height + 'px',
+        backgroundColor: pageConfig.value.backgroundColor
     }
 });
 
