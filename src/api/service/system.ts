@@ -1,7 +1,6 @@
 import { menuListType, reponseType } from '@/type';
 import api from '../index';
 
-const _api = 'api/weiDesign'
 export default {
   /**
    * 测试mock

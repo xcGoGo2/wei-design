@@ -55,8 +55,11 @@ import SketchRule from "@/components/Ruler/sketchRuler.vue";
 import Shape from '@/components/Editor/Shape.vue';
 import MarkLine from '@/components/Editor/MarkLine.vue';
 import { useResizeObserver } from "@vueuse/core";
-import { useMouseXY } from '@/hooks/useMouseXY'
+import { addDesign } from '@/api/service/design'
+import { useRoute } from "vue-router";
+
 const store = useDesignStore();
+const route = useRoute();
 
 const $wrap = ref<any>();
 const $sketchRule = ref<any>();
@@ -245,11 +248,21 @@ const pageConfig = computed(() => {
 
 
 // 在这里监听整体数据的变动
+const canvasId = String(route.query?.key) || '';
+
+onMounted(() => {
+ store.getEditConfigContent(canvasId);
+})
+
 const editConfigContent = computed(() => store.editConfigContent);
-watch(() => editConfigContent, (n) => {
+
+watch(() => editConfigContent, debounce(async function() {
     // 发送请求
-    console.log(n);
-}, {deep: true})
+    console.log(111111);
+
+    const content = JSON.stringify(editConfigContent.value);
+    await store.updateDesignById(canvasId, content)
+}, 1000), {deep: true})
 
 
 </script>

@@ -12,7 +12,7 @@
             :body-style="{}"
         >
             <div class="design-content">
-                <div class="design-img" @click="toDesignSpace">
+                <div class="design-img" @click="toDesignSpace(item.id)">
                     <svg-icon :name="item.img" style="width: 80%; height: 80%"></svg-icon>
                 </div>
                 <div class="design-footer">
@@ -23,7 +23,7 @@
                             状态
                         </span>
                         <el-tooltip content="编辑" effect="light">
-                            <el-button class="edit" plain @click="toDesignSpace">
+                            <el-button class="edit" plain @click="toDesignSpace(item.id)">
                                 <template #icon>
                                     <svg-icon name="hammer" size="1.5em" color=""></svg-icon>
                                 </template>
@@ -63,12 +63,15 @@ import Preview from './preview.vue';
 import { uuid } from '@/utils'
 import router from "@/router";
 import { designListType } from '@/type'
+import { useDesignStore } from '@/stores/design';
 
 interface designDropdownListType {
     title: string;
     icon: string;
     click: Function
 }
+
+const store = useDesignStore();
 
 
 const previewRef = ref<HTMLElement | null>(null);
@@ -150,10 +153,12 @@ const enLarge = (item: designListType) => {
 }
 
 // 界面设计
-const toDesignSpace = () => {
+const toDesignSpace = (id?: string) => {
     const newUrl = router.resolve({
-        path: "weiDesign/designSpace"
+        path: "weiDesign/designSpace",
+        query: {key: id}
     });
+
     window.open(newUrl.href, "_blank");
 }
 
@@ -165,10 +170,13 @@ const menuList = ref([
     }
 ])
 // 菜单选择
-const selectMenuItem = (e: any) => {
+const selectMenuItem = async (e: any) => {
     // 新增
     if(e.key === 'add') {
-        toDesignSpace();
+        const res = await store.newDesignContent();
+        if(res.status === 'success') {
+            toDesignSpace(res.data.id);
+        }
     }
 }
 
