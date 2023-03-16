@@ -1,7 +1,7 @@
 <template>
   <canvas
     class="ruler"
-    ref="$canvas"
+    ref="canvasRef"
     @click="handleClick"
     @mouseenter="handleEnter"
     @mousemove="handleMove"
@@ -30,18 +30,18 @@ export default defineComponent({
         selectLength: Number,
     },
     setup(props, { emit }) {
-        const $canvas = ref<any>();
+        const canvasRef = ref<any>();
         const canvasContext = ref<any>('');
         const initCanvasRef = () => {
-            canvasContext.value = $canvas.value && $canvas.value.getContext('2d');
+            canvasContext.value = canvasRef.value && canvasRef.value.getContext('2d');
         };
         const updateCanvasContext = () => {
             const { ratio } = props.canvasConfigs as any;
             // 比例宽高
-            $canvas.value.width = props.width * ratio;
-            $canvas.value.height = props.height * ratio;
+            canvasRef.value.width = props.width * ratio;
+            canvasRef.value.height = props.height * ratio;
 
-            const ctx = $canvas.value.getContext('2d');
+            const ctx = canvasRef.value.getContext('2d');
             ctx.font = `${12 * ratio}px -apple-system,
                 "Helvetica Neue", ".SFNSText-Regular",
                 "SF UI Text", Arial, "PingFang SC", "Hiragino Sans GB",
@@ -104,7 +104,7 @@ export default defineComponent({
         })
 
         return {
-            $canvas,
+            canvasRef,
             handleClick,
             handleEnter,
             handleMove,

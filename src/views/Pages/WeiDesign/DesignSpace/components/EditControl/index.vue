@@ -9,7 +9,7 @@
                 ref="$wrap"
             >
                 <div id="content">
-                    <div ref="$canvas" class="edit-canvas" @mousemove="canvasMousemove" :style="{transform: `scale(${ scaleValueReal })`, cursor: isEnterSpace ? 'pointer' : 'auto', ...pageConfig}" @drop="handleDrop" @dragover="handleDragOver">
+                    <div ref="canvasRef" class="edit-canvas" @mousemove="canvasMousemove" :style="{transform: `scale(${ scaleValueReal })`, cursor: isEnterSpace ? 'pointer' : 'auto', ...pageConfig}" @drop="handleDrop" @dragover="handleDragOver">
                         <div class="components-show-content">
                             <!--页面组件列表展示-->
                             <Shape v-for="(item, index) in componentData" :defaultStyle="item.style" :style="item.style" :key="item.id + item.id" :element="item" :zIndex="index" :index="index">
@@ -60,7 +60,7 @@ const store = useStore();
 
 const $wrap = ref<any>();
 const $sketchRule = ref<any>();
-const $canvas = ref<any>();
+const canvasRef = ref<any>();
 const sketchRuleKey =ref<string>('');
 
 // 缩放可视区
@@ -152,16 +152,16 @@ const setWrapPositionSize = () => {
     useResizeObserver($wrap, debounce(function() {
         const wrapW = $wrap.value.clientWidth;
         const wrapH = $wrap.value.clientHeight;
-        const canvasW = $canvas.value.clientWidth;
-        const canvasH = $canvas.value.clientHeight;
+        const canvasW = canvasRef.value.clientWidth;
+        const canvasH = canvasRef.value.clientHeight;
         if(canvasW > canvasH) {
             sliderConfig.scaleValue = ~~(((wrapW -200) / canvasW) * 100);  // 数字取整
         }else {
             sliderConfig.scaleValue = ~~(((wrapH -200) / canvasH) * 100);  // 数字取整
         }
         const scale = sliderConfig.scaleValue / 100;
-        const x = ($wrap.value.clientWidth - $canvas.value.clientWidth * scale) / 2;
-        const y = ($wrap.value.clientHeight - $canvas.value.clientHeight * scale) / 2;
+        const x = ($wrap.value.clientWidth - canvasRef.value.clientWidth * scale) / 2;
+        const y = ($wrap.value.clientHeight - canvasRef.value.clientHeight * scale) / 2;
         $wrap.value.scrollTop = 5000 - y;
         $wrap.value.scrollLeft = 5000 - x;
         hRulerY.value = '-' + $wrap.value.scrollTop + 'px';
@@ -203,7 +203,8 @@ const componentData = computed(() => store.state.weiDesign.componentsInCanvas);
 const handleDrop = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
-    const component = deepCopy(componentsList.value[e.dataTransfer.getData('index')]);
+
+    const component = deepCopy(JSON.parse(e.dataTransfer.getData('component')) || {});
     const x = e.offsetX;
     const y = e.offsetY;
     const width = parseInt(component.style.width || 0);
@@ -240,6 +241,18 @@ const pageConfig = computed(() => {
         backgroundColor: pageConfig.backgroundColor
     }
 });
+
+
+// 在这里监听整体数据的变动
+// const editConfigContent = computed(() => store.getters.weiDesign.editConfigContent);
+// watch(() => editConfigContent, (n) => {
+//     // 发送请求
+//     console.log(n);
+//     debugger
+// }, {deep: true})
+// debugger
+
+
 </script>
 
 <style lang="scss" scoped src='./index.scss'></style>

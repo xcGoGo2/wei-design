@@ -8,7 +8,7 @@
             <el-menu :default-active="route.path" ref="elMenu" :router="true" class="el-menu-vertical"
                 :unique-opened="true" :collapse="isCollapse" :collapse-transition="false" @open="handleOpen"
                 @close="handleClose" @select="selectMenu">
-                <template v-for="(item, i) in menuList" :key="item.title + i">
+                <template v-for="(item, i) in menuList" :key="item.id + i">
                     <el-menu-item :index="item.router">
                         <div class="item-container">
                             <el-icon>

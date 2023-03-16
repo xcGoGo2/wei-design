@@ -70,7 +70,7 @@ const { remove } = useStorage('session');
 
 
 export default defineComponent({
-  name: 'header',
+  name: 'DesignHeader',
   setup() {
     const route = useRoute();
     const router = useRouter();
