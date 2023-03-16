@@ -33,7 +33,7 @@
         <div class="content">
             <ul class="components-list">
                 <li
-                    v-for="(item, index) in layerData.componentsList"
+                    v-for="(item, index) in componentsList"
                     :key="item.title"
                     :class="activeComponentIndex === index ? 'active': ''"
                     @click="selectComponentList(index)"
@@ -44,16 +44,16 @@
             </ul>
             <ul class="layer-list">
                 <li
-                    v-for="(item, index) in layerData.layerList"
+                    v-for="(item, index) in layerList"
                     :class="activeLayerIndex === index ? 'active': ''"
                     @click="selectLayerIndex(index)"
-                    :key="item.title"
+                    :key="item.name"
                 >
-                    {{item.title}}
+                    {{item.name }}
                 </li>
             </ul>
             <ul class="chart-list">
-                <li v-for="(item, index) in layerData.chartList" :key="index + item.id" draggable='true' :data-index="index" @dragstart="handleDragStart($event, index)">
+                <li v-for="(item, index) in chartList" :key="index + item.id" draggable='true' :data-index="index" @dragstart="handleDragStart($event, item)">
                     <item-card :btns="['cancel', 'enLarge', 'reduce']">
                         <template #headerRight>
                             <span>{{ item.label }}</span>
@@ -75,6 +75,8 @@ import { useStore } from 'vuex';
 import { Search } from '@element-plus/icons-vue';
 import ItemCard from '@/components/ItemCard/index.vue';
 import Html2Canvas from '@/components/Html2canvas/index.vue';
+import List from '@/custom-components/config';
+import { Compnents } from '@/type';
 
 const store = useStore();
 const props = defineProps({
@@ -84,51 +86,47 @@ const props = defineProps({
     }
 })
 
-store.dispatch('weiDesign/fetchComponentsList')
+const componentsList = (List || []);
+const activeComponentIndex = ref(0); // 选择组件 index
+const activeLayerIndex = ref(0);  // 选择 类型 index
 
-const layerData = reactive({
-    componentsList: [
-        {
-            icon: '图表',
-            title: '图表'
-        },{
-            icon: '信息',
-            title: '信息'
-        },{
-            icon: '列表',
-            title: '列表'
-        },{
-            icon: '小组件',
-            title: '小组件'
-        }
-    ],
-    layerList: [
-        {
-            title: '所有',
-            value: 'all'
-        },{
-            title: '柱状图',
-            value: 'barChart'
-        }
-    ],
-    chartList: computed(() => store.state.weiDesign.componentsList)
-});
+const layerList = computed(() => {
+    return [{
+        name: '全部',
+        components: [],
+        value: 'all'
+    }, ...(List || [])[activeComponentIndex.value].list]
+})
 
 
-const activeComponentIndex = ref(0);
 const selectComponentList = (index: number) => {
     activeComponentIndex.value = index;
+    activeLayerIndex.value = 0;
 };
-const activeLayerIndex = ref(0);
+
+const chartList = computed(() => {
+    if((layerList.value[activeLayerIndex.value] as any).value === 'all') {
+        const list: any[] = [];
+        layerList.value.forEach((o: any) => {
+            if(o.components.length) {
+                list.push(...o.components);
+            }
+        })
+        return list;
+    }
+
+    return layerList.value[activeLayerIndex.value]?.components || []
+})
+
 const selectLayerIndex = (index: number) => {
     activeLayerIndex.value = index;
 }
 
 const searchValue = ref('');
 
-const handleDragStart = (e: any, index: number) => {
-    e.dataTransfer.setData('index', index)
-}
+const handleDragStart = (e: any, item: Compnents) => {
+    const itemStr = JSON.stringify(item);
+    e.dataTransfer.setData('component', itemStr)}
 </script>
 
 <style src='./index.scss' lang="scss" scoped></style>

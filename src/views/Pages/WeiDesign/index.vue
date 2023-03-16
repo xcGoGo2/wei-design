@@ -1,5 +1,9 @@
 <template>
     <div class="my-design-manager-container">
+
+        <!-- 右上角菜单 -->
+        <proper-menu @select-menu-item="selectMenuItem" :menu-list="menuList"></proper-menu>
+
         <item-card
             shadow="hover"
             v-for="(item, i) in designList"
@@ -9,13 +13,13 @@
         >
             <div class="design-content">
                 <div class="design-img" @click="toDesignSpace">
-                    <svg-icon name="平台" style="width: 80%; height: 80%"></svg-icon>
+                    <svg-icon :name="item.img" style="width: 80%; height: 80%"></svg-icon>
                 </div>
                 <div class="design-footer">
                     <span class="title">{{ item.title }}</span>
                     <div class="right">
                         <span class="status">
-                            <Heart style="margin-right: 5px" size=".8em"></Heart>
+                            <Heart style="margin-right: 5px" size=".8em" :type="item.status"></Heart>
                             状态
                         </span>
                         <el-tooltip content="编辑" effect="light">
@@ -46,36 +50,19 @@
         </item-card>
     </div>
 
-    <Dialog v-model="overviewVisible" class="show-disign-view-dialog" :show-close="false" :btns="['reduce', 'enLarge']" width="80%" @reduce="overviewVisible = false" :fullscreen="isDialogFullScreen" @en-large="isDialogFullScreen = true" :append-to-body="true">
-        <div class="title">{{ showViewData.title }}</div>
-        <div class="overviewImg">
-            <svg-icon name="平台"></svg-icon>
-        </div>
-        <div class="bottom-line">
-            <span>最后时间：{{ new Date() }}</span>
-            <div class="right">
-                <span class="status">
-                    <Heart style="margin-right: 5px" size=".8em"></Heart>
-                    状态
-                </span>
-                <el-button class="edit" plain @click="toDesignSpace" >
-                    <template #icon>
-                        <svg-icon name="hammer" size="1.5em" color=""></svg-icon>
-                    </template>
-                </el-button>
-            </div>
-        </div>
-    </Dialog>
-
+    <!-- 设计预览 -->
+    <preview ref="previewRef" :show-view-data="showViewData"></preview>
 
 </template>
 
 <script setup lang="ts">
 import ItemCard from '@/components/ItemCard/index.vue';
-import Dialog from '@/components/Dialog/index.vue';
 import Heart from '@/components/Heart/index.vue';
+import ProperMenu from '@/components/ProperMenu/index.vue';
+import Preview from './preview.vue';
 import { uuid } from '@/utils'
 import router from "@/router";
+import { designListType } from '@/type'
 
 interface designDropdownListType {
     title: string;
@@ -83,46 +70,16 @@ interface designDropdownListType {
     click: Function
 }
 
-interface designListType {
-    id: string;
-    img: string;
-    title: string;
-}
+
+const previewRef = ref<HTMLElement | null>(null);
 
 const designList = reactive<designListType[]>([
 {
     id: uuid(),
-    img: '',
+    img: '平台',
+    status: 'warn',
     title: '演示图表'
-  },{
-    id: uuid(),
-    img: '',
-    title: '演示图表'
-  },{
-    id: uuid(),
-    img: '',
-    title: '演示图表'
-  },{
-    id: uuid(),
-    img: '',
-    title: '演示图表'
-  },{
-    id: uuid(),
-    img: '',
-    title: '演示图表'
-  },{
-    id: uuid(),
-    img: '',
-    title: '演示图表'
-  },{
-    id: uuid(),
-    img: '',
-    title: '演示图表'
-  },{
-    id: uuid(),
-    img: '',
-    title: '演示图表'
-  },
+  }
 ]);
 
 // 下拉框list
@@ -180,13 +137,16 @@ const overviewVisible = ref(false);
 let showViewData = reactive<designListType>({
     id: '',
     img: '',
-    title: ''
+    title: '',
+    status: ''
 });
 const isDialogFullScreen = ref(false);
 const enLarge = (item: designListType) => {
-    overviewVisible.value = true;
-    showViewData = item;
-    isDialogFullScreen.value = false;
+    if(previewRef.value) {
+        (previewRef.value as any).overviewVisible = true;
+        showViewData = item;
+        (previewRef.value as any).isDialogFullScreen = false;
+    }
 }
 
 // 界面设计
@@ -195,6 +155,21 @@ const toDesignSpace = () => {
         path: "weiDesign/designSpace"
     });
     window.open(newUrl.href, "_blank");
+}
+
+const menuList = ref([
+    {
+        key: 'add',
+        title: '新增',
+        icon: '发布'
+    }
+])
+// 菜单选择
+const selectMenuItem = (e: any) => {
+    // 新增
+    if(e.key === 'add') {
+        toDesignSpace();
+    }
 }
 
 </script>

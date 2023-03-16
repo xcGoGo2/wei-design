@@ -8,7 +8,7 @@
       </el-aside>
       <el-container>
         <el-header style="padding: 0">
-          <Header></Header>
+          <design-header></design-header>
         </el-header>
         <div class="tabBar">
           <TabBar></TabBar>
@@ -28,7 +28,7 @@ import Sidebar from '../../components/Sidebar/index.vue';
 import Submenu from '../../components/Submenu/index.vue';
 import Row from '../../components/Layout/Row/index.vue';
 import Col from '../../components/Layout/Col/index.vue';
-import Header from '../../components/Header/index.vue';
+import DesignHeader from '../../components/Header/index.vue';
 import TabBar from '../../components/TabBar/index.vue';
 
 export default defineComponent({
@@ -38,7 +38,7 @@ export default defineComponent({
     Submenu,
     Row,
     Col,
-    Header,
+    DesignHeader,
     TabBar,
   },
   props: {},

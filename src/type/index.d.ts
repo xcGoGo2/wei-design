@@ -60,3 +60,11 @@ export type Compnents = {
     title?: string;
     [key: string]: any
 }
+
+export interface designListType {
+    id: string;
+    img: string;
+    title: string;
+    status: string;
+}
+

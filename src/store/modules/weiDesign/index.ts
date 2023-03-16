@@ -12,7 +12,8 @@ const weiDesignModule: Module<WeiDesignStateTypes, RootStateTypes> = {
         canvasScale: 1,
         componentsInCanvas: [], // 当前界面中显示的组件数据
         editCanvasConfig: {},
-        pageConfig: {
+        pageConfig: {  // 页面设置数据
+            title: '新建项目',
             width: 1920,
             height: 1080,
             backgroundColor: '#f2f3f5',
@@ -47,7 +48,13 @@ const weiDesignModule: Module<WeiDesignStateTypes, RootStateTypes> = {
         }
     },
     getters: {
-
+        editConfigContent(state, getters, rootState, rootGetters) {
+            debugger
+            return {
+                pageConfig: state.pageConfig,
+                componentsInCanvas: state.componentsInCanvas
+            }
+        }
     },
     actions: {
         async fetchComponentsList(context) {
