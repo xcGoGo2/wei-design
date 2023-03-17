@@ -9,7 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex';
 import {getItem} from "@/utils";
 import {onMounted} from "vue";
 

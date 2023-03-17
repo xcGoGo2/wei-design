@@ -22,6 +22,6 @@
       "src/**/*.tsx",
       "src/**/*.vue",
       "auto-imports.d.ts"
-  ],
+, "src/hooks/useFeedback/Dialog/.vue.ts"  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

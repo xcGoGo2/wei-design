@@ -47,7 +47,6 @@
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted, computed, PropType } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex'
 import { useSystemStore } from '@/stores/system'
 
 // type

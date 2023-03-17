@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 import { system } from "@/api/service";
-import { menuListType } from '@/type'
+import { menuListType } from '@/type';
+import { getItem } from '@/utils';
 
 export const useSystemStore = defineStore('system', () => {
-    const loginContent = ref({});   // 登录用户信息
     const menuList = ref<menuListType[]>([]);  // 菜单list
 
     async function fetchMenuList() {
@@ -11,6 +11,11 @@ export const useSystemStore = defineStore('system', () => {
         if(res.data) {
             menuList.value = res.data;
         }
+    }
+
+    // 登录用户信息
+    function loginContent () {
+        return getItem("loginContent");
     }
 
     return {

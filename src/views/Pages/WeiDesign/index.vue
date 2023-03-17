@@ -1,16 +1,9 @@
 <template>
     <div class="my-design-manager-container">
-
         <!-- 右上角菜单 -->
         <proper-menu @select-menu-item="selectMenuItem" :menu-list="menuList"></proper-menu>
 
-        <item-card
-            shadow="hover"
-            v-for="(item, i) in designList"
-            :key="item.img"
-            @en-large="enLarge(item)"
-            :body-style="{}"
-        >
+        <item-card shadow="hover" v-for="(item, i) in designList" :key="item.img" @en-large="enLarge(item)" @cancel="cancel(item)" :body-style="{}">
             <div class="design-content">
                 <div class="design-img" @click="toDesignSpace(item.id)">
                     <svg-icon :name="item.img" style="width: 80%; height: 80%"></svg-icon>
@@ -33,11 +26,7 @@
                             <el-button icon="MoreFilled" plain></el-button>
                             <template #dropdown>
                                 <el-dropdown-menu class="my-design-manager-dropdown">
-                                    <el-dropdown-item
-                                        v-for="(item, i) in designDropdownHandle"
-                                        :key="item.title"
-                                        @click="item.click()"
-                                    >
+                                    <el-dropdown-item v-for="(item, i) in designDropdownHandle" :key="item.title" @click="item.click()">
                                         <svg-icon color="" :name="item.icon"></svg-icon>
                                         <span>{{ item.title }}</span>
                                     </el-dropdown-item>
@@ -52,7 +41,6 @@
 
     <!-- 设计预览 -->
     <preview ref="previewRef" :show-view-data="showViewData"></preview>
-
 </template>
 
 <script setup lang="ts">
@@ -60,10 +48,11 @@ import ItemCard from '@/components/ItemCard/index.vue';
 import Heart from '@/components/Heart/index.vue';
 import ProperMenu from '@/components/ProperMenu/index.vue';
 import Preview from './preview.vue';
-import { uuid } from '@/utils'
+import { getItem } from '@/utils'
 import router from "@/router";
 import { designListType } from '@/type'
 import { useDesignStore } from '@/stores/design';
+import { show } from "@/hooks/useFeedback/Dialog"
 
 interface designDropdownListType {
     title: string;
@@ -73,17 +62,10 @@ interface designDropdownListType {
 
 const store = useDesignStore();
 
-
 const previewRef = ref<HTMLElement | null>(null);
 
-const designList = reactive<designListType[]>([
-{
-    id: uuid(),
-    img: '平台',
-    status: 'warn',
-    title: '演示图表'
-  }
-]);
+await store.findDesignList();
+const designList = computed(() => store.$state.designList);
 
 // 下拉框list
 const designDropdownHandle = reactive<designDropdownListType[]>([
@@ -131,21 +113,22 @@ const designDropdownHandle = reactive<designDropdownListType[]>([
     },
 ])
 
-const fetchImg = (img: string) => {
-    return img ? '': img;
-}
-
 // 弹窗预览
 const overviewVisible = ref(false);
 let showViewData = reactive<designListType>({
-    id: '',
-    img: '',
     title: '',
-    status: ''
+    img: '',
+    width: 0,
+    height: 0,
+    backgroundColor: '',
+    adapter: '',
+    theme: '',
+    status: '',
+    id: ''
 });
 const isDialogFullScreen = ref(false);
 const enLarge = (item: designListType) => {
-    if(previewRef.value) {
+    if (previewRef.value) {
         (previewRef.value as any).overviewVisible = true;
         showViewData = item;
         (previewRef.value as any).isDialogFullScreen = false;
@@ -156,7 +139,7 @@ const enLarge = (item: designListType) => {
 const toDesignSpace = (id?: string) => {
     const newUrl = router.resolve({
         path: "weiDesign/designSpace",
-        query: {key: id}
+        query: { key: id }
     });
 
     window.open(newUrl.href, "_blank");
@@ -172,26 +155,25 @@ const menuList = ref([
 // 菜单选择
 const selectMenuItem = async (e: any) => {
     // 新增
-    if(e.key === 'add') {
+    if (e.key === 'add') {
         const res = await store.newDesignContent();
-        if(res.status === 'success') {
+        if (res.status === 'success') {
             toDesignSpace(res.data.id);
         }
     }
 }
-
 </script>
 
 <style lang="scss" scoped>
 .my-design-manager-container {
-  height: 100%;
-  padding: 20px;
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 20px;
+    height: 100%;
+    padding: 20px;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
 
-  .item-card {
+    .item-card {
         // height: auto!important;
         // width: 250px;
         height: 350px;
@@ -240,8 +222,7 @@ const selectMenuItem = async (e: any) => {
                         margin-right: 10px;
                     }
 
-                    .more {
-                    }
+                    .more {}
                 }
             }
         }
@@ -251,7 +232,6 @@ const selectMenuItem = async (e: any) => {
 </style>
 
 <style lang="scss">
-
 .my-design-manager-dropdown {
     .el-dropdown-menu__item {
         .svg-icon {

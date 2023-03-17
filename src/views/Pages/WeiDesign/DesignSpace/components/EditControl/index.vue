@@ -258,7 +258,7 @@ const editConfigContent = computed(() => store.editConfigContent);
 
 watch(() => editConfigContent, debounce(async function() {
     // 发送请求
-    console.log(111111);
+    console.log('配置更新');
 
     const content = JSON.stringify(editConfigContent.value);
     await store.updateDesignById(canvasId, content)

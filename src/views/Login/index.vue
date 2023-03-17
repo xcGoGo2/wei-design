@@ -45,7 +45,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { system } from '@/api/service';
 import { setItem } from '@/utils/index';
 import { useStorage } from '@/hooks/useStorage';
-import { openLoading, closeLoading } from '@/hooks/useLoading';
+import { openLoading, closeLoading } from '@/hooks/useFeedback/Loading';
 export default defineComponent({
   name: 'login',
   components: {},
@@ -70,7 +70,7 @@ export default defineComponent({
           const res = await system.login({username, password});
           if(res && res.status === "success") {
             // 登录成功
-            setItem('loginContent', res.data); // 存用户信息
+            setItem('loginContent', res.data.user); // 存用户信息
             set('design.token', res.data.token);  // 存token
             closeLoading();
             router.push({ path: '/home' });

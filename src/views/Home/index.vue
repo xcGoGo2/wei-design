@@ -14,7 +14,9 @@
           <TabBar></TabBar>
         </div>
         <el-main style="padding: 0; height: calc(100% - 100px);">
-          <router-view></router-view>
+            <suspense>
+                <router-view></router-view>
+            </suspense>
         </el-main>
       </el-container>
     </el-container>

@@ -62,9 +62,26 @@ export type Compnents = {
 }
 
 export interface designListType {
-    id: string;
-    img: string;
     title: string;
+    img: string; // 封面
+    width: number;
+    height: number;
+    backgroundColor: string;
+    adapter: string;
+    theme: string;
     status: string;
+    id: string
+}
+
+export type PageConfig = {
+    title: string;
+    img: string; // 封面
+    width: number;
+    height: number;
+    backgroundColor: string;
+    adapter: string;
+    theme: string;
+    status: string;
+    [k: string]: any
 }
 

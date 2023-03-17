@@ -1,5 +1,5 @@
 <template>
-    <el-dialog class="dialog-container-box animated">
+    <el-dialog ref="dialogRef" class="dialog-container-box animated">
         <template #header>
             <slot name="header">
                 <div class="item-header">
@@ -17,18 +17,23 @@
                 </div>
             </slot>
         </template>
-
-        <!-- body -->
-        <slot></slot>
+        <template #default>
+            <slot name="default"></slot>
+        </template>
+        <template #footer>
+            <slot name="footer"></slot>
+        </template>
     </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
+import { PropType, defineExpose } from 'vue';
 
 type btnType = 'cancel' | 'enLarge' | 'reduce';
 
 const emits = defineEmits(['cancel', 'enLarge', 'reduce']);
+
+const dialogRef = ref<HTMLElement | null>(null);
 
 const props = defineProps({
     btns: {
@@ -54,6 +59,8 @@ const enLarge = () => {
 const reduce = () => {
     emits('reduce', true)
 };
+
+defineExpose({dialogRef})
 </script>
 
 <style lang="scss" scoped>

@@ -12,6 +12,7 @@
     "@waycloud/ui": "^0.0.1-alpha.1",
     "animate.css": "^4.1.1",
     "axios": "^0.26.1",
+    "dayjs": "^1.11.7",
     "echarts": "^5.4.0",
     "echarts-gl": "^2.0.9",
     "element-plus": "^2.0.1",

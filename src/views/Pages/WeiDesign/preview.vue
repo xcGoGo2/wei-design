@@ -25,7 +25,7 @@
 import { ref, reactive, defineProps, PropType } from 'vue';
 import { useRouter } from 'vue-router';
 import Dialog from '@/components/Dialog/index.vue';
-import { designListType } from '@/type';
+import { PageConfig } from '@/type';
 
 const router = useRouter();
 
@@ -34,7 +34,7 @@ const isDialogFullScreen = ref(false);
 
 const props = defineProps({
     showViewData: {
-        type: Object as PropType<designListType>,
+        type: Object as PropType<PageConfig>,
         default: () => {
             return {
                 id: '11',
