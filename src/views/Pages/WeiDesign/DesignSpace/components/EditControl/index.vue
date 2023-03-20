@@ -249,10 +249,7 @@ const pageConfig = computed(() => {
 
 // 在这里监听整体数据的变动
 const canvasId = String(route.query?.key) || '';
-
-onMounted(() => {
- store.getEditConfigContent(canvasId);
-})
+store.getEditConfigContent(canvasId);
 
 const editConfigContent = computed(() => store.editConfigContent);
 

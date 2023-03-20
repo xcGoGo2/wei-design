@@ -186,7 +186,7 @@ const selectMenuItem = (item: any) => {
             height: v-bind("properStyle.size");
             width: v-bind('properStyle.size');
             background-color: #fff;
-            outline: gray 1px solid;
+            // outline: gray 1px solid;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.25s;
@@ -205,8 +205,8 @@ const selectMenuItem = (item: any) => {
 
             .content {
                 position: absolute;
-                bottom: 25%;
-                left: 25%;
+                bottom: 20%;
+                left: 20%;
             }
 
         }

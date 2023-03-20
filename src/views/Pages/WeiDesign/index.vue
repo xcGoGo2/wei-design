@@ -1,7 +1,11 @@
 <template>
-    <div class="my-design-manager-container">
+    <div class="my-design-manager-container" v-loading="!designList">
         <!-- 右上角菜单 -->
-        <proper-menu @select-menu-item="selectMenuItem" :menu-list="menuList"></proper-menu>
+        <proper-menu @select-menu-item="selectMenuItem" :menu-list="menuList">
+            <template #content>
+                <svg-icon name="弹出" color="#0ca296" size="1.5em"></svg-icon>
+            </template>
+        </proper-menu>
 
         <item-card shadow="hover" v-for="(item, i) in designList" :key="item.img" @en-large="enLarge(item)" @cancel="cancel(item)" :body-style="{}">
             <div class="design-content">
@@ -26,9 +30,9 @@
                             <el-button icon="MoreFilled" plain></el-button>
                             <template #dropdown>
                                 <el-dropdown-menu class="my-design-manager-dropdown">
-                                    <el-dropdown-item v-for="(item, i) in designDropdownHandle" :key="item.title" @click="item.click()">
-                                        <svg-icon color="" :name="item.icon"></svg-icon>
-                                        <span>{{ item.title }}</span>
+                                    <el-dropdown-item v-for="(m, i) in designDropdownHandle" :key="item.title" @click="m.click(item)">
+                                        <svg-icon color="" :name="m.icon"></svg-icon>
+                                        <span>{{ m.title }}</span>
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
@@ -52,7 +56,7 @@ import { getItem } from '@/utils'
 import router from "@/router";
 import { designListType } from '@/type'
 import { useDesignStore } from '@/stores/design';
-import { show } from "@/hooks/useFeedback/Dialog"
+import { openLoading, closeLoading } from "@/hooks/useLoading";
 
 interface designDropdownListType {
     title: string;
@@ -107,8 +111,11 @@ const designDropdownHandle = reactive<designDropdownListType[]>([
     {
         title: '删除',
         icon: '删除',  // svg-icon name
-        click: () => {
-
+        click: async (item: designListType) => {
+            openLoading({text: '操作中'});
+            store.deleteDesign(item.id);
+            await store.findDesignList();
+            closeLoading();
         }
     },
 ])
@@ -137,12 +144,16 @@ const enLarge = (item: designListType) => {
 
 // 界面设计
 const toDesignSpace = (id?: string) => {
-    const newUrl = router.resolve({
+    router.push({
         path: "weiDesign/designSpace",
         query: { key: id }
     });
 
-    window.open(newUrl.href, "_blank");
+    // window.open(newUrl.href, "_blank");
+}
+
+const cancel = (item: designListType) => {
+
 }
 
 const menuList = ref([
@@ -156,7 +167,9 @@ const menuList = ref([
 const selectMenuItem = async (e: any) => {
     // 新增
     if (e.key === 'add') {
+        openLoading({text: '操作中'});
         const res = await store.newDesignContent();
+        closeLoading();
         if (res.status === 'success') {
             toDesignSpace(res.data.id);
         }
@@ -176,16 +189,18 @@ const selectMenuItem = async (e: any) => {
     .item-card {
         // height: auto!important;
         // width: 250px;
-        height: 350px;
+        height: 250px;
         display: inline-block;
 
         .design-content {
             height: 100%;
-            display: grid;
-            //grid-template-rows: auto-fill 80px;
+            display: flex;
+            flex-direction: column;
 
             .design-img {
                 display: flex;
+                flex: 1;
+                width: 50%;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
@@ -193,6 +208,7 @@ const selectMenuItem = async (e: any) => {
 
             .design-footer {
                 width: 100%;
+                height: 40px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;

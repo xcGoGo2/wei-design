@@ -31,7 +31,7 @@
             </span>
         </div>
         <div class="content">
-            <ul class="components-list">
+            <ul class="components-list" v-loading="!componentsList">
                 <li
                     v-for="(item, index) in componentsList"
                     :key="item.title"

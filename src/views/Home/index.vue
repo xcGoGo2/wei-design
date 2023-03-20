@@ -1,9 +1,9 @@
 <template>
   <div class="component-box">
     <el-container>
-      <el-aside style="width: auto">
+      <el-aside :style="{width: !isCollapse ? '200px': '70px'}">
         <suspense>
-          <Sidebar></Sidebar>
+          <Sidebar @arrow="arrowSide"></Sidebar>
         </suspense>
       </el-aside>
       <el-container>
@@ -48,9 +48,20 @@ export default defineComponent({
     // 获取全局对象`
     const global: any = inject('global');
 
+    const isCollapse = ref(false);
+
+    const arrowSide = (isClose: boolean) => {
+        isCollapse.value = isClose;
+    }
+
     // global.$api.Get('api/weiDesign/getUsers', {}).then((res: any) => {
     //   console.log('测试接口', res);
     // });
+
+    return {
+        arrowSide,
+        isCollapse
+    }
   },
 });
 </script>
@@ -59,6 +70,10 @@ export default defineComponent({
 .component-box {
   display: flex;
   height: 100%;
+
+  .el-aside {
+    transition: width .5s;
+  }
 
   .tabBar {
     height: 40px;

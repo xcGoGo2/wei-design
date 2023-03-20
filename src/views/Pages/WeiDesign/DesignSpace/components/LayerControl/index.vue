@@ -27,7 +27,7 @@
         </div>
         <div class="content">
             <ul>
-                <li :class="curComponentIndex === index ? 'active': ''" v-for="(item, index) in layerControlData.layerList" :key="item.title ||'' + index" @click="selectLayer(index)">
+                <li :class="curComponentIndex === index ? 'active': ''" v-for="(item, index) in layerList" :key="item.title ||'' + index" @click="selectLayer(index)">
                     <svg-icon :name="item.icon" class="img"></svg-icon>
                     <span class="title">{{ item.title }}</span>
                     <span class="control">
@@ -55,8 +55,10 @@ const layerControlData = reactive<{layerList: Compnents[]}>({
 
 // 获取当前展示在 画布中的组件列表
 const layerList = computed(() => store.$state.componentsInCanvas);
+
 // 当前选中组件
 const curComponentIndex = computed(() => store.$state.curComponentIndex);
+
 
 watch(layerList, (n, o) => {
     layerControlData.layerList = (n || []).map((o: Compnents) => {

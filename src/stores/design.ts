@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { DsignStateTypes } from './interface'
 import { Compnents } from '@/type'
-import { addDesign, findDesignList, getDesignContentById, updateDesignById } from '@/api/service/design'
+import { addDesign, deleteDesign, findDesignList, getDesignContentById, updateDesignById } from '@/api/service/design'
 import { getItem } from '@/utils'
 import { dayjs } from 'element-plus'
 
@@ -78,6 +78,11 @@ export const useDesignStore = defineStore('design', {
                 return this.designList;
             };
             return [];
+        },
+        async deleteDesign(id: string) {
+            const res = await deleteDesign(id)
+            if (res.status === 'success') {
+            };
         },
     },
 })

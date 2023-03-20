@@ -28,7 +28,7 @@ export const findDesignList = async (userId: string): Promise<reponseType> => {
 }
 
 export const deleteDesign = async (id: string): Promise<reponseType> => {
-    return await api.Get('/design/api/design/deleteDesign', {
+    return await api.Post('/design/api/design/deleteDesign', {
         id
     })
 }

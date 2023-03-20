@@ -7,7 +7,7 @@
         <div class="sidebar-list">
             <el-menu :default-active="route.path" ref="elMenu" :router="true" class="el-menu-vertical"
                 :unique-opened="true" :collapse="isCollapse" :collapse-transition="false" @open="handleOpen"
-                @close="handleClose" @select="selectMenu">
+                @close="handleClose" @select="selectMenu" v-loading="!menuList">
                 <template v-for="(item, i) in menuList" :key="item.id + i">
                     <el-menu-item :index="item.router">
                         <div class="item-container">
@@ -80,7 +80,7 @@ export default defineComponent({
             arrow: () => {
                 console.log('点击收拢');
                 isCollapse.value = !isCollapse.value;
-                // context.emit("arrow", isCollapse.value);
+                context.emit("arrow", isCollapse.value);
             },
             // 浮动
             float: () => {

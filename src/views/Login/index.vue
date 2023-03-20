@@ -45,7 +45,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { system } from '@/api/service';
 import { setItem } from '@/utils/index';
 import { useStorage } from '@/hooks/useStorage';
-import { openLoading, closeLoading } from '@/hooks/useFeedback/Loading';
+import { openLoading, closeLoading } from '@/hooks/useLoading';
 export default defineComponent({
   name: 'login',
   components: {},
