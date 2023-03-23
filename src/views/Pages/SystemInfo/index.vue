@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted, nextTick, reactive } from 'vue';
 import HorseRaceLamp from './components/HorseRaceLamp/index.vue';
 import QuickLinks from './components/QuickLinks/index.vue';
 import DependenceInfo from './components/DependenceInfo/index.vue'

@@ -10,7 +10,8 @@
         <item-card shadow="hover" v-for="(item, i) in designList" :key="item.img" @en-large="enLarge(item)" @cancel="cancel(item)" :body-style="{}">
             <div class="design-content">
                 <div class="design-img" @click="toDesignSpace(item.id)">
-                    <svg-icon :name="item.img" style="width: 80%; height: 80%"></svg-icon>
+                    <!-- <svg-icon :name="item.img" style="width: 80%; height: 80%"></svg-icon> -->
+                    <img style="width: 100%;height: 100%;" :src="getImg(item.id)" alt="">
                 </div>
                 <div class="design-footer">
                     <span class="title">{{ item.title }}</span>
@@ -57,6 +58,8 @@ import router from "@/router";
 import { designListType } from '@/type'
 import { useDesignStore } from '@/stores/design';
 import { openLoading, closeLoading } from "@/hooks/useLoading";
+import { getImg } from '@/api/service/design';
+import { computed, reactive, ref } from 'vue';
 
 interface designDropdownListType {
     title: string;
@@ -175,6 +178,9 @@ const selectMenuItem = async (e: any) => {
         }
     }
 }
+
+// 封面
+
 </script>
 
 <style lang="scss" scoped>
@@ -200,7 +206,7 @@ const selectMenuItem = async (e: any) => {
             .design-img {
                 display: flex;
                 flex: 1;
-                width: 50%;
+                width: 100%;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
@@ -237,8 +243,6 @@ const selectMenuItem = async (e: any) => {
                     .edit {
                         margin-right: 10px;
                     }
-
-                    .more {}
                 }
             }
         }

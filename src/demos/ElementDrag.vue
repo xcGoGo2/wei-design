@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {useMouseXY} from "@/hooks/useMouseXY";
 import bus from "@/utils/eventBus";
 

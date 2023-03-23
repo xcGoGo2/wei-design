@@ -11,6 +11,7 @@ import geoJson from '@/assets/assembly/china.json';
 import { registerTheme } from '@/hooks/useEchartTheme';
 import { getRandomKey } from '@/utils'
 import { useDesignStore } from '@/stores/design';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 const store = useDesignStore();
 

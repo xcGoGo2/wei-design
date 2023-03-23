@@ -68,9 +68,9 @@ export default defineConfig({
         //     // 监视文件更改
         //     watchFiles: true,
         // }),
-        AutoImport({
-            imports: ['vue'],
-        }),
+        // AutoImport({
+        //     imports: ['vue'],
+        // }),
         Components({
             dts: true,
             resolvers: [

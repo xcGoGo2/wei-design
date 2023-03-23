@@ -9,6 +9,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const isVisible = ref(true)
 const click = () => {
   isVisible.value = !isVisible.value

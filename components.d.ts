@@ -35,8 +35,6 @@ declare module 'vue' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
-    ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
-    ElSkeletonItem: typeof import('element-plus/es')['ElSkeletonItem']
     ElSlider: typeof import('element-plus/es')['ElSlider']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTimeline: typeof import('element-plus/es')['ElTimeline']

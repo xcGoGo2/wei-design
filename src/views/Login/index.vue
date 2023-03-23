@@ -1,13 +1,3 @@
-<!--
- * @Author: chenwei
- * @Date: 2022-02-10 17:22:26
- * @LastEditors: chenwei
- * @LastEditTime: 2022-02-11 18:27:11
- * @FilePath: \weiDesign\src\views\Login\Shape.vue
- * @Description: 登录页
- *
--->
-
 <template>
   <div class="login-container">
     <div class="login-box">

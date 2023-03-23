@@ -3,6 +3,8 @@
 </template>
 
 <script lang='ts' setup>
+import { ref } from 'vue';
+
 const compRef = ref();
 defineProps({
     propValue: {

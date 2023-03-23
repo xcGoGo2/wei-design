@@ -9,11 +9,31 @@
                 ref="$wrap"
             >
                 <div id="content">
-                    <div ref="canvasRef" class="edit-canvas" @mousemove="canvasMousemove" :style="{transform: `scale(${ scaleValueReal })`, cursor: isEnterSpace ? 'pointer' : 'auto', ...pageConfig}" @drop="handleDrop" @dragover="handleDragOver">
+                    <div
+                        ref="canvasRef"
+                        class="edit-canvas"
+                        @mousemove="canvasMousemove"
+                        :style="{transform: `scale(${ scaleValueReal })`, cursor: isEnterSpace ? 'pointer' : 'auto', ...pageConfig}"
+                        @drop="handleDrop"
+                        @dragover="handleDragOver"
+                        v-loading="!componentData.length"
+                    >
                         <div class="components-show-content">
                             <!--页面组件列表展示-->
-                            <Shape v-for="(item, index) in componentData" :defaultStyle="item.style" :style="item.style" :key="item.id + item.id" :element="item" :zIndex="index" :index="index">
-                                <component class="custom-component-class" :is="item.component" :propValue="item.propValue" />
+                            <Shape
+                                v-for="(item, index) in componentData"
+                                :defaultStyle="item.style"
+                                :style="item.style"
+                                :key="item.id + item.id"
+                                :element="item"
+                                :zIndex="index"
+                                :index="index"
+                            >
+                                <component
+                                    class="custom-component-class"
+                                    :is="item.component"
+                                    :propValue="item.propValue"
+                                />
                             </Shape>
                             <MarkLine></MarkLine>
                         </div>
@@ -22,7 +42,13 @@
             </div>
             <div class="edit-bottom-menu">
                 <span class="key-down-show">按下 [ {{}} ] 键</span>
-                <el-slider v-model="sliderConfig.scaleValue" :format-tooltip="sliderConfig.formatSliderTip" @input="sliderConfig.inputScale" show-input size="small" />
+                <el-slider
+                    v-model="sliderConfig.scaleValue"
+                    :format-tooltip="sliderConfig.formatSliderTip"
+                    @input="sliderConfig.inputScale"
+                    show-input
+                    size="small"
+                />
             </div>
         </div>
         <SketchRule
@@ -47,7 +73,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted, watch } from "vue";
+import { reactive, ref, onMounted, watch, computed, watchEffect, nextTick } from "vue";
 import { useDesignStore } from '@/stores/design';
 import {deepCopy, uuid, throttle, debounce} from "@/utils";
 
@@ -55,8 +81,11 @@ import SketchRule from "@/components/Ruler/sketchRuler.vue";
 import Shape from '@/components/Editor/Shape.vue';
 import MarkLine from '@/components/Editor/MarkLine.vue';
 import { useResizeObserver } from "@vueuse/core";
-import { addDesign } from '@/api/service/design'
+import { addDesign, setImg } from '@/api/service/design'
 import { useRoute } from "vue-router";
+import { useHtml2canvas } from "@/hooks/useDom2image";
+import { dataURItoBlob } from "@/utils";
+import { ElMessage } from 'element-plus'
 
 const store = useDesignStore();
 const route = useRoute();
@@ -65,6 +94,8 @@ const $wrap = ref<any>();
 const $sketchRule = ref<any>();
 const canvasRef = ref<any>();
 const sketchRuleKey =ref<string>('');
+const domeStr = ref<string>('');
+const pageRef = ref();
 
 // 缩放可视区
 const sliderConfig: any = reactive({
@@ -108,6 +139,7 @@ const scrollEdit = (e: any) => {
     hRulerY.value = '-' + e.target.scrollTop + 'px';
     hRulerX.value = '-' + e.target.scrollLeft + 'px';
 }
+
 
 
 const startMoveWrap = reactive({
@@ -176,7 +208,7 @@ defineExpose({
     setWrapPositionSize
 })
 
-// 监听键盘按键事件
+// 监听键盘按键事件componentData
 const isEnterSpace = ref(false);
 const keyEvent = () => {
     document.addEventListener('keydown', (e: any) => {
@@ -246,27 +278,128 @@ const pageConfig = computed(() => {
     }
 });
 
-
-// 在这里监听整体数据的变动
-const canvasId = String(route.query?.key) || '';
-store.getEditConfigContent(canvasId);
-
+// 不适用深层监听 性能消耗
 const editConfigContent = computed(() => store.editConfigContent);
 
-watch(() => editConfigContent, debounce(async function() {
-    // 发送请求
+// 数据变动更新
+const setComponentsUpdate = async () => {
     console.log('配置更新');
 
+    const res = await useHtml2canvas(canvasRef.value as HTMLElement, {});
     const content = JSON.stringify(editConfigContent.value);
-    await store.updateDesignById(canvasId, content)
-}, 1000), {deep: true})
+    await store.updateDesignById(canvasId, content);
+    await setImg(canvasId, res);
+}
 
+const canvasId = String(route.query?.key) || '';
 
+store.getEditConfigContent(canvasId).then(res => {
+    watch([componentData, () => store.$state.pageConfig], debounce(async function() {
+    await setComponentsUpdate();
+}, 1000, false), { deep: true })
+});
 </script>
 
-<style lang="scss" scoped src='./index.scss'></style>
+<style lang="scss" scoped>
+.edit-control-container {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(#fafafc 14px,transparent 0),linear-gradient(90deg,transparent 14px,#373739 0);
+    background-color: #fff;
+    background-size: 15px 15px,15px 15px;
+    position: relative;
+    overflow: hidden;
+
+    .wrap-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        overflow: hidden;
+
+        #wrap {
+            position: absolute;
+            width: 100%;
+            height: calc(100% - 40px);
+            user-select: none;
+            padding-bottom: 0;
+            top: 0;
+            overflow: auto;
+
+            // &:hover {
+            //     overflow: auto;
+            // }
+
+            #content {
+                width: 10000px;
+                height: 10000px;
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                .edit-canvas {
+                    height: v-bind('pageConfig.height')px;
+                    width: v-bind('pageConfig.width')px;
+                    position: absolute;
+                    background-color: v-bind('pageConfig.backgroundColor');
+                    top: 50%;
+                    left: 50%;
+                    box-shadow: 0 8px 10px #00000012;
+                    border-radius: 20px;
+                    -webkit-transform-origin: 0 0;
+                    transform-origin: 0 0;
+                    overflow: hidden;
+
+                    .components-show-content {
+                        height: v-bind('pageConfig.height')px;
+                        width: v-bind('pageConfig.width')px;
+
+                        .custom-component-class {
+                            width: 100%;
+                            height: 100%;
+                            pointer-events: none;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        .edit-bottom-menu {
+            width: 100%;
+            height: 40px;
+            background-color: $bgColor;
+            z-index: 100;
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+
+            .el-slider {
+                width: 300px;
+                float: right;
+                margin-left: auto;
+            }
+
+            .key-down-show {
+                font-weight: bold;
+            }
+        }
+
+    }
+
+
+}
+</style>
 
 <style lang="scss">
+.demos-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 192px;
+    height: 108px;
+}
 .ruler-container {
 
     .h-container {
@@ -286,3 +419,4 @@ watch(() => editConfigContent, debounce(async function() {
     }
 }
 </style>
+

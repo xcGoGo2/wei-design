@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import { getRandomColor, debounce } from '@/utils';
 import { menuListType } from '@/type';
+import { reactive, ref } from 'vue';
 
 interface linkListType {
     title: string;

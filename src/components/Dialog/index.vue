@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, defineExpose } from 'vue';
+import { PropType, defineExpose, ref } from 'vue';
 
 type btnType = 'cancel' | 'enLarge' | 'reduce';
 

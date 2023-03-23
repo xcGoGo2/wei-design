@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { assemblyType } from '@/type';
 import { ASSEMBLY_API } from '@/api/service/index';
+import { ref } from 'vue';
 
 let assemblyList = ref<assemblyType[]>([])
 ASSEMBLY_API.getAssemblyLists().then(res => {

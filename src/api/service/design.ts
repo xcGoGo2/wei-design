@@ -33,5 +33,17 @@ export const deleteDesign = async (id: string): Promise<reponseType> => {
     })
 }
 
+export const setImg = async (id: string, base64Data: string): Promise<reponseType> => {
+    return await api.Post('/design/api/design/setImg', {
+        id,
+        base64Data
+    })
+}
+
+export const getImg = (id: string): string => {
+    return `http://localhost:8888/upload/design/${id}.jpg`;
+}
+
+
 
 

@@ -18,6 +18,8 @@
 </template>
 
 <script lang="ts" setup>
+import { reactive } from 'vue';
+
 const componentAttrListData = reactive({
     width: 1920,
     height: 1080

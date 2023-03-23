@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
+import { computed, reactive, watch } from "vue";
 import { useDesignStore } from '@/stores/design';
 import {Compnents} from "@/type";
 

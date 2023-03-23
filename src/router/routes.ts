@@ -85,5 +85,10 @@ export default [
         path: '/properMenu',
         name: '演示测试',
         component: () => import("@/demos/ProperMenu.vue")
-    }
+    },
+    {
+        path: '/html2png',
+        name: '演示测试',
+        component: () => import('@/demos/Html2png.vue'),
+    },
 ]

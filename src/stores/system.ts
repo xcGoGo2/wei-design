@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { system } from "@/api/service";
 import { menuListType } from '@/type';
 import { getItem } from '@/utils';
+import { ref } from 'vue';
 
 export const useSystemStore = defineStore('system', () => {
     const menuList = ref<menuListType[]>([]);  // 菜单list

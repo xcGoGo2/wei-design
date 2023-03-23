@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import {getItem} from "@/utils";
-import {onMounted} from "vue";
+import {onMounted, reactive, ref} from "vue";
 
 const previewBox = ref<any>(null);
 

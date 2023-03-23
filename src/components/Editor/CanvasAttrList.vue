@@ -71,7 +71,7 @@ const store = useDesignStore();
 
 const pageConfig = computed(() => store.$state.pageConfig);
 
-const selectThemeColor = (key: string | number) => {
+const selectThemeColor = (key: string) => {
     pageConfig.value.theme = key || 'light'
 }
 

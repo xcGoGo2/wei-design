@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from "vue";
+import { PropType, reactive, ref } from "vue";
 import { getComponentType } from '@/utils/component'
 import { Compnents } from '@/type'
 const componentRef = ref();
