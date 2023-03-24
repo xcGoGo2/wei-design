@@ -16,6 +16,7 @@ export default [
                         icon: '平台', // 左侧组件列表中显示的图标
                         animations: [], // 动画列表
                         events: {}, // 事件列表
+                        chartOption: {},  // 图表组件的定制化样式
                         style: { // 组件样式
                             width: '500px',
                             height: '300px',
@@ -25,7 +26,7 @@ export default [
                             letterSpacing: 0,
                             textAlign: '',
                             color: '',
-                        },
+                        }
                     },
                     {
                         id: uuid(),
@@ -36,6 +37,7 @@ export default [
                         icon: '平台', // 左侧组件列表中显示的图标
                         animations: [], // 动画列表
                         events: {}, // 事件列表
+                        chartOption: {},  // 图表组件的定制化样式
                         style: { // 组件样式
                             width: '500px',
                             height: '300px',
@@ -62,6 +64,7 @@ export default [
                         icon: '平台', // 左侧组件列表中显示的图标
                         animations: [], // 动画列表
                         events: {}, // 事件列表
+                        chartOption: {},  // 图表组件的定制化样式
                         style: { // 组件样式
                             width: '500px',
                             height: '300px',
@@ -81,6 +84,7 @@ export default [
                         icon: '平台', // 左侧组件列表中显示的图标
                         animations: [], // 动画列表
                         events: {}, // 事件列表
+                        chartOption: {},  // 图表组件的定制化样式
                         style: { // 组件样式
                             width: '500px',
                             height: '300px',
@@ -100,6 +104,7 @@ export default [
                         icon: '平台', // 左侧组件列表中显示的图标
                         animations: [], // 动画列表
                         events: {}, // 事件列表
+                        chartOption: {},  // 图表组件的定制化样式
                         style: { // 组件样式
                             width: '500px',
                             height: '300px',
@@ -125,6 +130,7 @@ export default [
                         icon: '平台', // 左侧组件列表中显示的图标
                         animations: [], // 动画列表
                         events: {}, // 事件列表
+                        chartOption: {},  // 图表组件的定制化样式
                         style: { // 组件样式
                             width: '500px',
                             height: '300px',

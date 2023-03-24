@@ -32,7 +32,7 @@
                                 <component
                                     class="custom-component-class"
                                     :is="item.component"
-                                    :propValue="item.propValue"
+                                    :chartOption="item.chartOption"
                                 />
                             </Shape>
                             <MarkLine></MarkLine>

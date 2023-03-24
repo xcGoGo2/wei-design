@@ -5,20 +5,19 @@
 <script lang="ts" setup>
 import ECharts from '@/components/Echarts/index.vue';
 import * as echarts from 'echarts';
-import { reactive, onMounted} from 'vue'
+import { ref, onMounted} from 'vue'
 
-defineProps({
-    propValue: {
+const props = defineProps({
+    chartOption: {
         type: Object,
         default: () => {
             return {
-                title: ''
             }
         }
     }
 });
 
-const options = reactive({
+const options = ref({
     tooltip: {
         trigger: 'item',
         axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -150,6 +149,8 @@ const options = reactive({
         }
     ]
 })
+
+options.value = {...options.value, ...props.chartOption};  // 外部传入选项覆盖内部选项
 
 onMounted(() => {
 })

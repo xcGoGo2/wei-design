@@ -54,6 +54,7 @@ const shapeData = reactive<any>({
 const curComponentIndex = computed(() => store.$state.curComponentIndex);
 
 const delComponentIndex = (e: any) => {
+    debugger
     store.$patch({
         curComponentIndex: -1
     });

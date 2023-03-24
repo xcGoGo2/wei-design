@@ -5,20 +5,19 @@
 <script lang="ts" setup>
 import ECharts from '@/components/Echarts/index.vue';
 import * as echarts from 'echarts';
-import { reactive, onMounted} from 'vue'
+import { ref, onMounted} from 'vue'
 
-defineProps({
-    propValue: {
+const props = defineProps({
+    chartOption: {
         type: Object,
         default: () => {
             return {
-                title: ''
             }
         }
     }
 });
 
-const options = reactive({
+const options = ref({
     tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -52,13 +51,13 @@ const options = reactive({
             data: [19325, 23438, 31000, 121594, 134141, 681807]
         }
     ]
-})
+});
+
+options.value = {...options.value, ...props.chartOption};  // 外部传入选项覆盖内部选项
 
 onMounted(() => {
 })
-
 </script>
 
-<style lang="scss" scoped >
+<style lang="scss" scoped></style>
 
-</style>
