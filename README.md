@@ -50,11 +50,16 @@ git checkout dev-base # 基础开发版本
 npm install
 # 或
 yarn install
+# 或
+pnpm install
 
 # 本地开发 启动项目
 npm run dev
 # 或
 yarn run dev
+#
+ 或
+pnpm run dev
 ```
 
 ## 🎨 感谢所有大佬！
@@ -67,9 +72,6 @@ yarn run dev
 | [go-view](https://gitee.com/dromara/go-view)                 |
 | [mock](https://github.com/nuysoft/Mock)                      |
 | [axios](https://github.com/axios/axios)                      |
-
-## 🍉 特别说明
--   部分UI借鉴于 [go-view](https://gitee.com/dromara/go-view) 及其他项目网络开源项目
 
 ## 💚 适合人群
 
